@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주도 업종 분석 대시보드 | KRX Market Insights</title>
+    <meta name="description" content="대한민국 주식시장 거래대금 상위 60개 종목을 분석하여 오늘의 주도 업종과 대장주를 한눈에 확인하세요.">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="KRX 주도 업종 분석 대시보드">
+    <meta property="og:description" content="실시간 거래대금 기반 테마 및 대장주 분석 서비스">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="fade-in">
+            <div class="title">
+                <h1>KRX MARKET INSIGHTS</h1>
+                <p style="font-size: 0.8rem; color: var(--text-dim);">Leading Sector Analysis Dashboard</p>
+            </div>
+            <div class="date-info" id="header-date">
+                <div class="date">-</div>
+                <div class="time">-</div>
+            </div>
+        </header>
+
+        <!-- Summary Section -->
+        <section class="summary-grid fade-in" style="animation-delay: 0.1s;">
+            <div class="summary-card">
+                <div class="label">시장 전체 거래대금 (TOP 60)</div>
+                <div class="value" id="total-amount">-</div>
+                <div class="sub-value" id="top60-count">60개 종목 분석</div>
+            </div>
+            <div class="summary-card ratio-card">
+                <div class="ratio-gauge">
+                    <svg viewBox="0 0 36 36" class="circular-chart primary">
+                        <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                        <path class="circle" id="ratio-circle" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    </svg>
+                    <div class="percentage" id="theme-ratio">0%</div>
+                </div>
+                <div class="ratio-info">
+                    <div class="label">주도 테마 비중</div>
+                    <div class="sub-value" id="theme-amount">-</div>
+                </div>
+            </div>
+            <div class="summary-card">
+                <div class="label">활성화된 주도 테마</div>
+                <div class="value" id="theme-count">-</div>
+                <div class="sub-value">
+                    <span class="pulse-icon"></span>
+                    실시간 수집 분석 중
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <main>
+            <div class="tab-container fade-in" style="animation-delay: 0.2s;">
+                <div class="tab-buttons">
+                    <button class="tab-btn active" data-tab="themes">💡 주도 테마 분석</button>
+                    <button class="tab-btn" data-tab="top60">📊 TOP 60 리스트</button>
+                </div>
+
+                <!-- Themes View -->
+                <div id="themes-view" class="tab-content">
+                    <div class="theme-grid" id="theme-container">
+                        <!-- Theme Cards will be injected here -->
+                    </div>
+                </div>
+
+                <!-- TOP 60 View -->
+                <div id="top60-view" class="tab-content" style="display: none;">
+                    <div class="data-table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>순위</th>
+                                    <th>종목명</th>
+                                    <th>업종</th>
+                                    <th>현재가</th>
+                                    <th>등락률</th>
+                                    <th>거래대금</th>
+                                </tr>
+                            </thead>
+                            <tbody id="top60-body">
+                                <!-- Table rows will be injected here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer style="margin-top: 4rem; text-align: center; color: var(--text-dim); font-size: 0.85rem;">
+            <p>© 2026 KRX Market Insight Dashboard. Data updated daily after market close.</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

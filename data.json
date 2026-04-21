@@ -1,0 +1,88 @@
+{
+  "date": "2026년 04월 20일 (월)",
+  "generated_at": "17:00",
+  "summary": {
+    "total_amount": 226000000000000,
+    "total_str": "22.6조",
+    "theme_amount": 120000000000000,
+    "theme_str": "12.0조",
+    "theme_ratio": 53.3,
+    "theme_count": 6,
+    "top60_count": 60
+  },
+  "themes": [
+    {
+      "theme": "전기전자",
+      "total_amount": 70000000000000,
+      "total_str": "7.0조",
+      "count": 8,
+      "champion": {
+        "ticker": "000660",
+        "name": "SK하이닉스",
+        "change": 3.37,
+        "amount": 44000000000000,
+        "amount_str": "4.4조"
+      },
+      "stocks": [
+        {
+          "ticker": "005930",
+          "name": "삼성전자",
+          "change": 1.25,
+          "amount": 15000000000000,
+          "amount_str": "1.5조"
+        },
+        {
+          "ticker": "066570",
+          "name": "LG전자",
+          "change": 2.1,
+          "amount": 5000000000000,
+          "amount_str": "5000억"
+        }
+      ]
+    },
+    {
+      "theme": "반도체",
+      "total_amount": 13000000000000,
+      "total_str": "1.3조",
+      "count": 5,
+      "champion": {
+        "ticker": "041510",
+        "name": "주성엔지니어링",
+        "change": 29.97,
+        "amount": 5000000000000,
+        "amount_str": "5000억"
+      },
+      "stocks": [
+        {
+          "ticker": "067310",
+          "name": "하나마이크론",
+          "change": 5.4,
+          "amount": 2000000000000,
+          "amount_str": "2000억"
+        }
+      ]
+    }
+  ],
+  "top60": [
+    {
+      "ticker": "000660",
+      "name": "SK하이닉스",
+      "close": 180000,
+      "change": 3.37,
+      "amount": 44000000000000,
+      "amount_str": "4.4조",
+      "market": "KOSPI",
+      "sector": "전기전자"
+    },
+    {
+      "ticker": "005930",
+      "name": "삼성전자",
+      "close": 82000,
+      "change": 1.25,
+      "amount": 15000000000000,
+      "amount_str": "1.5조",
+      "market": "KOSPI",
+      "sector": "전기전자"
+    }
+  ]
+}
