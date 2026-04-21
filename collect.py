@@ -17,50 +17,36 @@ for _p in _env_paths:
 KRX_API_KEY = os.getenv("KRX_API_KEY")
 APP_KEY     = os.getenv("APP_KEY")
 APP_SECRET  = os.getenv("APP_SECRET")
-BASE_URL    = "https://openapi.koreainvestment.com:9443"
+
+# --- 설정 (계좌 타입에 따라 변경하세요) ---
+# 실전투자 사용 시 "REAL", 모의투자 사용 시 "VIRTUAL" 입력
+ACCOUNT_TYPE = "REAL" 
+
+if ACCOUNT_TYPE == "REAL":
+    BASE_URL = "https://openapi.koreainvestment.com:9443"
+else:
+    BASE_URL = "https://openapivts.koreainvestment.com:29443"
+# ---------------------------------------
 
 TOP_N         = 60
 MIN_THEME_CNT = 3
 
-# 업종명 통일 매핑 테이블
 SECTOR_MAP = {
-    "반도체":          "반도체",
-    "전기,전자":        "전기전자",
-    "디지털컨텐츠":     "게임/콘텐츠",
-    "소프트웨어":       "게임/콘텐츠",
-    "운수장비":         "자동차",
-    "운수창고":         "해운/항공",
-    "의약품":           "바이오/제약",
-    "의료정밀":         "바이오/제약",
-    "화학":             "화학",
-    "철강금속":         "철강",
-    "기계":             "기계/방산",
-    "건설업":           "건설",
-    "금융업":           "금융",
-    "은행":             "금융",
-    "증권":             "금융",
-    "보험업":           "금융",
-    "통신업":           "통신",
-    "서비스업":         "서비스",
-    "음식료업":         "음식료",
-    "유통업":           "유통",
-    "전기가스업":       "전기가스",
-    "해상 운송업":               "해운",
-    "항공 운송업":               "항공",
-    "무기 및 총포탄 제조업":      "방산",
-    "항공기, 우주선 및 부품 제조업": "방산",
-    "선박 및 보트 건조업":        "조선",
-    "일차전지 및 축전지 제조업":   "2차전지",
-    "반도체 제조업":              "반도체",
-    "특수 목적용 기계 제조업":     "반도체장비",
-    "소프트웨어 개발 및 공급업":   "게임/콘텐츠",
-    "자동차 제조업":              "자동차",
-    "자동차 부품 제조업":         "자동차",
-    "통신 및 방송 장비 제조업":   "전기전자",
-    "전자 부품 제조업":           "전기전자",
-    "원자력 발전업":              "원전",
-    "기초 의약물질 및 생물학적 제제 제조업": "바이오/제약",
-    "의약품 제조업":              "바이오/제약",
+    "반도체": "반도체", "전기,전자": "전기전자", "디지털컨텐츠": "게임/콘텐츠",
+    "소프트웨어": "게임/콘텐츠", "운수장비": "자동차", "운수창고": "해운/항공",
+    "의약품": "바이오/제약", "의료정밀": "바이오/제약", "화학": "화학",
+    "철강금속": "철강", "기계": "기계/방산", "건설업": "건설",
+    "금융업": "금융", "은행": "금융", "증권": "금융", "보험업": "금융",
+    "통신업": "통신", "서비스업": "서비스", "음식료업": "음식료",
+    "유통업": "유통", "전기가스업": "전기가스", "해상 운송업": "해운",
+    "항공 운송업": "항공", "무기 및 총포탄 제조업": "방산",
+    "항공기, 우주선 및 부품 제조업": "방산", "선박 및 보트 건조업": "조선",
+    "일차전지 및 축전지 제조업": "2차전지", "반도체 제조업": "반도체",
+    "특수 목적용 기계 제조업": "반도체장비", "소프트웨어 개발 및 공급업": "게임/콘텐츠",
+    "자동차 제조업": "자동차", "자동차 부품 제조업": "자동차",
+    "통신 및 방송 장비 제조업": "전기전자", "전자 부품 제조업": "전기전자",
+    "원자력 발전업": "원전", "기초 의약물질 및 생물학적 제제 제조업": "바이오/제약",
+    "의약품 제조업": "바이오/제약",
 }
 
 SPAC_KEYWORDS = ["스팩", "SPAC", "spac"]
@@ -69,32 +55,35 @@ def is_spac(name):
     return any(k in name for k in SPAC_KEYWORDS)
 
 def get_today():
-    """당일 데이터 없으면 최근 거래일 자동 탐색"""
-    from pykrx_openapi import KRXOpenAPI
     client = KRXOpenAPI(api_key=KRX_API_KEY)
     today = datetime.today()
     for i in range(7):
         check = (today - timedelta(days=i)).strftime("%Y%m%d")
         try:
             data = client.get_stock_daily_trade(bas_dd=check)
-            if data.get("OutBlock_1"):
-                return check
-        except:
-            continue
+            if data.get("OutBlock_1"): return check
+        except: continue
     return today.strftime("%Y%m%d")
 
 def fmt_amount(val):
     ok = val / 100_000_000
-    if ok >= 10000:
-        return str(round(ok / 10000, 1)) + "조"
+    if ok >= 10000: return str(round(ok / 10000, 1)) + "조"
     return format(int(ok), ',') + "억"
 
 def get_token():
+    print(f"토큰 발급 시도중... (접속주소: {BASE_URL})")
     res = requests.post(f"{BASE_URL}/oauth2/tokenP",
         json={"grant_type":"client_credentials","appkey":APP_KEY,"appsecret":APP_SECRET},
         timeout=10)
+    
+    if res.status_code != 200:
+        print(f"!!! 토큰 발급 에러 응답: {res.text}")
+        raise Exception(f"토큰 발급 실패 (Status: {res.status_code})")
+        
     token = res.json().get("access_token")
-    if not token: raise Exception("토큰 발급 실패")
+    if not token: 
+        print(f"!!! 응답 데이터: {res.json()}")
+        raise Exception("토큰 발급 실패 (access_token 없음)")
     return token
 
 def get_top60(today):
@@ -123,31 +112,26 @@ def get_sector(token, ticker):
     headers = {
         "authorization": f"Bearer {token}",
         "appkey": APP_KEY, "appsecret": APP_SECRET,
-        "tr_id": "CTPF1002R",
-        "Content-Type": "application/json; charset=utf-8"
+        "tr_id": "CTPF1002R", "Content-Type": "application/json; charset=utf-8"
     }
     try:
         res = requests.get(
             f"{BASE_URL}/uapi/domestic-stock/v1/quotations/search-stock-info",
-            headers=headers,
-            params={"PRDT_TYPE_CD": "300", "PDNO": ticker}, timeout=10)
+            headers=headers, params={"PRDT_TYPE_CD": "300", "PDNO": ticker}, timeout=10)
         out = res.json().get("output", {})
         scls = out.get("idx_bztp_scls_cd_name", "").strip()
         std  = out.get("std_idst_clsf_cd_name", "").strip()
         for key in [scls, std]:
-            if key in SECTOR_MAP:
-                return SECTOR_MAP[key]
+            if key in SECTOR_MAP: return SECTOR_MAP[key]
         return scls if scls else std if std else "기타"
-    except:
-        return "기타"
+    except: return "기타"
 
 def analyze(top60):
     sector_map = {}
     for s in top60:
         sector = s.get("sector", "기타")
         if sector == "기타": continue
-        if sector not in sector_map:
-            sector_map[sector] = []
+        if sector not in sector_map: sector_map[sector] = []
         sector_map[sector].append(s)
 
     results = []
@@ -158,13 +142,10 @@ def analyze(top60):
         for s in rising:
             s["score"] = s["change"] * (s["amount"] / 1_000_000_000)
         champ  = max(rising, key=lambda x: x["score"])
-        others = sorted(
-            [s for s in rising if s["ticker"] != champ["ticker"]],
-            key=lambda x: -x["amount"])
+        others = sorted([s for s in rising if s["ticker"] != champ["ticker"]], key=lambda x: -x["amount"])
         results.append({
-            "theme": sector_name, "total_amount": total,
-            "total_str": fmt_amount(total), "count": len(rising),
-            "champion": champ, "stocks": others
+            "theme": sector_name, "total_amount": total, "total_str": fmt_amount(total),
+            "count": len(rising), "champion": champ, "stocks": others
         })
     return sorted(results, key=lambda x: -x["total_amount"])
 
@@ -180,13 +161,9 @@ def save(today, top60, themes):
         "summary": {
             "total_amount": total, "total_str": fmt_amount(total),
             "theme_amount": tamt, "theme_str": fmt_amount(tamt),
-            "theme_ratio": ratio,
-            "non_theme_amount": total - tamt,
-            "non_theme_str": fmt_amount(total - tamt),
-            "theme_count": len(themes), "top60_count": len(top60)
+            "theme_ratio": ratio, "theme_count": len(themes), "top60_count": len(top60)
         },
         "themes": themes, "top60": top60,
-        "settings": {"top_n": TOP_N, "min_theme_cnt": MIN_THEME_CNT}
     }
     with open("data.json", "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
@@ -195,10 +172,11 @@ if __name__ == "__main__":
     today  = get_today()
     print(f"기준일: {today}")
     token  = get_token()
+    print("토큰 발급 성공! 데이터 수집을 시작합니다.")
     top60  = get_top60(today)
     for i, s in enumerate(top60):
         s["sector"] = get_sector(token, s["ticker"])
-        time.sleep(0.2)
+        time.sleep(0.15)
     themes = analyze(top60)
     save(today, top60, themes)
-    print(f"완료! 주도업종 {len(themes)}개")
+    print(f"완료! 주도업종 {len(themes)}개 발견")
