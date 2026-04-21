@@ -1,0 +1,32 @@
+name: 주도 테마 자동 수집
+
+on:
+  schedule:
+    - cron: '30 9 * * 1-5'  # 매일 오후 6시 30분 (한국시간)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests python-dotenv pykrx-openapi
+      - name: 데이터 수집
+        env:
+          APP_KEY: ${{ secrets.APP_KEY }}
+          APP_SECRET: ${{ secrets.APP_SECRET }}
+          KRX_API_KEY: ${{ secrets.KRX_API_KEY }}
+        run: python collect.py
+      - name: 커밋 및 푸시
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add data.json
+          git commit -m "데이터 자동 업데이트: $(date '+%Y-%m-%d %H:%M')" || echo "변경사항 없음"
+          git push
