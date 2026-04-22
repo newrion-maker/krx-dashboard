@@ -76,6 +76,18 @@
         .up { color: var(--up); font-weight: bold; }
         .down { color: var(--down); font-weight: bold; }
         .dim { color: var(--text-dim); font-size: 0.8rem; }
+
+        /* Tabs and Table [NEW] */
+        .tab-buttons { display: flex; gap: 1rem; margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
+        .tab-btn { background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--text-dim); padding: 0.75rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 600; }
+        .tab-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; background: var(--card-bg); border-radius: 12px; overflow: hidden; }
+        th, td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--border); }
+        th { background: rgba(255,255,255,0.03); color: var(--primary-light); font-size: 0.9rem; letter-spacing: 1px; }
+        tr:hover { background: rgba(255,255,255,0.02); }
+
+        .hidden { display: none; }
     </style>
 </head>
 <body>
@@ -85,9 +97,7 @@
                 <h1>MARKET LEADERS EXPLORER</h1>
                 <p style="color: var(--text-dim);">섹터 및 주도 테마 분석 지형도</p>
             </div>
-            <div class="date-info" id="meta-info">
-                데이터 로딩 중...
-            </div>
+            <div class="date-info" id="meta-info">데이터 로딩 중...</div>
         </header>
 
         <section class="sector-board">
@@ -98,82 +108,104 @@
             <div id="sector-grid" class="sector-grid"></div>
         </section>
 
-        <div id="main-content"></div>
+        <div class="tab-buttons">
+            <button class="tab-btn active" onclick="showTab('theme-tab')">📊 주도 섹터/테마 지형도</button>
+            <button class="tab-btn" onclick="showTab('list-tab')">📋 TOP 60 종목 리스트</button>
+        </div>
+
+        <div id="theme-tab" class="tab-content">
+            <div id="main-content"></div>
+        </div>
+
+        <div id="list-tab" class="tab-content hidden">
+            <table>
+                <thead>
+                    <tr>
+                        <th>순위</th>
+                        <th>종목명</th>
+                        <th>현재가</th>
+                        <th>등락률</th>
+                        <th>거래대금</th>
+                    </tr>
+                </thead>
+                <tbody id="top60-body"></tbody>
+            </table>
+        </div>
     </div>
 
     <script>
+        let globalData = null;
+
         async function loadData() {
             try {
                 const res = await fetch('market_data.json?t=' + Date.now());
                 const data = await res.json();
+                globalData = data;
                 render(data);
             } catch (e) {
                 console.error("Data load failed:", e);
-                document.getElementById('meta-info').innerHTML = "데이터를 불러올 수 없습니다. <br> (data.json 파일이 있는지 확인해 주세요)";
+                document.getElementById('meta-info').innerHTML = "데이터를 불러올 수 없습니다.";
             }
+        }
+
+        function showTab(id) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById(id).classList.remove('hidden');
+            event.target.classList.add('active');
         }
 
         function render(data) {
             document.getElementById('meta-info').innerHTML = `${data.date}<br>분석 일시: ${data.generated_at}`;
             
-            // Render Sectors
+            // 1. Sector Ranking
             const secGrid = document.getElementById('sector-grid');
+            secGrid.innerHTML = '';
             const totalAmt = data.summary.total_amount;
-            
             data.sectors.forEach(sec => {
                 const ratio = ((sec.total_amount / totalAmt) * 100).toFixed(1);
                 secGrid.innerHTML += `
                     <div class="sector-card">
-                        <div class="sec-top">
-                            <span>${sec.sector}</span>
-                            <span style="color:var(--primary-light)">${sec.total_str} (${ratio}%)</span>
-                        </div>
-                        <div class="progress-bg">
-                            <div class="progress-fill" style="width: ${ratio}%"></div>
-                        </div>
-                    </div>
-                `;
+                        <div class="sec-top"><span>${sec.sector}</span><span style="color:var(--primary-light)">${sec.total_str} (${ratio}%)</span></div>
+                        <div class="progress-bg"><div class="progress-fill" style="width: ${ratio}%"></div></div>
+                    </div>`;
             });
 
-            // Render Themes by Sector
+            // 2. Themes by Sector
             const main = document.getElementById('main-content');
+            main.innerHTML = '';
             data.sectors.forEach(sec => {
-                let html = `
-                    <section class="sector-group">
-                        <div class="group-header">
-                            <h3>${sec.sector}</h3>
-                            <span class="dim">${sec.themes.length}개 테마</span>
-                        </div>
-                        <div class="theme-grid">
-                `;
-
+                let html = `<section class="sector-group"><div class="group-header"><h3>${sec.sector}</h3><span class="dim">${sec.themes.length}개 테마</span></div><div class="theme-grid">`;
                 sec.themes.forEach(t => {
                     const stocksHtml = t.stocks.map(s => `
-                        <div class="stock-item">
-                            <span>${s.name} <span class="dim">${s.ticker}</span></span>
-                            <span class="${s.change > 0 ? 'up' : 'down'}">${s.change > 0 ? '+' : ''}${s.change}%</span>
-                        </div>
+                        <div class="stock-item"><span>${s.name} <span class="dim">${s.ticker}</span></span><span class="${s.change > 0 ? 'up' : 'down'}">${s.change > 0 ? '+' : ''}${s.change}%</span></div>
                     `).join('');
-
                     html += `
                         <div class="theme-card">
                             <h4>${t.theme}</h4>
                             <div class="champion">
-                                <div>
-                                    <div class="champ-name">👑 ${t.champion.name}</div>
-                                    <div class="dim">거래대금 ${t.champion.amount_str}</div>
-                                </div>
-                                <div class="${t.champion.change > 0 ? 'up' : 'down'}" style="font-size: 1.2rem;">
-                                    ${t.champion.change > 0 ? '+' : ''}${t.champion.change}%
-                                </div>
+                                <div><div class="champ-name">👑 ${t.champion.name}</div><div class="dim">거래대금 ${t.champion.amount_str}</div></div>
+                                <div class="${t.champion.change > 0 ? 'up' : 'down'}" style="font-size: 1.2rem;">${t.champion.change > 0 ? '+' : ''}${t.champion.change}%</div>
                             </div>
                             <div class="stock-list">${stocksHtml}</div>
-                        </div>
-                    `;
+                        </div>`;
                 });
-
                 html += `</div></section>`;
                 main.innerHTML += html;
+            });
+
+            // 3. Top 60 Table
+            const tbody = document.getElementById('top60-body');
+            tbody.innerHTML = '';
+            data.top60.forEach((s, idx) => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td class="dim">#${idx+1}</td>
+                        <td><strong>${s.name}</strong><br><span class="dim">${s.ticker}</span></td>
+                        <td>${s.close.toLocaleString()}원</td>
+                        <td class="${s.change > 0 ? 'up' : s.change < 0 ? 'down' : ''}">${s.change > 0 ? '+' : ''}${s.change}%</td>
+                        <td>${s.amount_str}</td>
+                    </tr>`;
             });
         }
 
