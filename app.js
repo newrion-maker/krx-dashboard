@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     renderHeader(data);
     renderSummary(data);
-    renderThemes(data.themes);
+    renderThemes(data);
     renderTop60(data.top60);
     setupTabs();
 });
@@ -71,20 +71,24 @@ function renderSummary(data) {
     }
 }
 
-function renderThemes(themes) {
+function renderThemes(data) {
     const container = document.getElementById('theme-container');
     container.innerHTML = '';
+    const themes = data.themes;
+    const totalTop60Amount = data.summary.total_amount;
 
     themes.forEach((t, index) => {
         const card = document.createElement('div');
         card.className = 'theme-card fade-in';
         card.style.animationDelay = `${0.3 + (index * 0.1)}s`;
         
+        const shareRatio = ((t.total_amount / totalTop60Amount) * 100).toFixed(1);
+        
         const stocksHtml = t.stocks.map(s => `
             <li class="stock-item">
                 <div class="stock-name-grp">
                     <span class="stock-name">${s.name}</span>
-                    <span class="stock-ticker">${s.ticker}</span>
+                    <span class="stock-ticker mobile-hide-detail">${s.ticker}</span>
                 </div>
                 <div class="stock-values">
                     <div class="${s.change > 0 ? 'change-up' : 'change-down'}">${s.change > 0 ? '+' : ''}${s.change}%</div>
@@ -95,14 +99,23 @@ function renderThemes(themes) {
 
         card.innerHTML = `
             <div class="theme-header">
-                <span class="theme-name">${t.theme}</span>
-                <span class="theme-amount">${t.total_str} (${t.count})</span>
+                <div class="theme-title-grp">
+                    <span class="theme-name">${t.theme}</span>
+                    <div class="theme-stats">
+                        <span class="stat-item">거래대금: <strong>${t.total_str}</strong></span>
+                        <span class="stat-item">비중: <strong>${shareRatio}%</strong></span>
+                    </div>
+                </div>
+                <span class="theme-count">${t.count}개 종목</span>
             </div>
             <div class="theme-content">
                 <div class="champion">
                     <div class="champ-icon">👑</div>
                     <div class="champ-info">
-                        <div class="champ-name">${t.champion.name} <small style="font-size: 0.65rem; color: var(--text-dim);">${t.champion.ticker}</small></div>
+                        <div class="champ-name">
+                            ${t.champion.name} 
+                            <small class="mobile-hide-detail" style="font-size: 0.65rem; color: var(--text-dim);">${t.champion.ticker}</small>
+                        </div>
                         <div class="champ-amount" style="font-size: 0.75rem; color: var(--text-dim);">거래대금 ${t.champion.amount_str}</div>
                     </div>
                     <div class="champ-change">${t.champion.change > 0 ? '+' : ''}${t.champion.change}%</div>
@@ -127,7 +140,7 @@ function renderTop60(stocks) {
             <td style="color: var(--text-dim); font-weight: bold;">#${index + 1}</td>
             <td>
                 <div style="font-weight: 700;">${s.name}</div>
-                <div style="font-size: 0.75rem; color: var(--text-dim);">${s.ticker} / ${s.market}</div>
+                <div class="mobile-hide-detail" style="font-size: 0.75rem; color: var(--text-dim);">${s.ticker} / ${s.market}</div>
             </td>
             <td><span style="background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px; font-size: 0.8rem;">${s.sector}</span></td>
             <td>${s.close.toLocaleString()}원</td>

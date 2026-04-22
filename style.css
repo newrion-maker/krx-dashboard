@@ -307,18 +307,39 @@ header {
     padding: 1.5rem;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     border-bottom: 1px solid var(--card-border);
+}
+
+.theme-title-grp {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .theme-name {
     font-size: 1.25rem;
     font-weight: 700;
+    color: var(--text-main);
 }
 
-.theme-amount {
-    font-size: 0.9rem;
+.theme-stats {
+    display: flex;
+    gap: 12px;
+    font-size: 0.8rem;
     color: var(--text-dim);
+}
+
+.stat-item strong {
+    color: var(--accent);
+}
+
+.theme-count {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 4px 10px;
+    border-radius: 20px;
 }
 
 .theme-content {
@@ -430,9 +451,8 @@ header {
         font-size: 0.8rem !important;
     }
     
-    .data-table td .stock-ticker {
-        display: block;
-        font-size: 0.7rem;
+    .mobile-hide-detail {
+        display: none !important;
     }
 }
 
