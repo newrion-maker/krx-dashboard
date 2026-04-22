@@ -58,6 +58,35 @@ def get_kst_now():
     """항상 한국 시간(KST) 반환"""
     return datetime.utcnow() + timedelta(hours=9)
 
+def load_excel_themes():
+    """엑셀 파일에서 테마 정보를 읽어 매핑 테이블 생성"""
+    import openpyxl
+    file_path = "한국 주식 테마 분류.xlsx"
+    theme_map = {}
+    
+    if not os.path.exists(file_path):
+        print(f"!!! 알림: 엑셀 파일({file_path})을 찾을 수 없습니다. 기본 분류를 사용합니다.")
+        return theme_map
+
+    print(f"엑셀 테마 데이터 로드 중: {file_path}")
+    try:
+        wb = openpyxl.load_workbook(file_path, data_only=True, read_only=True)
+        sheet = wb.active
+        # 첫 줄은 헤더이므로 두 번째 줄부터 읽음
+        for row in sheet.iter_rows(min_row=2, values_only=True):
+            if not row or len(row) < 4: continue
+            theme  = str(row[1]).strip() if row[1] else ""
+            ticker = str(row[3]).strip().zfill(6) if row[3] else ""
+            
+            if ticker and theme and theme != "None":
+                theme_map[ticker] = theme
+        
+        print(f"총 {len(theme_map)}개 종목의 테마 매핑 완료.")
+    except Exception as e:
+        print(f"!!! 엑셀 로드 중 오류 발생: {e}")
+    
+    return theme_map
+
 def get_today():
     """최근 거래일 자동 탐색 (KST 기준)"""
     from pykrx_openapi import KRXOpenAPI
@@ -126,7 +155,12 @@ def get_top60(today):
             })
     return sorted(results, key=lambda x: -x["amount"])[:TOP_N]
 
-def get_sector(token, ticker):
+def get_sector(token, ticker, excel_themes):
+    # 1순위: 엑셀 테마
+    if ticker in excel_themes:
+        return excel_themes[ticker]
+        
+    # 2순위: 증권사 API 분류
     headers = {
         "authorization": f"Bearer {token}",
         "appkey": APP_KEY, "appsecret": APP_SECRET,
@@ -190,14 +224,22 @@ def save(today, top60, themes):
 
 if __name__ == "__main__":
     print("=== 주도 테마 수집 시작 ===")
+    
+    # 엑셀 테마 로드
+    excel_themes = load_excel_themes()
+    
     today  = get_today()
     token  = get_token()
     top60  = get_top60(today)
+    
     print("종목별 섹터 정보 조회 중...")
     for i, s in enumerate(top60):
-        s["sector"] = get_sector(token, s["ticker"])
+        # 엑셀 데이터를 우선적으로 활용하도록 전달
+        s["sector"] = get_sector(token, s["ticker"], excel_themes)
         time.sleep(0.15)
+        
     themes = analyze(top60)
     save(today, top60, themes)
     print(f"=== 완료! 주도업종 {len(themes)}개 발견 ===")
+
 
