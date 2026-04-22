@@ -167,6 +167,7 @@ def get_sector(token, ticker, excel_themes):
     
     # 2순위: 증권사 API 분류 (기본 섹터를 테마로 사용)
     res_data = {"sector": "미분류", "theme": "기타"}
+    headers = {
         "authorization": f"Bearer {token}",
         "appkey": APP_KEY, "appsecret": APP_SECRET,
         "tr_id": "CTPF1002R", "Content-Type": "application/json; charset=utf-8"

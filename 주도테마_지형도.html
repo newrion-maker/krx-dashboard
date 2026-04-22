@@ -130,8 +130,8 @@
         </section>
 
         <div class="tab-buttons">
-            <button class="tab-btn active" onclick="showTab('theme-tab')">📊 주도 섹터/테마 지형도</button>
-            <button class="tab-btn" onclick="showTab('list-tab')">📋 TOP 60 종목 리스트</button>
+            <button class="tab-btn active" onclick="showTab('theme-tab', this)">📊 주도 섹터/테마 지형도</button>
+            <button class="tab-btn" onclick="showTab('list-tab', this)">📋 TOP 60 종목 리스트</button>
         </div>
 
         <div id="theme-tab" class="tab-content">
@@ -171,11 +171,11 @@
             }
         }
 
-        function showTab(id) {
+        function showTab(id, btn) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
             document.getElementById(id).classList.remove('hidden');
-            event.target.classList.add('active');
+            btn.classList.add('active');
         }
 
         function render(data) {
