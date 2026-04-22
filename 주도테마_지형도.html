@@ -78,16 +78,37 @@
         .dim { color: var(--text-dim); font-size: 0.8rem; }
 
         /* Tabs and Table [NEW] */
-        .tab-buttons { display: flex; gap: 1rem; margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
-        .tab-btn { background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--text-dim); padding: 0.75rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 600; }
+        .tab-buttons { display: flex; gap: 0.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; overflow-x: auto; }
+        .tab-btn { background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--text-dim); padding: 0.6rem 1rem; border-radius: 8px; cursor: pointer; font-weight: 600; white-space: nowrap; font-size: 0.9rem; }
         .tab-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
         
-        table { width: 100%; border-collapse: collapse; margin-top: 1rem; background: var(--card-bg); border-radius: 12px; overflow: hidden; }
-        th, td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--border); }
-        th { background: rgba(255,255,255,0.03); color: var(--primary-light); font-size: 0.9rem; letter-spacing: 1px; }
+        .table-wrapper { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; background: var(--card-bg); border-radius: 12px; min-width: 600px; }
+        th, td { padding: 0.8rem; text-align: left; border-bottom: 1px solid var(--border); }
+        th { background: rgba(255,255,255,0.03); color: var(--primary-light); font-size: 0.85rem; letter-spacing: 1px; }
         tr:hover { background: rgba(255,255,255,0.02); }
 
         .hidden { display: none; }
+
+        /* --- Mobile Optimization [NEW] --- */
+        @media (max-width: 768px) {
+            body { padding: 1rem; }
+            header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+            h1 { font-size: 1.5rem; line-height: 1.2; }
+            .date-info { text-align: left; font-size: 0.85rem; }
+            
+            .sector-board { padding: 1.2rem; margin-bottom: 1.5rem; }
+            .sector-grid { grid-template-columns: 1fr; gap: 0.8rem; }
+            .sector-card { padding: 1rem; }
+            
+            .group-header h3 { font-size: 1.2rem; }
+            .theme-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .theme-card { padding: 1.2rem; }
+            .theme-card h4 { font-size: 1.1rem; }
+            
+            .champ-name { font-size: 1rem; }
+            .tab-btn { flex: 1; text-align: center; font-size: 0.85rem; padding: 0.6rem 0.5rem; }
+        }
     </style>
 </head>
 <body>
@@ -118,18 +139,20 @@
         </div>
 
         <div id="list-tab" class="tab-content hidden">
-            <table>
-                <thead>
-                    <tr>
-                        <th>순위</th>
-                        <th>종목명</th>
-                        <th>현재가</th>
-                        <th>등락률</th>
-                        <th>거래대금</th>
-                    </tr>
-                </thead>
-                <tbody id="top60-body"></tbody>
-            </table>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>순위</th>
+                            <th>종목명</th>
+                            <th>현재가</th>
+                            <th>등락률</th>
+                            <th>거래대금</th>
+                        </tr>
+                    </thead>
+                    <tbody id="top60-body"></tbody>
+                </table>
+            </div>
         </div>
     </div>
 
