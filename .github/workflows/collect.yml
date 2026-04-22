@@ -17,16 +17,17 @@ jobs:
         with:
           python-version: '3.11'
       - run: pip install requests python-dotenv pykrx-openapi openpyxl
-      - name: 데이터 수집
+      - name: Run collection script
         env:
           APP_KEY: ${{ secrets.APP_KEY }}
           APP_SECRET: ${{ secrets.APP_SECRET }}
           KRX_API_KEY: ${{ secrets.KRX_API_KEY }}
         run: python collect.py
-      - name: 커밋 및 푸시
+        
+      - name: Commit and push changes
         run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          git add data.json
-          git commit -m "데이터 자동 업데이트: $(date '+%Y-%m-%d %H:%M')" || echo "변경사항 없음"
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add market_data.json data.json
+          git commit -m "Update market data with sectors" || echo "No changes to commit"
           git push

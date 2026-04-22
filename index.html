@@ -10,7 +10,11 @@
     <meta property="og:title" content="KRX 주도 업종 분석 대시보드">
     <meta property="og:description" content="실시간 거래대금 기반 테마 및 대장주 분석 서비스">
     
-    <link rel="stylesheet" href="style.css">
+    <!-- 최신 대시보드로 자동 이동 -->
+    <meta http-equiv="refresh" content="0; url=주도테마_지형도.html">
+    <script>window.location.href = "주도테마_지형도.html";</script>
+
+    <link rel="stylesheet" href="style.css?v=2.0">
 </head>
 <body>
     <div class="container">
@@ -42,17 +46,25 @@
                     <div class="percentage" id="theme-ratio">0%</div>
                 </div>
                 <div class="ratio-info">
-                    <div class="label">주도 테마 비중</div>
+                    <div class="label">주도 섹터/테마 비중</div>
                     <div class="sub-value" id="theme-amount">-</div>
                 </div>
             </div>
             <div class="summary-card">
-                <div class="label">활성화된 주도 테마</div>
+                <div class="label">활성화된 주도 섹터/테마</div>
                 <div class="value" id="theme-count">-</div>
-                <div class="sub-value">
-                    <span class="pulse-icon"></span>
-                    실시간 수집 분석 중
-                </div>
+                <div class="sub-value" id="sector-count-label">분석 완료</div>
+            </div>
+        </section>
+
+        <!-- Sector Overview Section [NEW] -->
+        <section class="sector-board fade-in" style="animation-delay: 0.15s;">
+            <div class="section-title">
+                <h2>MARKET SECTOR RANKING</h2>
+                <p>섹터별 시장 점유율 및 거래대금 요약</p>
+            </div>
+            <div id="sector-container" class="sector-grid">
+                <!-- Sector bars will be injected here -->
             </div>
         </section>
 
@@ -66,8 +78,8 @@
 
                 <!-- Themes View -->
                 <div id="themes-view" class="tab-content">
-                    <div class="theme-grid" id="theme-container">
-                        <!-- Theme Cards will be injected here -->
+                    <div id="theme-container">
+                        <!-- Sector groups containing Theme Cards will be injected here -->
                     </div>
                 </div>
 
@@ -99,6 +111,6 @@
         </footer>
     </div>
 
-    <script src="app.js"></script>
+    <script src="app.js?v=2.0"></script>
 </body>
 </html>

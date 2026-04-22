@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주도 섹터/테마 분석 지형도</title>
+    <style>
+        :root {
+            --bg: #0f1115;
+            --card-bg: #1a1d23;
+            --primary: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary: #ec4899;
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --border: #2d333b;
+            --up: #ef4444;
+            --down: #3b82f6;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Pretendard', -apple-system, sans-serif; }
+        body { background: var(--bg); color: var(--text-main); line-height: 1.6; padding: 2rem; }
+        .container { max-width: 1400px; margin: 0 auto; }
+
+        header { margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: flex-end; }
+        h1 { font-size: 2rem; letter-spacing: -1px; color: var(--primary-light); }
+        .date-info { text-align: right; color: var(--text-dim); }
+
+        /* Sector Board */
+        .sector-board {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .sector-title { margin-bottom: 1.5rem; border-left: 4px solid var(--primary); padding-left: 1rem; }
+        .sector-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+        .sector-card {
+            background: rgba(255,255,255,0.03);
+            padding: 1.2rem;
+            border-radius: 12px;
+        }
+        .sec-top { display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-weight: bold; }
+        .progress-bg { height: 8px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--secondary)); transition: width 1s; }
+
+        /* Theme Groups */
+        .sector-group { margin-bottom: 4rem; }
+        .group-header { font-size: 1.5rem; margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 1rem; }
+        .theme-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.5rem; }
+        
+        .theme-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: transform 0.3s;
+        }
+        .theme-card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        .theme-card h4 { font-size: 1.2rem; margin-bottom: 1rem; color: var(--primary-light); }
+        
+        .champion {
+            background: rgba(79, 70, 229, 0.1);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .champ-name { font-weight: bold; font-size: 1.1rem; }
+        .stock-item { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 0.9rem; }
+        
+        .up { color: var(--up); font-weight: bold; }
+        .down { color: var(--down); font-weight: bold; }
+        .dim { color: var(--text-dim); font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>MARKET LEADERS EXPLORER</h1>
+                <p style="color: var(--text-dim);">섹터 및 주도 테마 분석 지형도</p>
+            </div>
+            <div class="date-info" id="meta-info">
+                데이터 로딩 중...
+            </div>
+        </header>
+
+        <section class="sector-board">
+            <div class="sector-title">
+                <h2>SECTOR DOMINANCE</h2>
+                <p>오늘 시장을 주도하는 거대 섹터 비중</p>
+            </div>
+            <div id="sector-grid" class="sector-grid"></div>
+        </section>
+
+        <div id="main-content"></div>
+    </div>
+
+    <script>
+        async function loadData() {
+            try {
+                const res = await fetch('market_data.json?t=' + Date.now());
+                const data = await res.json();
+                render(data);
+            } catch (e) {
+                console.error("Data load failed:", e);
+                document.getElementById('meta-info').innerHTML = "데이터를 불러올 수 없습니다. <br> (data.json 파일이 있는지 확인해 주세요)";
+            }
+        }
+
+        function render(data) {
+            document.getElementById('meta-info').innerHTML = `${data.date}<br>분석 일시: ${data.generated_at}`;
+            
+            // Render Sectors
+            const secGrid = document.getElementById('sector-grid');
+            const totalAmt = data.summary.total_amount;
+            
+            data.sectors.forEach(sec => {
+                const ratio = ((sec.total_amount / totalAmt) * 100).toFixed(1);
+                secGrid.innerHTML += `
+                    <div class="sector-card">
+                        <div class="sec-top">
+                            <span>${sec.sector}</span>
+                            <span style="color:var(--primary-light)">${sec.total_str} (${ratio}%)</span>
+                        </div>
+                        <div class="progress-bg">
+                            <div class="progress-fill" style="width: ${ratio}%"></div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Render Themes by Sector
+            const main = document.getElementById('main-content');
+            data.sectors.forEach(sec => {
+                let html = `
+                    <section class="sector-group">
+                        <div class="group-header">
+                            <h3>${sec.sector}</h3>
+                            <span class="dim">${sec.themes.length}개 테마</span>
+                        </div>
+                        <div class="theme-grid">
+                `;
+
+                sec.themes.forEach(t => {
+                    const stocksHtml = t.stocks.map(s => `
+                        <div class="stock-item">
+                            <span>${s.name} <span class="dim">${s.ticker}</span></span>
+                            <span class="${s.change > 0 ? 'up' : 'down'}">${s.change > 0 ? '+' : ''}${s.change}%</span>
+                        </div>
+                    `).join('');
+
+                    html += `
+                        <div class="theme-card">
+                            <h4>${t.theme}</h4>
+                            <div class="champion">
+                                <div>
+                                    <div class="champ-name">👑 ${t.champion.name}</div>
+                                    <div class="dim">거래대금 ${t.champion.amount_str}</div>
+                                </div>
+                                <div class="${t.champion.change > 0 ? 'up' : 'down'}" style="font-size: 1.2rem;">
+                                    ${t.champion.change > 0 ? '+' : ''}${t.champion.change}%
+                                </div>
+                            </div>
+                            <div class="stock-list">${stocksHtml}</div>
+                        </div>
+                    `;
+                });
+
+                html += `</div></section>`;
+                main.innerHTML += html;
+            });
+        }
+
+        loadData();
+    </script>
+</body>
+</html>

@@ -61,25 +61,30 @@ def get_kst_now():
 def load_excel_themes():
     """엑셀 파일에서 테마 정보를 읽어 매핑 테이블 생성"""
     import openpyxl
-    file_path = "한국 주식 테마 분류.xlsx"
+    file_path = "한국_주식_테마_분류_섹터추가.xlsx"
     theme_map = {}
     
     if not os.path.exists(file_path):
-        print(f"!!! 알림: 엑셀 파일({file_path})을 찾을 수 없습니다. 기본 분류를 사용합니다.")
-        return theme_map
+        # 백업 파일명도 확인
+        if os.path.exists("한국 주식 테마 분류.xlsx"):
+            file_path = "한국 주식 테마 분류.xlsx"
+        else:
+            print(f"!!! 알림: 엑셀 파일을 찾을 수 없습니다. 기본 분류를 사용합니다.")
+            return theme_map
 
     print(f"엑셀 테마 데이터 로드 중: {file_path}")
     try:
         wb = openpyxl.load_workbook(file_path, data_only=True, read_only=True)
         sheet = wb.active
-        # 첫 줄은 헤더이므로 두 번째 줄부터 읽음
+        # 새 양식: B(1):섹터, C(2):테마, E(4):종목코드
         for row in sheet.iter_rows(min_row=2, values_only=True):
-            if not row or len(row) < 4: continue
-            theme  = str(row[1]).strip() if row[1] else ""
-            ticker = str(row[3]).strip().zfill(6) if row[3] else ""
+            if not row or len(row) < 5: continue
+            sector = str(row[1]).strip() if row[1] else ""
+            theme  = str(row[2]).strip() if row[2] else ""
+            ticker = str(row[4]).strip().zfill(6) if row[4] else ""
             
             if ticker and theme and theme != "None":
-                theme_map[ticker] = theme
+                theme_map[ticker] = {"sector": sector if sector else "기타", "theme": theme}
         
         print(f"총 {len(theme_map)}개 종목의 테마 매핑 완료.")
     except Exception as e:
@@ -159,9 +164,9 @@ def get_sector(token, ticker, excel_themes):
     # 1순위: 엑셀 테마
     if ticker in excel_themes:
         return excel_themes[ticker]
-        
-    # 2순위: 증권사 API 분류
-    headers = {
+    
+    # 2순위: 증권사 API 분류 (기본 섹터를 테마로 사용)
+    res_data = {"sector": "미분류", "theme": "기타"}
         "authorization": f"Bearer {token}",
         "appkey": APP_KEY, "appsecret": APP_SECRET,
         "tr_id": "CTPF1002R", "Content-Type": "application/json; charset=utf-8"
@@ -174,53 +179,103 @@ def get_sector(token, ticker, excel_themes):
         scls = out.get("idx_bztp_scls_cd_name", "").strip()
         std  = out.get("std_idst_clsf_cd_name", "").strip()
         for key in [scls, std]:
-            if key in SECTOR_MAP: return SECTOR_MAP[key]
-        return scls if scls else std if std else "기타"
-    except: return "기타"
+            if key in SECTOR_MAP: 
+                res_data["theme"] = SECTOR_MAP[key]
+                return res_data
+        res_data["theme"] = scls if scls else std if std else "기타"
+        return res_data
+    except: return res_data
 
 def analyze(top60):
-    sector_map = {}
+    # 1. 섹터별/테마별 그룹화
+    # sector_data = { "반도체": { "amount": 0, "themes": { "HBM": [stocks...] } } }
+    sector_data = {}
+    
     for s in top60:
-        sector = s.get("sector", "기타")
-        if sector == "기타": continue
-        if sector not in sector_map: sector_map[sector] = []
-        sector_map[sector].append(s)
+        info = s.get("sector") # 이제 info는 {"sector": "...", "theme": "..."} 형태
+        if not info: continue
+        
+        sec_name = info.get("sector", "미분류")
+        thm_name = info.get("theme", "기타")
+        
+        if sec_name not in sector_data:
+            sector_data[sec_name] = {"amount": 0, "themes": {}}
+        
+        if thm_name not in sector_data[sec_name]["themes"]:
+            sector_data[sec_name]["themes"][thm_name] = []
+            
+        sector_data[sec_name]["themes"][thm_name].append(s)
+        # 종목 데이터에도 테마명 직접 주입 (UI 편의성)
+        s["sector_name"] = sec_name
+        s["theme_name"] = thm_name
 
-    results = []
-    for sector_name, stocks in sector_map.items():
-        rising = [s for s in stocks if s["change"] > 0]
-        if len(rising) < MIN_THEME_CNT: continue
-        total = sum(s["amount"] for s in rising)
-        for s in rising:
-            s["score"] = s["change"] * (s["amount"] / 1_000_000_000)
-        champ  = max(rising, key=lambda x: x["score"])
-        others = sorted([s for s in rising if s["ticker"] != champ["ticker"]], key=lambda x: -x["amount"])
-        results.append({
-            "theme": sector_name, "total_amount": total, "total_str": fmt_amount(total),
-            "count": len(rising), "champion": champ, "stocks": others
-        })
-    return sorted(results, key=lambda x: -x["total_amount"])
+    # 2. 분석 및 정렬
+    final_sectors = []
+    for sec_name, sec_info in sector_data.items():
+        processed_themes = []
+        sec_total_amount = 0
+        
+        for thm_name, stocks in sec_info["themes"].items():
+            rising = [s for s in stocks if s["change"] > 0]
+            if len(rising) < MIN_THEME_CNT: continue
+            
+            thm_amount = sum(s["amount"] for s in rising)
+            sec_total_amount += thm_amount
+            
+            for s in rising:
+                s["score"] = s["change"] * (s["amount"] / 1_000_000_000)
+            
+            champ = max(rising, key=lambda x: x["score"])
+            others = sorted([s for s in rising if s["ticker"] != champ["ticker"]], key=lambda x: -x["amount"])
+            
+            processed_themes.append({
+                "theme": thm_name, "total_amount": thm_amount, "total_str": fmt_amount(thm_amount),
+                "count": len(rising), "champion": champ, "stocks": others
+            })
+        
+        if processed_themes:
+            final_sectors.append({
+                "sector": sec_name,
+                "total_amount": sec_total_amount,
+                "total_str": fmt_amount(sec_total_amount),
+                "themes": sorted(processed_themes, key=lambda x: -x["total_amount"])
+            })
 
-def save(today, top60, themes):
-    total = sum(s["amount"] for s in top60)
-    tamt  = sum(t["total_amount"] for t in themes)
-    ratio = round(tamt / total * 100, 1) if total else 0
-    d  = datetime.strptime(today, "%Y%m%d")
+    return sorted(final_sectors, key=lambda x: -x["total_amount"])
+
+def save(today, top60, sector_results):
+    total_amount = sum(s["amount"] for s in top60)
+    
+    # 테마에 속한 종목들의 총 거래대금
+    theme_total_amount = 0
+    all_themes = []
+    for sec in sector_results:
+        theme_total_amount += sec["total_amount"]
+        all_themes.extend(sec["themes"])
+    
+    ratio = round(theme_total_amount / total_amount * 100, 1) if total_amount else 0
+    d = datetime.strptime(today, "%Y%m%d")
     dm = {0:"월",1:"화",2:"수",3:"목",4:"금",5:"토",6:"일"}
     kst_now = get_kst_now()
+    
+    # 저장할 데이터 구성 (중복 themes 키 제거)
     data = {
         "date": f"{d.year}년 {d.month:02d}월 {d.day:02d}일 ({dm[d.weekday()]})",
         "generated_at": kst_now.strftime("%H:%M"),
         "summary": {
-            "total_amount": total, "total_str": fmt_amount(total),
-            "theme_amount": tamt, "theme_str": fmt_amount(tamt),
-            "theme_ratio": ratio, "theme_count": len(themes), "top60_count": len(top60)
+            "total_amount": total_amount, "total_str": fmt_amount(total_amount),
+            "theme_amount": theme_total_amount, "theme_str": fmt_amount(theme_total_amount),
+            "theme_ratio": ratio, 
+            "sector_count": len(sector_results),
+            "theme_count": len(all_themes), 
+            "top60_count": len(top60)
         },
-        "themes": themes, "top60": top60,
+        "sectors": sector_results, 
+        "top60": top60,
     }
-    with open("data.json", "w", encoding="utf-8") as f:
+    with open("market_data.json", "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
-    print(f"data.json 저장 완료 (KST {kst_now.strftime('%H:%M')})")
+    print(f"market_data.json 저장 완료 (KST {kst_now.strftime('%H:%M')})")
 
 if __name__ == "__main__":
     print("=== 주도 테마 수집 시작 ===")
