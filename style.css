@@ -223,10 +223,71 @@ header {
 }
 
 /* Theme Cards Grid */
+/* 메인 레이아웃: 기본 3열 (PC) */
 .theme-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+/* 태블릿 (화면 너비 1100px 이하): 2열 */
+@media (max-width: 1100px) {
+    .theme-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+/* 모바일 (화면 너비 768px 이하): 1열 */
+@media (max-width: 768px) {
+    .container {
+        padding: 16px;
+    }
+
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .header-left h1 {
+        font-size: 1.5rem;
+    }
+
+    .theme-grid {
+        grid-template-columns: 1fr; /* 세로로 한 줄씩 */
+        gap: 16px;
+    }
+
+    .theme-card {
+        padding: 20px;
+    }
+
+    .theme-header h2 {
+        font-size: 1.25rem;
+    }
+
+    .stock-item {
+        padding: 14px;
+    }
+
+    /* 상단 요약 바 모바일 최적화 */
+    .summary-bar {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+}
+
+/* 아주 작은 모바일 (480px 이하) */
+@media (max-width: 480px) {
+    .summary-bar {
+        grid-template-columns: 1fr;
+    }
+    
+    .nav-tabs {
+        width: 100%;
+        justify-content: space-between;
+    }
 }
 
 .theme-card {
