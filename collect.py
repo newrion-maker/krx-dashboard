@@ -54,39 +54,57 @@ SPAC_KEYWORDS = ["스팩", "SPAC", "spac"]
 def is_spac(name):
     return any(k in name for k in SPAC_KEYWORDS)
 
+def get_kst_now():
+    """항상 한국 시간(KST) 반환"""
+    return datetime.utcnow() + timedelta(hours=9)
+
 def get_today():
+    """최근 거래일 자동 탐색 (KST 기준)"""
+    from pykrx_openapi import KRXOpenAPI
     client = KRXOpenAPI(api_key=KRX_API_KEY)
-    today = datetime.today()
+    
+    kst_now = get_kst_now()
+    print(f"현재 한국 시간: {kst_now.strftime('%Y-%m-%d %H:%M:%S')}")
+    
     for i in range(7):
-        check = (today - timedelta(days=i)).strftime("%Y%m%d")
+        check_date = (kst_now - timedelta(days=i)).strftime("%Y%m%d")
+        print(f"[{i+1}/7] {check_date} 데이터 확인 중...", end=" ", flush=True)
         try:
-            data = client.get_stock_daily_trade(bas_dd=check)
-            if data.get("OutBlock_1"): return check
-        except: continue
-    return today.strftime("%Y%m%d")
+            data = client.get_stock_daily_trade(bas_dd=check_date)
+            if data.get("OutBlock_1"):
+                print("성공! (데이터 발견)")
+                return check_date
+            else:
+                print("데이터 없음")
+        except Exception as e:
+            print(f"오류: {e}")
+            continue
+    return kst_now.strftime("%Y%m%d")
 
 def fmt_amount(val):
     ok = val / 100_000_000
-    if ok >= 10000: return str(round(ok / 10000, 1)) + "조"
+    if ok >= 10000:
+        return str(round(ok / 10000, 1)) + "조"
     return format(int(ok), ',') + "억"
 
 def get_token():
-    print(f"토큰 발급 시도중... (접속주소: {BASE_URL})")
+    print(f"토큰 발급 시도 중... (접속주소: {BASE_URL})")
     res = requests.post(f"{BASE_URL}/oauth2/tokenP",
         json={"grant_type":"client_credentials","appkey":APP_KEY,"appsecret":APP_SECRET},
         timeout=10)
     
     if res.status_code != 200:
-        print(f"!!! 토큰 발급 에러 응답: {res.text}")
-        raise Exception(f"토큰 발급 실패 (Status: {res.status_code})")
+        print(f"!!! 토큰 발급 에러: {res.text}")
+        raise Exception(f"토큰 발급 실패 ({res.status_code})")
         
     token = res.json().get("access_token")
     if not token: 
-        print(f"!!! 응답 데이터: {res.json()}")
         raise Exception("토큰 발급 실패 (access_token 없음)")
+    print("성공!")
     return token
 
 def get_top60(today):
+    print(f"{today} 기준 거래대금 상위 {TOP_N} 종목 수집 중...")
     client = KRXOpenAPI(api_key=KRX_API_KEY)
     data1 = client.get_stock_daily_trade(bas_dd=today)
     data2 = client.get_kosdaq_stock_daily_trade(bas_dd=today)
@@ -155,9 +173,10 @@ def save(today, top60, themes):
     ratio = round(tamt / total * 100, 1) if total else 0
     d  = datetime.strptime(today, "%Y%m%d")
     dm = {0:"월",1:"화",2:"수",3:"목",4:"금",5:"토",6:"일"}
+    kst_now = get_kst_now()
     data = {
         "date": f"{d.year}년 {d.month:02d}월 {d.day:02d}일 ({dm[d.weekday()]})",
-        "generated_at": datetime.now().strftime("%H:%M"),
+        "generated_at": kst_now.strftime("%H:%M"),
         "summary": {
             "total_amount": total, "total_str": fmt_amount(total),
             "theme_amount": tamt, "theme_str": fmt_amount(tamt),
@@ -167,16 +186,18 @@ def save(today, top60, themes):
     }
     with open("data.json", "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
+    print(f"data.json 저장 완료 (KST {kst_now.strftime('%H:%M')})")
 
 if __name__ == "__main__":
+    print("=== 주도 테마 수집 시작 ===")
     today  = get_today()
-    print(f"기준일: {today}")
     token  = get_token()
-    print("토큰 발급 성공! 데이터 수집을 시작합니다.")
     top60  = get_top60(today)
+    print("종목별 섹터 정보 조회 중...")
     for i, s in enumerate(top60):
         s["sector"] = get_sector(token, s["ticker"])
         time.sleep(0.15)
     themes = analyze(top60)
     save(today, top60, themes)
-    print(f"완료! 주도업종 {len(themes)}개 발견")
+    print(f"=== 완료! 주도업종 {len(themes)}개 발견 ===")
+
