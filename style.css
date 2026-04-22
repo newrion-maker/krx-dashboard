@@ -401,12 +401,31 @@ header {
     background: var(--card-bg);
     border-radius: 20px;
     border: 1px solid var(--card-border);
-    overflow: hidden;
+    overflow-x: auto; /* 가로 스크롤 허용 */
+    -webkit-overflow-scrolling: touch;
 }
 
 .data-table {
     width: 100%;
+    min-width: 600px; /* 테이블이 너무 찌그러지는 것 방지 */
     border-collapse: collapse;
+}
+
+@media (max-width: 600px) {
+    .data-table {
+        min-width: 100%; /* 모바일에서는 다시 꽉 차게 */
+    }
+    
+    /* 모바일에서 덜 중요한 열(순위, 업종) 숨기기 */
+    .data-table th:nth-child(1), .data-table td:nth-child(1),
+    .data-table th:nth-child(3), .data-table td:nth-child(3) {
+        display: none;
+    }
+    
+    .data-table th, .data-table td {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.85rem;
+    }
 }
 
 .data-table th {
