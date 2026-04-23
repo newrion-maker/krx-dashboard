@@ -14,7 +14,7 @@ for _p in _env_paths:
         load_dotenv(dotenv_path=_p)
         break
 
-KRX_API_KEY = os.getenv("KRX_API_KEY")
+KRX_API_KEY = os.getenv("KRX_API_KEY") or os.getenv("KRX_OPENAPI_KEY")
 APP_KEY     = os.getenv("APP_KEY")
 APP_SECRET  = os.getenv("APP_SECRET")
 
@@ -95,24 +95,38 @@ def load_excel_themes():
 def get_today():
     """최근 거래일 자동 탐색 (KST 기준)"""
     from pykrx_openapi import KRXOpenAPI
-    client = KRXOpenAPI(api_key=KRX_API_KEY)
     
     kst_now = get_kst_now()
     print(f"현재 한국 시간: {kst_now.strftime('%Y-%m-%d %H:%M:%S')}")
     
-    for i in range(7):
-        check_date = (kst_now - timedelta(days=i)).strftime("%Y%m%d")
-        print(f"[{i+1}/7] {check_date} 데이터 확인 중...", end=" ", flush=True)
-        try:
-            data = client.get_stock_daily_trade(bas_dd=check_date)
-            if data.get("OutBlock_1"):
-                print("성공! (데이터 발견)")
-                return check_date
-            else:
-                print("데이터 없음")
-        except Exception as e:
-            print(f"오류: {e}")
-            continue
+    # 평일(월-금)이고 오전 9시 이후라면 오늘 날짜를 우선 사용 (KIS 실시간 데이터 대응)
+    if kst_now.weekday() < 5 and kst_now.hour >= 9:
+        today_str = kst_now.strftime("%Y%m%d")
+        print(f"평일 장 중/후이므로 오늘 날짜({today_str})를 사용합니다.")
+        return today_str
+
+    if not KRX_API_KEY:
+        print("!!! 경고: KRX_API_KEY가 설정되지 않았습니다. 현재 날짜를 사용합니다.")
+        return kst_now.strftime("%Y%m%d")
+
+    try:
+        client = KRXOpenAPI(api_key=KRX_API_KEY)
+        for i in range(7):
+            check_date = (kst_now - timedelta(days=i)).strftime("%Y%m%d")
+            print(f"[{i+1}/7] {check_date} 데이터 확인 중...", end=" ", flush=True)
+            try:
+                data = client.get_stock_daily_trade(bas_dd=check_date)
+                if data and data.get("OutBlock_1"):
+                    print("성공! (데이터 발견)")
+                    return check_date
+                else:
+                    print("데이터 없음")
+            except Exception as e:
+                print(f"오류: {e}")
+                continue
+    except Exception as e:
+        print(f"!!! KRX API 초기화 중 오류 발생: {e}")
+
     return kst_now.strftime("%Y%m%d")
 
 def fmt_amount(val):
@@ -123,42 +137,89 @@ def fmt_amount(val):
 
 def get_token():
     print(f"토큰 발급 시도 중... (접속주소: {BASE_URL})")
-    res = requests.post(f"{BASE_URL}/oauth2/tokenP",
-        json={"grant_type":"client_credentials","appkey":APP_KEY,"appsecret":APP_SECRET},
-        timeout=10)
-    
-    if res.status_code != 200:
-        print(f"!!! 토큰 발급 에러: {res.text}")
-        raise Exception(f"토큰 발급 실패 ({res.status_code})")
+    try:
+        # APP_KEY, APP_SECRET 존재 여부 확인
+        if not APP_KEY or not APP_SECRET:
+            print("!!! 오류: APP_KEY 또는 APP_SECRET이 설정되지 않았습니다. (.env 또는 Secrets 확인)")
+            return None
+
+        res = requests.post(f"{BASE_URL}/oauth2/tokenP",
+            json={"grant_type":"client_credentials","appkey":APP_KEY,"appsecret":APP_SECRET},
+            timeout=10)
         
-    token = res.json().get("access_token")
-    if not token: 
-        raise Exception("토큰 발급 실패 (access_token 없음)")
-    print("성공!")
-    return token
+        if res.status_code != 200:
+            print(f"!!! 토큰 발급 에러 (HTTP {res.status_code}): {res.text}")
+            return None
+            
+        token = res.json().get("access_token")
+        if not token: 
+            print("!!! 오류: 응답에 access_token이 없습니다.")
+            return None
+            
+        print("토큰 발급 성공!")
+        return token
+    except Exception as e:
+        print(f"!!! 토큰 발급 중 예외 발생: {e}")
+        return None
 
-def get_top60(today):
-    print(f"{today} 기준 거래대금 상위 {TOP_N} 종목 수집 중...")
-    client = KRXOpenAPI(api_key=KRX_API_KEY)
-    data1 = client.get_stock_daily_trade(bas_dd=today)
-    data2 = client.get_kosdaq_stock_daily_trade(bas_dd=today)
-    all_stocks = data1.get("OutBlock_1", []) + data2.get("OutBlock_1", [])
-
-    results = []
-    for item in all_stocks:
-        name   = item.get("ISU_NM", "")
-        ticker = str(item.get("ISU_CD", "")).zfill(6)
-        close  = float(item.get("TDD_CLSPRC") or 0)
-        chg    = float(item.get("FLUC_RT") or 0)
-        amount = float(item.get("ACC_TRDVAL") or 0)
-        market = item.get("MKT_NM", "")
-        if amount > 0 and not is_spac(name) and ticker:
-            results.append({
-                "ticker": ticker, "name": name, "close": close,
-                "change": chg, "amount": int(amount),
-                "amount_str": fmt_amount(amount), "market": market
-            })
-    return sorted(results, key=lambda x: -x["amount"])[:TOP_N]
+def get_top60(token):
+    if not token:
+        print("!!! 오류: 토큰이 없어 KIS API를 통한 종목 수집을 진행할 수 없습니다.")
+        return []
+        
+    print(f"한국투자증권 API를 통한 실시간 거래대금 상위 {TOP_N} 종목 수집 중...")
+    try:
+        headers = {
+            "authorization": f"Bearer {token}",
+            "appkey": APP_KEY, "appsecret": APP_SECRET,
+            "tr_id": "FHPST01710000",
+            "Content-Type": "application/json; charset=utf-8"
+        }
+        
+        all_results = []
+        # 코스피(0001), 코스닥(1001) 각각 조회
+        for mkt_code in ["0001", "1001"]:
+            params = {
+                "fid_cond_mrkt_div_code": "J",
+                "fid_cond_scr_div_code": "20171",
+                "fid_input_iscd": mkt_code,
+                "fid_div_cls_code": "0",
+                "fid_blng_cls_code": "0" if mkt_code == "0001" else "1",
+                "fid_trgt_cls_code": "111111111",
+                "fid_trgt_exls_cls_code": "0000000000",
+                "fid_input_price_1": "", "fid_input_price_2": "",
+                "fid_vol_cnt": "", "fid_input_date_1": ""
+            }
+            res = requests.get(f"{BASE_URL}/uapi/domestic-stock/v1/ranking/quote-balance",
+                             headers=headers, params=params, timeout=15)
+            
+            if res.status_code != 200:
+                print(f"!!! KIS API 응답 오류 (HTTP {res.status_code})")
+                continue
+                
+            output = res.json().get("output", [])
+            for item in output:
+                name   = item.get("hts_kor_isnm", "")
+                ticker = item.get("mksc_shrn_iscd", "")
+                close  = float(item.get("stck_prpr") or 0)
+                chg    = float(item.get("prdy_ctrt") or 0)
+                # acml_tr_pbmn은 '원' 단위 문자열
+                amt_str = item.get("acml_tr_pbmn", "0").replace(",", "")
+                amount = float(amt_str) if amt_str else 0
+                
+                if amount > 0 and not is_spac(name) and ticker:
+                    all_results.append({
+                        "ticker": ticker, "name": name, "close": close,
+                        "change": chg, "amount": int(amount),
+                        "amount_str": fmt_amount(amount),
+                        "market": "KOSPI" if mkt_code == "0001" else "KOSDAQ"
+                    })
+        
+        # 전체 합쳐서 거래대금 순 정렬 후 상위 TOP_N개 추출
+        return sorted(all_results, key=lambda x: -x["amount"])[:TOP_N]
+    except Exception as e:
+        print(f"!!! 종목 수집 중 예외 발생: {e}")
+        return []
 
 def get_sector(token, ticker, excel_themes):
     # 1순위: 엑셀 테마
@@ -185,7 +246,9 @@ def get_sector(token, ticker, excel_themes):
                 return res_data
         res_data["theme"] = scls if scls else std if std else "기타"
         return res_data
-    except: return res_data
+    except Exception as e: 
+        # print(f"!!! {ticker} 섹터 조회 중 오류: {e}") # 로그가 너무 많아질 수 있어 주석 처리
+        return res_data
 
 def analyze(top60):
     # 1. 섹터별/테마별 그룹화
@@ -286,12 +349,24 @@ if __name__ == "__main__":
     
     today  = get_today()
     token  = get_token()
-    top60  = get_top60(today)
+    if not token:
+        print("!!! 중단: 유효한 토큰이 없어 데이터를 수집할 수 없습니다.")
+        exit(1)
+    
+    top60  = get_top60(token)
+    if not top60:
+        print("!!! 중단: 수집된 종목이 없어 분석을 진행할 수 없습니다.")
+        exit(1)
     
     print("종목별 섹터 정보 조회 중...")
     for i, s in enumerate(top60):
         # 엑셀 데이터를 우선적으로 활용하도록 전달
         s["sector"] = get_sector(token, s["ticker"], excel_themes)
+        
+        # 진행 상황 표시 (10개 단위)
+        if (i+1) % 10 == 0:
+            print(f"[{i+1}/{len(top60)}] 처리 중...")
+            
         time.sleep(0.15)
         
     themes = analyze(top60)
