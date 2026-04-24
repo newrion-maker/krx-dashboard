@@ -19,22 +19,29 @@ def fmt_amount(val):
     return str(int(ok)) + "억"
 
 def load_excel_mapping(file_path):
-    if not os.path.exists(file_path): return {}
+    if not os.path.exists(file_path): 
+        print(f"!!! 엑셀 파일을 찾을 수 없습니다: {file_path}")
+        return {}
     try:
-        wb = openpyxl.load_workbook(file_path, data_only=True)
+        # 속도를 위해 read_only=True 사용
+        wb = openpyxl.load_workbook(file_path, data_only=True, read_only=True)
         ws = wb.active
         mapping = {}
-        # C열(2): 테마명, D열(3): 섹터명, E열(4): 종목코드 (검증된 위치)
+        # B열(1): 분류(섹터), C열(2): 테마명, E열(4): 종목코드
         for row in ws.iter_rows(min_row=2, values_only=True):
             if not row or len(row) < 5: continue
-            code = str(row[4]).zfill(6)
+            code = str(row[4]).zfill(6) if row[4] else ""
+            if not code or code == "None": continue
+            
             mapping[code] = {
                 "theme": str(row[2]).strip() if row[2] else "기타",
-                "sector": str(row[3]).strip() if row[3] else "기타"
+                "sector": str(row[1]).strip() if row[1] else "기타"
             }
-        print(f"엑셀 로드 완료: {len(mapping)}개 종목 매핑")
+        print(f"엑셀 로드 완료: {len(mapping)}개 종목 매핑 (소스: {file_path})")
         return mapping
-    except: return {}
+    except Exception as e:
+        print(f"!!! 엑셀 로드 중 오류 발생: {e}")
+        return {}
 
 def get_top60(token):
     try:
@@ -44,7 +51,8 @@ def get_top60(token):
         
         all_results = []
         if res.status_code == 200:
-            for item in res.json().get("output", []):
+            output = res.json().get("output", [])
+            for item in output:
                 ticker = item.get("mksc_shrn_iscd", "").strip()
                 name = item.get("hts_kor_isnm", "").strip()
                 amt = float(item.get("acml_tr_pbmn", "0").replace(",", ""))
@@ -57,7 +65,9 @@ def get_top60(token):
                         "market": "KOSPI" if ticker.startswith('0') else "KOSDAQ"
                     })
         return sorted(all_results, key=lambda x: -x["amount"])[:TOP_N]
-    except: return []
+    except Exception as e:
+        print(f"!!! 데이터 수집 중 오류 발생: {e}")
+        return []
 
 def analyze_hierarchical(stocks, mapping):
     total_market_amt = sum(s["amount"] for s in stocks)
@@ -67,8 +77,8 @@ def analyze_hierarchical(stocks, mapping):
         m = mapping.get(s["ticker"], {"theme": "기타", "sector": "기타"})
         s["theme_name"] = m["theme"]
         s["sector_name"] = m["sector"]
+        s["sector"] = m # 호환성 유지
         
-        # 주도 섹터 로직: 1) 종목 2개 이상 2) 혹은 상위 10위 이내 대장주 포함
         sec_name = m["sector"]
         if sec_name not in sector_data:
             sector_data[sec_name] = {"total_amount": 0, "themes": {}}
@@ -124,19 +134,66 @@ def analyze_hierarchical(stocks, mapping):
         "sectors": final_sectors
     }
 
-def main():
-    mapping = load_excel_mapping("한국_주식_테마_분류_섹터추가.xlsx")
-    now = datetime.utcnow() + timedelta(hours=9)
+def get_token():
+    token_file = "token_cache.json"
+    
+    # 1. 캐시된 토큰 확인
+    if os.path.exists(token_file):
+        try:
+            with open(token_file, "r") as f:
+                cache = json.load(f)
+                # 만료 시간 확인 (24시간 유효하지만 안전하게 12시간으로 잡음)
+                if time.time() - cache.get("timestamp", 0) < 3600 * 12:
+                    print("캐시된 토큰을 사용합니다.")
+                    return cache.get("token")
+        except: pass
+
+    # 2. 새로운 토큰 발급
+    print(f"새로운 API 토큰 발급 중...")
     res = requests.post(f"{BASE_URL}/oauth2/tokenP", json={"grant_type": "client_credentials", "appkey": APP_KEY, "appsecret": APP_SECRET})
-    token = res.json().get("access_token") if res.status_code == 200 else None
+    
+    if res.status_code == 200:
+        token = res.json().get("access_token")
+        # 캐시 저장
+        with open(token_file, "w") as f:
+            json.dump({"token": token, "timestamp": time.time()}, f)
+        return token
+    else:
+        print(f"!!! 토큰 발급 실패 (Status: {res.status_code})")
+        print(f"!!! 에러 메시지: {res.text}")
+        return None
+
+def main():
+    excel_file = "한국_주식_테마_분류_섹터추가.xlsx"
+    if not os.path.exists(excel_file):
+        excel_file = "한국 주식 테마 분류.xlsx"
+        
+    mapping = load_excel_mapping(excel_file)
+    now = datetime.utcnow() + timedelta(hours=9)
+    
+    token = get_token()
     if not token: return
+        
+    print(f"실시간 거래대금 상위 종목 수집 중...")
     stocks = get_top60(token)
-    if not stocks: return
+    if not stocks: 
+        print("!!! 종목 수집 실패")
+        return
+        
+    print(f"데이터 분석 및 계층화 중...")
     final_output = analyze_hierarchical(stocks, mapping)
-    final_output.update({"date": now.strftime("%Y년 %m월 %d일"), "generated_at": now.strftime("%H:%M"), "top60": stocks})
-    with open("data.json", "w", encoding="utf-8") as f:
+    final_output.update({
+        "date": now.strftime("%Y년 %m월 %d일"), 
+        "generated_at": now.strftime("%H:%M"), 
+        "top60": stocks
+    })
+    
+    # data.json과 market_data.json 모두 저장하거나 하나로 통일
+    # 여기서는 대시보드가 사용하는 market_data.json으로 통일
+    with open("market_data.json", "w", encoding="utf-8") as f:
         json.dump(final_output, f, ensure_ascii=False, indent=2)
-    print(f"data.json 저장 완료 (섹터 {len(final_output['sectors'])}개)")
+    
+    print(f"market_data.json 저장 완료 (섹터 {len(final_output['sectors'])}개, KST {final_output['generated_at']})")
 
 if __name__ == "__main__":
     main()

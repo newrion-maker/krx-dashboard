@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     let data;
     try {
         // 캐시 방지를 위해 타임스탬프 추가
-        const response = await fetch('data.json?t=' + new Date().getTime());
+        const response = await fetch('market_data.json?t=' + new Date().getTime());
         if (!response.ok) throw new Error('Data not found');
         data = await response.json();
     } catch (error) {
