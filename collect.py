@@ -6,14 +6,11 @@ import time
 from dotenv import load_dotenv
 import openpyxl
 
-# .env 로드
 load_dotenv()
-
 APP_KEY = os.getenv("APP_KEY")
 APP_SECRET = os.getenv("APP_SECRET")
 BASE_URL = "https://openapi.koreainvestment.com:9443"
 
-# 분석 설정
 TOP_N = 60
 MIN_THEME_CNT = 2
 
@@ -27,20 +24,19 @@ def load_excel_themes(file_path):
     try:
         wb = openpyxl.load_workbook(file_path, data_only=True)
         ws = wb.active
-        header = [str(cell.value) for cell in ws[1]]
-        code_idx, theme_idx = 0, 2
-        for i, h in enumerate(header):
-            if '종목코드' in h: code_idx = i
-            if '테마명' in h: theme_idx = i
-        
         theme_map = {}
+        # 검증된 열 번호: C열(2번 인덱스) = 테마명, E열(4번 인덱스) = 종목코드
         for row in ws.iter_rows(min_row=2, values_only=True):
-            if not row or len(row) <= max(code_idx, theme_idx): continue
-            code = str(row[code_idx]).zfill(6)
-            theme = str(row[theme_idx]).strip() if row[theme_idx] else ""
-            if theme and theme not in ['None', 'nan', '']: theme_map[code] = theme
+            if not row or len(row) < 5: continue
+            code = str(row[4]).zfill(6) # 5번째 칸(E열)
+            theme = str(row[2]).strip() if row[2] else "" # 3번째 칸(C열)
+            if theme and theme not in ['None', 'nan', '']:
+                theme_map[code] = theme
+        print(f"엑셀 로드 완료: {len(theme_map)}개 종목 매핑 (고정 위치 사용)")
         return theme_map
-    except: return {}
+    except Exception as e:
+        print(f"엑셀 로드 오류: {e}")
+        return {}
 
 def get_top60(token):
     try:
@@ -66,10 +62,8 @@ def get_top60(token):
     except: return []
 
 def analyze_for_frontend(stocks, theme_map):
-    """app.js가 기대하는 계층 구조로 분석"""
     theme_data = {}
     total_market_amt = sum(s["amount"] for s in stocks)
-    
     for s in stocks:
         t_name = theme_map.get(s["ticker"], "기타/미분류")
         if t_name not in theme_data:
@@ -77,57 +71,41 @@ def analyze_for_frontend(stocks, theme_map):
         theme_data[t_name]["total_amount"] += s["amount"]
         theme_data[t_name]["stocks"].append(s)
 
-    # 테마 리스트 생성 및 정렬
     sorted_themes = []
     for name, info in theme_data.items():
         if name == "기타/미분류": continue
         if len(info["stocks"]) >= MIN_THEME_CNT:
             sorted_themes.append({
-                "theme": name,
-                "total_amount": info["total_amount"],
-                "total_str": fmt_amount(info["total_amount"]),
+                "theme": name, "total_amount": info["total_amount"], "total_str": fmt_amount(info["total_amount"]),
                 "count": len(info["stocks"]),
                 "champion": sorted(info["stocks"], key=lambda x: -x["amount"])[0],
-                "stocks": sorted(info["stocks"], key=lambda x: -x["amount"])[1:6] # 상위 종목 외 리스트
+                "stocks": sorted(info["stocks"], key=lambda x: -x["amount"])[1:6]
             })
     
     sorted_themes = sorted(sorted_themes, key=lambda x: -x["total_amount"])
-    
-    # app.js는 sectors -> themes 구조를 원함. 여기서는 주도테마들을 하나의 '시장 주도 섹터'로 묶음
     theme_total_amt = sum(t["total_amount"] for t in sorted_themes)
     
-    final_data = {
+    return {
         "summary": {
-            "total_amount": total_market_amt,
-            "total_str": fmt_amount(total_market_amt),
-            "theme_amount": theme_total_amt,
-            "theme_str": fmt_amount(theme_total_amt),
+            "total_amount": total_market_amt, "total_str": fmt_amount(total_market_amt),
+            "theme_amount": theme_total_amt, "theme_str": fmt_amount(theme_total_amt),
             "theme_ratio": round((theme_total_amt / total_market_amt * 100), 1) if total_market_amt > 0 else 0,
-            "sector_count": 1,
-            "theme_count": len(sorted_themes),
-            "top60_count": len(stocks)
+            "sector_count": 1, "theme_count": len(sorted_themes), "top60_count": len(stocks)
         },
         "sectors": [
-            {
-                "sector": "실시간 주도 테마군",
-                "total_amount": theme_total_amt,
-                "total_str": fmt_amount(theme_total_amt),
-                "themes": sorted_themes
-            }
+            {"sector": "실시간 주도 테마군", "total_amount": theme_total_amt, "total_str": fmt_amount(theme_total_amt), "themes": sorted_themes}
         ]
     }
-    return final_data
 
 def main():
     excel_path = "한국_주식_테마_분류_섹터추가.xlsx"
     theme_map = load_excel_themes(excel_path)
     now = datetime.utcnow() + timedelta(hours=9)
     
-    url = f"{BASE_URL}/oauth2/tokenP"
-    res = requests.post(url, json={"grant_type": "client_credentials", "appkey": APP_KEY, "appsecret": APP_SECRET})
+    res = requests.post(f"{BASE_URL}/oauth2/tokenP", json={"grant_type": "client_credentials", "appkey": APP_KEY, "appsecret": APP_SECRET})
     token = res.json().get("access_token") if res.status_code == 200 else None
-    
     if not token: return
+    
     stocks = get_top60(token)
     if not stocks: return
     
@@ -136,10 +114,8 @@ def main():
     final_output["generated_at"] = now.strftime("%H:%M")
     final_output["top60"] = stocks
     
-    # app.js가 원하는 파일명 'data.json'으로 저장
     with open("data.json", "w", encoding="utf-8") as f:
         json.dump(final_output, f, ensure_ascii=False, indent=2)
-    
     print(f"data.json 저장 완료 (테마 {final_output['summary']['theme_count']}개)")
 
 if __name__ == "__main__":
