@@ -45,7 +45,7 @@ def fmt_amount(val):
 
 def analyze(top60):
     """종목 리스트를 받아 섹터/테마별로 그룹화 및 주도 테마 추출"""
-    MIN_THEME_CNT = 3
+    MIN_THEME_CNT = 2
     sector_data = {}
     
     for s in top60:
@@ -75,7 +75,7 @@ def analyze(top60):
         sec_total_amount = 0
         
         for thm_name, stocks in sec_info["themes"].items():
-            rising = [s for s in stocks if s["change"] > 0]
+            rising = [s for s in stocks if s["change"] >= 0]
             if len(rising) < MIN_THEME_CNT: continue
             
             thm_amount = sum(s["amount"] for s in rising)

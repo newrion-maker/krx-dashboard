@@ -29,7 +29,7 @@ else:
 # ---------------------------------------
 
 TOP_N         = 60
-MIN_THEME_CNT = 3
+MIN_THEME_CNT = 2
 
 SECTOR_MAP = {
     "반도체": "반도체", "전기,전자": "전기전자", "디지털컨텐츠": "게임/콘텐츠",
@@ -99,10 +99,10 @@ def get_today():
     kst_now = get_kst_now()
     print(f"현재 한국 시간: {kst_now.strftime('%Y-%m-%d %H:%M:%S')}")
     
-    # 평일(월-금)이고 오전 9시 이후라면 오늘 날짜를 우선 사용 (KIS 실시간 데이터 대응)
-    if kst_now.weekday() < 5 and kst_now.hour >= 9:
+    # 평일(월-금)이고 오전 8시 이후라면 오늘 날짜를 우선 사용 (KIS 실시간 데이터 대응)
+    if kst_now.weekday() < 5 and kst_now.hour >= 8:
         today_str = kst_now.strftime("%Y%m%d")
-        print(f"평일 장 중/후이므로 오늘 날짜({today_str})를 사용합니다.")
+        print(f"평일 장전/장중이므로 오늘 날짜({today_str})를 사용합니다.")
         return today_str
 
     if not KRX_API_KEY:
@@ -184,11 +184,11 @@ def get_top60(token):
                 "fid_cond_scr_div_code": "20171",
                 "fid_input_iscd": mkt_code,
                 "fid_div_cls_code": "0",
-                "fid_blng_cls_code": "0" if mkt_code == "0001" else "1",
-                "fid_trgt_cls_code": "111111111",
+                "fid_blng_cls_code": "0",
+                "fid_trgt_cls_code": "000000000",
                 "fid_trgt_exls_cls_code": "0000000000",
                 "fid_input_price_1": "", "fid_input_price_2": "",
-                "fid_vol_cnt": "", "fid_input_date_1": ""
+                "fid_vol_cnt": "100", "fid_input_date_1": ""
             }
             res = requests.get(f"{BASE_URL}/uapi/domestic-stock/v1/ranking/quote-balance",
                              headers=headers, params=params, timeout=15)
@@ -198,12 +198,20 @@ def get_top60(token):
                 continue
                 
             output = res.json().get("output", [])
+            print(f"--- 시장코드 {mkt_code} 수집 종목 리스트 ({len(output)}개) ---")
+            
             for item in output:
-                name   = item.get("hts_kor_isnm", "")
-                ticker = item.get("mksc_shrn_iscd", "")
+                name   = item.get("hts_kor_isnm", "").strip()
+                ticker = item.get("mksc_shrn_iscd", "").strip()
+                
+                # 모든 수집 종목 로그 출력 (추적용)
+                print(f"[{ticker}] {name}", end=" | ")
+                
+                if ticker == "000660": 
+                    print(f"\n>>> [발견!] SK하이닉스가 목록에 있습니다! <<<")
+                
                 close  = float(item.get("stck_prpr") or 0)
                 chg    = float(item.get("prdy_ctrt") or 0)
-                # acml_tr_pbmn은 '원' 단위 문자열
                 amt_str = item.get("acml_tr_pbmn", "0").replace(",", "")
                 amount = float(amt_str) if amt_str else 0
                 
@@ -280,7 +288,7 @@ def analyze(top60):
         sec_total_amount = 0
         
         for thm_name, stocks in sec_info["themes"].items():
-            rising = [s for s in stocks if s["change"] > 0]
+            rising = [s for s in stocks if s["change"] >= 0]
             if len(rising) < MIN_THEME_CNT: continue
             
             thm_amount = sum(s["amount"] for s in rising)
