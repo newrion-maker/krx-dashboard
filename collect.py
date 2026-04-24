@@ -43,28 +43,36 @@ def load_excel_mapping(file_path):
         print(f"!!! 엑셀 로드 중 오류 발생: {e}")
         return {}
 
+def _fetch_market(token, blng_cls_code, label):
+    """단일 시장(KOSPI or KOSDAQ) 거래대금 상위 30개 수집. API 1회 호출 한도 = 30개."""
+    headers = {"authorization": f"Bearer {token}", "appkey": APP_KEY, "appsecret": APP_SECRET, "tr_id": "FHPST01710000", "Content-Type": "application/json"}
+    params = {"fid_cond_mrkt_div_code": "J", "fid_cond_scr_div_code": "20174", "fid_input_iscd": "0000", "fid_div_cls_code": "0", "fid_blng_cls_code": blng_cls_code, "fid_trgt_cls_code": "000000000", "fid_trgt_exls_cls_code": "0000000000", "fid_vol_cnt": "100", "fid_input_date_1": ""}
+    res = requests.get(f"{BASE_URL}/uapi/domestic-stock/v1/ranking/quote-balance", headers=headers, params=params, timeout=15)
+    results = []
+    if res.status_code == 200:
+        for item in res.json().get("output", []):
+            ticker = item.get("mksc_shrn_iscd", "").strip()
+            amt = float(item.get("acml_tr_pbmn", "0").replace(",", ""))
+            if amt > 0 and ticker:
+                results.append({
+                    "ticker": ticker, "name": item.get("hts_kor_isnm", "").strip(),
+                    "close": int(float(item.get("stck_prpr") or 0)),
+                    "change": float(item.get("prdy_ctrt") or 0),
+                    "amount": amt, "amount_str": fmt_amount(amt),
+                    "market": label
+                })
+    print(f"  {label}: {len(results)}개 수집")
+    return results
+
 def get_top60(token):
     try:
-        headers = {"authorization": f"Bearer {token}", "appkey": APP_KEY, "appsecret": APP_SECRET, "tr_id": "FHPST01710000", "Content-Type": "application/json"}
-        params = {"fid_cond_mrkt_div_code": "J", "fid_cond_scr_div_code": "20174", "fid_input_iscd": "0000", "fid_div_cls_code": "0", "fid_blng_cls_code": "0", "fid_trgt_cls_code": "000000000", "fid_trgt_exls_cls_code": "0000000000", "fid_vol_cnt": "100", "fid_input_date_1": ""}
-        res = requests.get(f"{BASE_URL}/uapi/domestic-stock/v1/ranking/quote-balance", headers=headers, params=params, timeout=15)
-        
-        all_results = []
-        if res.status_code == 200:
-            output = res.json().get("output", [])
-            for item in output:
-                ticker = item.get("mksc_shrn_iscd", "").strip()
-                name = item.get("hts_kor_isnm", "").strip()
-                amt = float(item.get("acml_tr_pbmn", "0").replace(",", ""))
-                if amt > 0 and ticker:
-                    all_results.append({
-                        "ticker": ticker, "name": name,
-                        "close": int(float(item.get("stck_prpr") or 0)),
-                        "change": float(item.get("prdy_ctrt") or 0),
-                        "amount": amt, "amount_str": fmt_amount(amt),
-                        "market": "KOSPI" if ticker.startswith('0') else "KOSDAQ"
-                    })
-        return sorted(all_results, key=lambda x: -x["amount"])[:TOP_N]
+        # API 1회 호출 한도가 30개이므로 KOSPI/KOSDAQ 별도 호출 후 합산
+        kospi = _fetch_market(token, "1", "KOSPI")
+        time.sleep(0.5)
+        kosdaq = _fetch_market(token, "2", "KOSDAQ")
+        all_results = sorted(kospi + kosdaq, key=lambda x: -x["amount"])[:TOP_N]
+        print(f"  통합 TOP{TOP_N}: {len(all_results)}개")
+        return all_results
     except Exception as e:
         print(f"!!! 데이터 수집 중 오류 발생: {e}")
         return []
