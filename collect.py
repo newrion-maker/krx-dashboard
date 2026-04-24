@@ -172,25 +172,22 @@ def get_top60(token):
         headers = {
             "authorization": f"Bearer {token}",
             "appkey": APP_KEY, "appsecret": APP_SECRET,
-            "tr_id": "FHPST01710000",
+            "tr_id": "KHKS01010100", # 거래대금 상위 전용 TR로 교체
             "Content-Type": "application/json; charset=utf-8"
         }
         
         all_results = []
-        # 코스피(0001), 코스닥(1001) 각각 조회
-        for mkt_code in ["0001", "1001"]:
+        for mkt_code in ["001", "002"]: # KIS 전용 거래대금 TR의 시장코드 (001:코스피, 002:코스닥)
             params = {
                 "fid_cond_mrkt_div_code": "J",
-                "fid_cond_scr_div_code": "20171",
                 "fid_input_iscd": mkt_code,
                 "fid_div_cls_code": "0",
-                "fid_blng_cls_code": "0",
-                "fid_trgt_cls_code": "000000000",
-                "fid_trgt_exls_cls_code": "0000000000",
-                "fid_input_price_1": "", "fid_input_price_2": "",
-                "fid_vol_cnt": "100", "fid_input_date_1": ""
+                "fid_trgt_cls_code": "0",
+                "fid_trgt_exls_cls_code": "0",
+                "fid_input_price_1": "0", "fid_input_price_2": "0",
+                "fid_vol_cnt": "0"
             }
-            res = requests.get(f"{BASE_URL}/uapi/domestic-stock/v1/ranking/quote-balance",
+            res = requests.get(f"{BASE_URL}/uapi/domestic-stock/v1/ranking/trade-value",
                              headers=headers, params=params, timeout=15)
             
             if res.status_code != 200:
@@ -198,22 +195,21 @@ def get_top60(token):
                 continue
                 
             output = res.json().get("output", [])
-            print(f"--- 시장코드 {mkt_code} 수집 종목 리스트 ({len(output)}개) ---")
+            print(f"--- 시장코드 {mkt_code} (거래대금 상위) 수집됨 ({len(output)}개) ---")
             
             for item in output:
                 name   = item.get("hts_kor_isnm", "").strip()
                 ticker = item.get("mksc_shrn_iscd", "").strip()
                 
-                # 모든 수집 종목 로그 출력 (추적용)
-                print(f"[{ticker}] {name}", end=" | ")
-                
-                if ticker == "000660": 
-                    print(f"\n>>> [발견!] SK하이닉스가 목록에 있습니다! <<<")
+                # 로그 확인
+                if ticker == "000660" or ticker == "005930":
+                    print(f">>> [발견!] {name}({ticker}) 수집됨! <<<")
                 
                 close  = float(item.get("stck_prpr") or 0)
                 chg    = float(item.get("prdy_ctrt") or 0)
-                amt_str = item.get("acml_tr_pbmn", "0").replace(",", "")
-                amount = float(amt_str) if amt_str else 0
+                # 거래대금 전용 TR은 단위가 '백만'인 경우가 많아 체크 필요
+                amt_str = item.get("tr_pbmn", "0").replace(",", "")
+                amount = float(amt_str) * 1_000_000 if amt_str else 0 # 백만 단위 -> 원 단위 환산
                 
                 if amount > 0 and not is_spac(name) and ticker:
                     all_results.append({
