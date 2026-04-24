@@ -4,7 +4,7 @@ import json
 from datetime import datetime, timedelta
 import time
 from dotenv import load_dotenv
-import pandas as pd
+import openpyxl # pandas 대신 openpyxl 사용
 
 # .env 파일 로드
 load_dotenv()
@@ -36,18 +36,24 @@ def fmt_amount(val):
     return str(int(ok)) + "억"
 
 def load_excel_themes(file_path):
+    """pandas 없이 openpyxl로 엑셀 로드"""
     if not os.path.exists(file_path): return {}
     try:
-        df = pd.read_excel(file_path)
-        code_col = '종목코드' if '종목코드' in df.columns else df.columns[0]
-        theme_col = '테마명' if '테마명' in df.columns else df.columns[2] if len(df.columns) > 2 else df.columns[-1]
+        wb = openpyxl.load_workbook(file_path, data_only=True)
+        ws = wb.active
         theme_map = {}
-        for _, row in df.iterrows():
-            code = str(row[code_col]).zfill(6)
-            theme = str(row[theme_col]).strip()
-            if theme and theme != 'nan': theme_map[code] = theme
+        # 첫 줄(헤더) 제외하고 순회
+        for row in ws.iter_rows(min_row=2, values_only=True):
+            if not row or len(row) < 3: continue
+            code = str(row[0]).zfill(6)
+            theme = str(row[2]).strip() if row[2] else ""
+            if theme and theme != 'None':
+                theme_map[code] = theme
+        print(f"엑셀 로드 완료: {len(theme_map)}개 종목 매핑")
         return theme_map
-    except: return {}
+    except Exception as e:
+        print(f"!!! 엑셀 로드 오류: {e}")
+        return {}
 
 def get_top60(token):
     """검증된 20174 화면번호를 사용하여 실시간 거래대금 상위 수집"""
@@ -60,12 +66,11 @@ def get_top60(token):
             "Content-Type": "application/json; charset=utf-8"
         }
         
-        # 로컬 테스트에서 검증된 정답 조합
         params = {
             "fid_cond_mrkt_div_code": "J",
-            "fid_cond_scr_div_code": "20174", # 거래대금 정답 화면
-            "fid_input_iscd": "0000",        # 전체 시장
-            "fid_div_cls_code": "0",         # 정답 구분값
+            "fid_cond_scr_div_code": "20174",
+            "fid_input_iscd": "0000",
+            "fid_div_cls_code": "0",
             "fid_blng_cls_code": "0",
             "fid_trgt_cls_code": "000000000",
             "fid_trgt_exls_cls_code": "0000000000",
@@ -83,7 +88,6 @@ def get_top60(token):
                 name = item.get("hts_kor_isnm", "").strip()
                 ticker = item.get("mksc_shrn_iscd", "").strip()
                 
-                # 핵심 종목 발견 시 로그 출력
                 if ticker == "000660" or ticker == "005930":
                     print(f">>> [발견!] {name}({ticker}) 수집됨")
                 
@@ -127,7 +131,7 @@ def analyze(stocks, theme_map):
     return sorted(final_themes, key=lambda x: -x["total_amt"])
 
 def main():
-    print(f"=== 주도 테마 수집 시작 (검증된 20174 엔진) ===")
+    print(f"=== 주도 테마 수집 시작 (No-Pandas 엔진) ===")
     excel_path = "한국_주식_테마_분류_섹터추가.xlsx"
     theme_map = load_excel_themes(excel_path)
     
