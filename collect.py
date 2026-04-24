@@ -12,31 +12,29 @@ APP_SECRET = os.getenv("APP_SECRET")
 BASE_URL = "https://openapi.koreainvestment.com:9443"
 
 TOP_N = 60
-MIN_THEME_CNT = 2
 
 def fmt_amount(val):
     ok = val / 100_000_000
     if ok >= 10000: return str(round(ok / 10000, 1)) + "조"
     return str(int(ok)) + "억"
 
-def load_excel_themes(file_path):
+def load_excel_mapping(file_path):
     if not os.path.exists(file_path): return {}
     try:
         wb = openpyxl.load_workbook(file_path, data_only=True)
         ws = wb.active
-        theme_map = {}
-        # 검증된 열 번호: C열(2번 인덱스) = 테마명, E열(4번 인덱스) = 종목코드
+        mapping = {}
+        # C열(2): 테마명, D열(3): 섹터명, E열(4): 종목코드 (검증된 위치)
         for row in ws.iter_rows(min_row=2, values_only=True):
             if not row or len(row) < 5: continue
-            code = str(row[4]).zfill(6) # 5번째 칸(E열)
-            theme = str(row[2]).strip() if row[2] else "" # 3번째 칸(C열)
-            if theme and theme not in ['None', 'nan', '']:
-                theme_map[code] = theme
-        print(f"엑셀 로드 완료: {len(theme_map)}개 종목 매핑 (고정 위치 사용)")
-        return theme_map
-    except Exception as e:
-        print(f"엑셀 로드 오류: {e}")
-        return {}
+            code = str(row[4]).zfill(6)
+            mapping[code] = {
+                "theme": str(row[2]).strip() if row[2] else "기타",
+                "sector": str(row[3]).strip() if row[3] else "기타"
+            }
+        print(f"엑셀 로드 완료: {len(mapping)}개 종목 매핑")
+        return mapping
+    except: return {}
 
 def get_top60(token):
     try:
@@ -61,62 +59,84 @@ def get_top60(token):
         return sorted(all_results, key=lambda x: -x["amount"])[:TOP_N]
     except: return []
 
-def analyze_for_frontend(stocks, theme_map):
-    theme_data = {}
+def analyze_hierarchical(stocks, mapping):
     total_market_amt = sum(s["amount"] for s in stocks)
-    for s in stocks:
-        t_name = theme_map.get(s["ticker"], "기타/미분류")
-        if t_name not in theme_data:
-            theme_data[t_name] = {"total_amount": 0, "stocks": []}
-        theme_data[t_name]["total_amount"] += s["amount"]
-        theme_data[t_name]["stocks"].append(s)
+    sector_data = {}
 
-    sorted_themes = []
-    for name, info in theme_data.items():
-        if name == "기타/미분류": continue
-        if len(info["stocks"]) >= MIN_THEME_CNT:
-            sorted_themes.append({
-                "theme": name, "total_amount": info["total_amount"], "total_str": fmt_amount(info["total_amount"]),
-                "count": len(info["stocks"]),
-                "champion": sorted(info["stocks"], key=lambda x: -x["amount"])[0],
-                "stocks": sorted(info["stocks"], key=lambda x: -x["amount"])[1:6]
+    for i, s in enumerate(stocks):
+        m = mapping.get(s["ticker"], {"theme": "기타", "sector": "기타"})
+        s["theme_name"] = m["theme"]
+        s["sector_name"] = m["sector"]
+        
+        # 주도 섹터 로직: 1) 종목 2개 이상 2) 혹은 상위 10위 이내 대장주 포함
+        sec_name = m["sector"]
+        if sec_name not in sector_data:
+            sector_data[sec_name] = {"total_amount": 0, "themes": {}}
+        
+        theme_name = m["theme"]
+        if theme_name not in sector_data[sec_name]["themes"]:
+            sector_data[sec_name]["themes"][theme_name] = {"total_amount": 0, "stocks": []}
+            
+        sector_data[sec_name]["total_amount"] += s["amount"]
+        sector_data[sec_name]["themes"][theme_name]["total_amount"] += s["amount"]
+        sector_data[sec_name]["themes"][theme_name]["stocks"].append(s)
+
+    final_sectors = []
+    for s_name, s_info in sector_data.items():
+        if s_name == "기타": continue
+        
+        final_themes = []
+        for t_name, t_info in s_info["themes"].items():
+            if t_name == "기타": continue
+            
+            # 필터: 종목 2개 이상 OR 상위 10위권 대장주 포함
+            has_big_stock = any(stocks.index(stk) < 10 for stk in t_info["stocks"])
+            if len(t_info["stocks"]) >= 2 or has_big_stock:
+                sorted_stks = sorted(t_info["stocks"], key=lambda x: -x["amount"])
+                final_themes.append({
+                    "theme": t_name,
+                    "total_amount": t_info["total_amount"],
+                    "total_str": fmt_amount(t_info["total_amount"]),
+                    "count": len(t_info["stocks"]),
+                    "champion": sorted_stks[0],
+                    "stocks": sorted_stks[1:6]
+                })
+        
+        if final_themes:
+            final_sectors.append({
+                "sector": s_name,
+                "total_amount": s_info["total_amount"],
+                "total_str": fmt_amount(s_info["total_amount"]),
+                "themes": sorted(final_themes, key=lambda x: -x["total_amount"])
             })
-    
-    sorted_themes = sorted(sorted_themes, key=lambda x: -x["total_amount"])
-    theme_total_amt = sum(t["total_amount"] for t in sorted_themes)
-    
+
+    final_sectors = sorted(final_sectors, key=lambda x: -x["total_amount"])
+    theme_total_amt = sum(sec["total_amount"] for sec in final_sectors)
+
     return {
         "summary": {
             "total_amount": total_market_amt, "total_str": fmt_amount(total_market_amt),
             "theme_amount": theme_total_amt, "theme_str": fmt_amount(theme_total_amt),
             "theme_ratio": round((theme_total_amt / total_market_amt * 100), 1) if total_market_amt > 0 else 0,
-            "sector_count": 1, "theme_count": len(sorted_themes), "top60_count": len(stocks)
+            "sector_count": len(final_sectors), "theme_count": sum(len(s["themes"]) for s in final_sectors),
+            "top60_count": len(stocks)
         },
-        "sectors": [
-            {"sector": "실시간 주도 테마군", "total_amount": theme_total_amt, "total_str": fmt_amount(theme_total_amt), "themes": sorted_themes}
-        ]
+        "sectors": final_sectors
     }
 
 def main():
-    excel_path = "한국_주식_테마_분류_섹터추가.xlsx"
-    theme_map = load_excel_themes(excel_path)
+    mapping = load_excel_mapping("한국_주식_테마_분류_섹터추가.xlsx")
     now = datetime.utcnow() + timedelta(hours=9)
-    
     res = requests.post(f"{BASE_URL}/oauth2/tokenP", json={"grant_type": "client_credentials", "appkey": APP_KEY, "appsecret": APP_SECRET})
     token = res.json().get("access_token") if res.status_code == 200 else None
     if not token: return
-    
     stocks = get_top60(token)
     if not stocks: return
-    
-    final_output = analyze_for_frontend(stocks, theme_map)
-    final_output["date"] = now.strftime("%Y년 %m월 %d일")
-    final_output["generated_at"] = now.strftime("%H:%M")
-    final_output["top60"] = stocks
-    
+    final_output = analyze_hierarchical(stocks, mapping)
+    final_output.update({"date": now.strftime("%Y년 %m월 %d일"), "generated_at": now.strftime("%H:%M"), "top60": stocks})
     with open("data.json", "w", encoding="utf-8") as f:
         json.dump(final_output, f, ensure_ascii=False, indent=2)
-    print(f"data.json 저장 완료 (테마 {final_output['summary']['theme_count']}개)")
+    print(f"data.json 저장 완료 (섹터 {len(final_output['sectors'])}개)")
 
 if __name__ == "__main__":
     main()
