@@ -28,7 +28,7 @@ if not APP_KEY or not APP_SECRET:
 
 def get_access_token():
     url = f"{BASE_URL}/oauth2/tokenP"
-    payload = {"grant_type": "client_credentials", "appkey": APP_KEY, "secretkey": APP_SECRET}
+    payload = {"grant_type": "client_credentials", "appkey": APP_KEY, "appsecret": APP_SECRET}
     res = requests.post(url, json=payload)
     if res.status_code == 200:
         return res.json().get("access_token")
