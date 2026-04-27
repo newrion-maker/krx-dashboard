@@ -11,7 +11,7 @@ APP_KEY = os.getenv("APP_KEY")
 APP_SECRET = os.getenv("APP_SECRET")
 BASE_URL = "https://openapi.koreainvestment.com:9443"
 
-TOP_N = 60
+TOP_N = 30
 
 def fmt_amount(val):
     ok = val / 100_000_000
@@ -43,36 +43,31 @@ def load_excel_mapping(file_path):
         print(f"!!! 엑셀 로드 중 오류 발생: {e}")
         return {}
 
-def _fetch_market(token, blng_cls_code, label):
-    """단일 시장(KOSPI or KOSDAQ) 거래대금 상위 30개 수집. API 1회 호출 한도 = 30개."""
-    headers = {"authorization": f"Bearer {token}", "appkey": APP_KEY, "appsecret": APP_SECRET, "tr_id": "FHPST01710000", "Content-Type": "application/json"}
-    params = {"fid_cond_mrkt_div_code": "J", "fid_cond_scr_div_code": "20174", "fid_input_iscd": "0000", "fid_div_cls_code": "0", "fid_blng_cls_code": blng_cls_code, "fid_trgt_cls_code": "000000000", "fid_trgt_exls_cls_code": "0000000000", "fid_vol_cnt": "100", "fid_input_date_1": ""}
-    res = requests.get(f"{BASE_URL}/uapi/domestic-stock/v1/ranking/quote-balance", headers=headers, params=params, timeout=15)
-    results = []
-    if res.status_code == 200:
-        for item in res.json().get("output", []):
-            ticker = item.get("mksc_shrn_iscd", "").strip()
-            amt = float(item.get("acml_tr_pbmn", "0").replace(",", ""))
-            if amt > 0 and ticker:
-                results.append({
-                    "ticker": ticker, "name": item.get("hts_kor_isnm", "").strip(),
-                    "close": int(float(item.get("stck_prpr") or 0)),
-                    "change": float(item.get("prdy_ctrt") or 0),
-                    "amount": amt, "amount_str": fmt_amount(amt),
-                    "market": label
-                })
-    print(f"  {label}: {len(results)}개 수집")
-    return results
-
-def get_top60(token):
+def get_top_stocks(token):
+    """KIS API 거래대금 순위 상위 종목 수집. 1회 호출 최대 30개."""
     try:
-        # API 1회 호출 한도가 30개이므로 KOSPI/KOSDAQ 별도 호출 후 합산
-        kospi = _fetch_market(token, "1", "KOSPI")
-        time.sleep(0.5)
-        kosdaq = _fetch_market(token, "2", "KOSDAQ")
-        all_results = sorted(kospi + kosdaq, key=lambda x: -x["amount"])[:TOP_N]
-        print(f"  통합 TOP{TOP_N}: {len(all_results)}개")
-        return all_results
+        headers = {"authorization": f"Bearer {token}", "appkey": APP_KEY, "appsecret": APP_SECRET, "tr_id": "FHPST01710000", "Content-Type": "application/json"}
+        params = {"fid_cond_mrkt_div_code": "J", "fid_cond_scr_div_code": "20174", "fid_input_iscd": "0000", "fid_div_cls_code": "0", "fid_blng_cls_code": "0", "fid_trgt_cls_code": "000000000", "fid_trgt_exls_cls_code": "0000000000", "fid_vol_cnt": "100", "fid_input_date_1": ""}
+        res = requests.get(f"{BASE_URL}/uapi/domestic-stock/v1/ranking/quote-balance", headers=headers, params=params, timeout=15)
+
+        results = []
+        seen = set()  # 중복 방지
+        if res.status_code == 200:
+            for item in res.json().get("output", []):
+                ticker = item.get("mksc_shrn_iscd", "").strip()
+                amt = float(item.get("acml_tr_pbmn", "0").replace(",", ""))
+                if amt > 0 and ticker and ticker not in seen:
+                    seen.add(ticker)
+                    results.append({
+                        "ticker": ticker, "name": item.get("hts_kor_isnm", "").strip(),
+                        "close": int(float(item.get("stck_prpr") or 0)),
+                        "change": float(item.get("prdy_ctrt") or 0),
+                        "amount": amt, "amount_str": fmt_amount(amt),
+                        "market": "KOSPI"
+                    })
+        top = sorted(results, key=lambda x: -x["amount"])[:TOP_N]
+        print(f"  거래대금 TOP{TOP_N}: {len(top)}개 수집")
+        return top
     except Exception as e:
         print(f"!!! 데이터 수집 중 오류 발생: {e}")
         return []
@@ -183,24 +178,22 @@ def main():
     if not token: return
         
     print(f"실시간 거래대금 상위 종목 수집 중...")
-    stocks = get_top60(token)
-    if not stocks: 
+    stocks = get_top_stocks(token)
+    if not stocks:
         print("!!! 종목 수집 실패")
         return
-        
+
     print(f"데이터 분석 및 계층화 중...")
     final_output = analyze_hierarchical(stocks, mapping)
     final_output.update({
-        "date": now.strftime("%Y년 %m월 %d일"), 
-        "generated_at": now.strftime("%H:%M"), 
-        "top60": stocks
+        "date": now.strftime("%Y년 %m월 %d일"),
+        "generated_at": now.strftime("%H:%M"),
+        "top60": stocks   # 대시보드 호환성 유지 (키 이름 유지)
     })
-    
-    # data.json과 market_data.json 모두 저장하거나 하나로 통일
-    # 여기서는 대시보드가 사용하는 market_data.json으로 통일
+
     with open("market_data.json", "w", encoding="utf-8") as f:
         json.dump(final_output, f, ensure_ascii=False, indent=2)
-    
+
     print(f"market_data.json 저장 완료 (섹터 {len(final_output['sectors'])}개, KST {final_output['generated_at']})")
 
 if __name__ == "__main__":
