@@ -16,7 +16,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: pip install requests python-dotenv pykrx-openapi openpyxl pandas
+      - run: pip install requests python-dotenv openpyxl pandas
       - name: Run collection script
         env:
           APP_KEY: ${{ secrets.APP_KEY }}

@@ -11,7 +11,7 @@ APP_KEY = os.getenv("APP_KEY")
 APP_SECRET = os.getenv("APP_SECRET")
 BASE_URL = "https://openapi.koreainvestment.com:9443"
 
-TOP_N = 30
+TOP_N = 60
 
 def fmt_amount(val):
     ok = val / 100_000_000
@@ -43,34 +43,49 @@ def load_excel_mapping(file_path):
         print(f"!!! 엑셀 로드 중 오류 발생: {e}")
         return {}
 
-def get_top_stocks(token):
-    """KIS API 거래대금 순위 상위 종목 수집. 1회 호출 최대 30개."""
+def _fetch_ranking(token, scr_div_code, market_label):
+    """KIS API 거래대금 순위 호출. scr=20174:KOSPI / scr=20170:KOSDAQ"""
     try:
         headers = {"authorization": f"Bearer {token}", "appkey": APP_KEY, "appsecret": APP_SECRET, "tr_id": "FHPST01710000", "Content-Type": "application/json"}
-        params = {"fid_cond_mrkt_div_code": "J", "fid_cond_scr_div_code": "20174", "fid_input_iscd": "0000", "fid_div_cls_code": "0", "fid_blng_cls_code": "0", "fid_trgt_cls_code": "000000000", "fid_trgt_exls_cls_code": "0000000000", "fid_vol_cnt": "100", "fid_input_date_1": ""}
+        params = {"fid_cond_mrkt_div_code": "J", "fid_cond_scr_div_code": scr_div_code, "fid_input_iscd": "0000", "fid_div_cls_code": "0", "fid_blng_cls_code": "0", "fid_trgt_cls_code": "000000000", "fid_trgt_exls_cls_code": "0000000000", "fid_vol_cnt": "100", "fid_input_date_1": ""}
         res = requests.get(f"{BASE_URL}/uapi/domestic-stock/v1/ranking/quote-balance", headers=headers, params=params, timeout=15)
-
         results = []
-        seen = set()  # 중복 방지
         if res.status_code == 200:
             for item in res.json().get("output", []):
                 ticker = item.get("mksc_shrn_iscd", "").strip()
                 amt = float(item.get("acml_tr_pbmn", "0").replace(",", ""))
-                if amt > 0 and ticker and ticker not in seen:
-                    seen.add(ticker)
+                if amt > 0 and ticker:
                     results.append({
                         "ticker": ticker, "name": item.get("hts_kor_isnm", "").strip(),
                         "close": int(float(item.get("stck_prpr") or 0)),
                         "change": float(item.get("prdy_ctrt") or 0),
                         "amount": amt, "amount_str": fmt_amount(amt),
-                        "market": "KOSPI"
+                        "market": market_label
                     })
-        top = sorted(results, key=lambda x: -x["amount"])[:TOP_N]
-        print(f"  거래대금 TOP{TOP_N}: {len(top)}개 수집")
-        return top
+        print(f"  {market_label}(scr={scr_div_code}): {len(results)}개 수집")
+        return results
     except Exception as e:
-        print(f"!!! 데이터 수집 중 오류 발생: {e}")
+        print(f"!!! {market_label} 수집 오류: {e}")
         return []
+
+def get_top_stocks(token):
+    """KOSPI(scr=20174) + KOSDAQ(scr=20170) 합산 후 거래대금 기준 TOP 60"""
+    kospi  = _fetch_ranking(token, "20174", "KOSPI")
+    time.sleep(0.3)
+    kosdaq = _fetch_ranking(token, "20170", "KOSDAQ")
+
+    seen = set()
+    merged = []
+    for s in sorted(kospi + kosdaq, key=lambda x: -x["amount"]):
+        if s["ticker"] not in seen:
+            seen.add(s["ticker"])
+            merged.append(s)
+
+    top = merged[:TOP_N]
+    kospi_n  = sum(1 for s in top if s["market"] == "KOSPI")
+    kosdaq_n = sum(1 for s in top if s["market"] == "KOSDAQ")
+    print(f"  통합 TOP{TOP_N}: {len(top)}개 (KOSPI {kospi_n}, KOSDAQ {kosdaq_n})")
+    return top
 
 def analyze_hierarchical(stocks, mapping):
     total_market_amt = sum(s["amount"] for s in stocks)
