@@ -6,7 +6,7 @@
     "theme_str": "33.7조",
     "theme_ratio": 91.0,
     "sector_count": 8,
-    "theme_count": 12,
+    "theme_count": 13,
     "top60_count": 60
   },
   "sectors": [
@@ -94,14 +94,14 @@
     },
     {
       "sector": "기타/미분류",
-      "total_amount": 5896145027777.0,
-      "total_str": "5.9조",
+      "total_amount": 5182710985527.0,
+      "total_str": "5.2조",
       "themes": [
         {
           "theme": "미분류 종목",
-          "total_amount": 5896145027777.0,
-          "total_str": "5.9조",
-          "count": 34,
+          "total_amount": 5182710985527.0,
+          "total_str": "5.2조",
+          "count": 32,
           "champion": {
             "ticker": "005935",
             "name": "삼성전자우",
@@ -131,21 +131,6 @@
               "sector": {
                 "theme": "증권",
                 "sector": "금융"
-              }
-            },
-            {
-              "ticker": "005490",
-              "name": "POSCO홀딩스",
-              "close": 478000,
-              "change": -6.64,
-              "amount": 497310486750.0,
-              "amount_str": "4973억",
-              "market": "KOSPI",
-              "theme_name": "2차전지",
-              "sector_name": "2차전지/배터리",
-              "sector": {
-                "theme": "2차전지",
-                "sector": "2차전지/배터리"
               }
             },
             {
@@ -239,18 +224,33 @@
               }
             },
             {
-              "ticker": "373220",
-              "name": "LG에너지솔루션",
-              "close": 443500,
-              "change": -5.24,
-              "amount": 216123555500.0,
-              "amount_str": "2161억",
+              "ticker": "267260",
+              "name": "HD현대일렉트릭",
+              "close": 1307000,
+              "change": -4.04,
+              "amount": 215274421500.0,
+              "amount_str": "2152억",
               "market": "KOSPI",
-              "theme_name": "2차전지(생산)",
-              "sector_name": "2차전지/배터리",
+              "theme_name": "전력설비",
+              "sector_name": "에너지/친환경",
               "sector": {
-                "theme": "2차전지(생산)",
-                "sector": "2차전지/배터리"
+                "theme": "전력설비",
+                "sector": "에너지/친환경"
+              }
+            },
+            {
+              "ticker": "012450",
+              "name": "한화에어로스페이스",
+              "close": 1290000,
+              "change": -1.9,
+              "amount": 209250235000.0,
+              "amount_str": "2092억",
+              "market": "KOSPI",
+              "theme_name": "UAM(도심항공모빌리티)",
+              "sector_name": "AI/로봇",
+              "sector": {
+                "theme": "UAM(도심항공모빌리티)",
+                "sector": "AI/로봇"
               }
             }
           ]
@@ -555,6 +555,44 @@
       "total_str": "1.4조",
       "themes": [
         {
+          "theme": "2차전지",
+          "total_amount": 713434042250.0,
+          "total_str": "7134억",
+          "count": 2,
+          "champion": {
+            "ticker": "005490",
+            "name": "POSCO홀딩스",
+            "close": 478000,
+            "change": -6.64,
+            "amount": 497310486750.0,
+            "amount_str": "4973억",
+            "market": "KOSPI",
+            "theme_name": "2차전지",
+            "sector_name": "2차전지/배터리",
+            "sector": {
+              "theme": "2차전지",
+              "sector": "2차전지/배터리"
+            }
+          },
+          "stocks": [
+            {
+              "ticker": "373220",
+              "name": "LG에너지솔루션",
+              "close": 443500,
+              "change": -5.24,
+              "amount": 216123555500.0,
+              "amount_str": "2161억",
+              "market": "KOSPI",
+              "theme_name": "2차전지",
+              "sector_name": "2차전지/배터리",
+              "sector": {
+                "theme": "2차전지",
+                "sector": "2차전지/배터리"
+              }
+            }
+          ]
+        },
+        {
           "theme": "2차전지(전고체)",
           "total_amount": 653932211500.0,
           "total_str": "6539억",
@@ -715,7 +753,7 @@
     }
   ],
   "date": "2026년 05월 12일",
-  "generated_at": "15:09 (업데이트)",
+  "generated_at": "15:13 (업데이트)",
   "top60": [
     {
       "ticker": "000660",
@@ -1040,10 +1078,10 @@
       "amount": 216123555500.0,
       "amount_str": "2161억",
       "market": "KOSPI",
-      "theme_name": "2차전지(생산)",
+      "theme_name": "2차전지",
       "sector_name": "2차전지/배터리",
       "sector": {
-        "theme": "2차전지(생산)",
+        "theme": "2차전지",
         "sector": "2차전지/배터리"
       }
     },
