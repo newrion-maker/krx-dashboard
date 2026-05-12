@@ -5,21 +5,21 @@
     "theme_amount": 31853303558292.0,
     "theme_str": "31.9조",
     "theme_ratio": 86.0,
-    "sector_count": 13,
-    "theme_count": 13,
+    "sector_count": 12,
+    "theme_count": 12,
     "top60_count": 60
   },
   "sectors": [
     {
       "sector": "시스템반도체",
-      "total_amount": 13030267506550.0,
-      "total_str": "13.0조",
+      "total_amount": 21112090659300.0,
+      "total_str": "21.1조",
       "themes": [
         {
           "theme": "시스템반도체",
-          "total_amount": 13030267506550.0,
-          "total_str": "13.0조",
-          "count": 3,
+          "total_amount": 21112090659300.0,
+          "total_str": "21.1조",
+          "count": 4,
           "champion": {
             "ticker": "000660",
             "name": "SK하이닉스",
@@ -36,6 +36,21 @@
             }
           },
           "stocks": [
+            {
+              "ticker": "005930",
+              "name": "삼성전자",
+              "close": 275000,
+              "change": -3.68,
+              "amount": 8081823152750.0,
+              "amount_str": "8.1조",
+              "market": "KOSPI",
+              "theme_name": "시스템반도체",
+              "sector_name": "시스템반도체",
+              "sector": {
+                "theme": "시스템반도체",
+                "sector": "시스템반도체"
+              }
+            },
             {
               "ticker": "042700",
               "name": "한미반도체",
@@ -67,35 +82,6 @@
               }
             }
           ]
-        }
-      ]
-    },
-    {
-      "sector": "IT 대표주",
-      "total_amount": 8081823152750.0,
-      "total_str": "8.1조",
-      "themes": [
-        {
-          "theme": "IT 대표주",
-          "total_amount": 8081823152750.0,
-          "total_str": "8.1조",
-          "count": 1,
-          "champion": {
-            "ticker": "005930",
-            "name": "삼성전자",
-            "close": 275000,
-            "change": -3.68,
-            "amount": 8081823152750.0,
-            "amount_str": "8.1조",
-            "market": "KOSPI",
-            "theme_name": "IT 대표주",
-            "sector_name": "IT 대표주",
-            "sector": {
-              "theme": "IT 대표주",
-              "sector": "IT 대표주"
-            }
-          },
-          "stocks": []
         }
       ]
     },
@@ -788,7 +774,7 @@
     }
   ],
   "date": "2026년 05월 12일",
-  "generated_at": "15:19 (업데이트)",
+  "generated_at": "15:24 (업데이트)",
   "top60": [
     {
       "ticker": "000660",
@@ -813,11 +799,11 @@
       "amount": 8081823152750.0,
       "amount_str": "8.1조",
       "market": "KOSPI",
-      "theme_name": "IT 대표주",
-      "sector_name": "IT 대표주",
+      "theme_name": "시스템반도체",
+      "sector_name": "시스템반도체",
       "sector": {
-        "theme": "IT 대표주",
-        "sector": "IT 대표주"
+        "theme": "시스템반도체",
+        "sector": "시스템반도체"
       }
     },
     {
