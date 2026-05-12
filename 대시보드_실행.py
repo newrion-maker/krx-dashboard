@@ -6,7 +6,7 @@ import time
 import os
 
 PORT = 8000
-HTML_FILE = "주도테마_지형도.html"
+HTML_FILE = "index.html"
 
 def start_server():
     Handler = http.server.SimpleHTTPRequestHandler
