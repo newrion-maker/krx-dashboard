@@ -138,15 +138,41 @@ def analyze_hierarchical(stocks, mapping):
                 "themes": sorted(final_themes, key=lambda x: -x["total_amount"])
             })
 
+    # --- 미분류/기타 종목 모으기 [NEW] ---
+    categorized_tickers = set()
+    for sec in final_sectors:
+        for t in sec["themes"]:
+            categorized_tickers.add(t["champion"]["ticker"])
+            for s in t["stocks"]:
+                categorized_tickers.add(s["ticker"])
+    
+    others = [s for s in stocks if s["ticker"] not in categorized_tickers]
+    if others:
+        sorted_others = sorted(others, key=lambda x: -x["amount"])
+        final_sectors.append({
+            "sector": "기타/미분류",
+            "total_amount": sum(s["amount"] for s in others),
+            "total_str": fmt_amount(sum(s["amount"] for s in others)),
+            "themes": [{
+                "theme": "미분류 종목",
+                "total_amount": sum(s["amount"] for s in others),
+                "total_str": fmt_amount(sum(s["amount"] for s in others)),
+                "count": len(others),
+                "champion": sorted_others[0],
+                "stocks": sorted_others[1:10] # 최대 10개까지만 표시
+            }]
+        })
+
     final_sectors = sorted(final_sectors, key=lambda x: -x["total_amount"])
-    theme_total_amt = sum(sec["total_amount"] for sec in final_sectors)
+    theme_total_amt = sum(sec["total_amount"] for sec in final_sectors if sec["sector"] != "기타/미분류")
 
     return {
         "summary": {
             "total_amount": total_market_amt, "total_str": fmt_amount(total_market_amt),
             "theme_amount": theme_total_amt, "theme_str": fmt_amount(theme_total_amt),
             "theme_ratio": round((theme_total_amt / total_market_amt * 100), 1) if total_market_amt > 0 else 0,
-            "sector_count": len(final_sectors), "theme_count": sum(len(s["themes"]) for s in final_sectors),
+            "sector_count": len([s for s in final_sectors if s["sector"] != "기타/미분류"]), 
+            "theme_count": sum(len(s["themes"]) for s in final_sectors if s["sector"] != "기타/미분류"),
             "top60_count": len(stocks)
         },
         "sectors": final_sectors
@@ -206,10 +232,12 @@ def main():
         "top60": stocks   # 대시보드 호환성 유지 (키 이름 유지)
     })
 
-    with open("market_data.json", "w", encoding="utf-8") as f:
-        json.dump(final_output, f, ensure_ascii=False, indent=2)
+    # 두 파일 모두 저장 (호환성 유지)
+    for filename in ["market_data.json", "data.json"]:
+        with open(filename, "w", encoding="utf-8") as f:
+            json.dump(final_output, f, ensure_ascii=False, indent=2)
 
-    print(f"market_data.json 저장 완료 (섹터 {len(final_output['sectors'])}개, KST {final_output['generated_at']})")
+    print(f"데이터 저장 완료: market_data.json, data.json (TOP{len(stocks)})")
 
 if __name__ == "__main__":
     main()

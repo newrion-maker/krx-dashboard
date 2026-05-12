@@ -35,10 +35,12 @@ def refresh():
         "top60": top60
     })
 
-    with open("market_data.json", "w", encoding="utf-8") as f:
-        json.dump(final_output, f, ensure_ascii=False, indent=2)
+    # 두 파일 모두 저장
+    for filename in ["market_data.json", "data.json"]:
+        with open(filename, "w", encoding="utf-8") as f:
+            json.dump(final_output, f, ensure_ascii=False, indent=2)
 
-    print(f"=== 완료! (KST {final_output['generated_at']}) ===")
+    print(f"=== 완료! (KST {final_output['generated_at']}, {len(top60)}종목) ===")
     print("대시보드를 새로고침(F5) 하세요!")
 
 if __name__ == "__main__":
