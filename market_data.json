@@ -6,7 +6,7 @@
     "theme_str": "34.0조",
     "theme_ratio": 91.7,
     "sector_count": 9,
-    "theme_count": 14,
+    "theme_count": 13,
     "top60_count": 60
   },
   "sectors": [
@@ -108,14 +108,14 @@
     },
     {
       "sector": "기타/미분류",
-      "total_amount": 5282638966027.0,
-      "total_str": "5.3조",
+      "total_amount": 5896145027777.0,
+      "total_str": "5.9조",
       "themes": [
         {
           "theme": "미분류 종목",
-          "total_amount": 5282638966027.0,
-          "total_str": "5.3조",
-          "count": 32,
+          "total_amount": 5896145027777.0,
+          "total_str": "5.9조",
+          "count": 34,
           "champion": {
             "ticker": "005935",
             "name": "삼성전자우",
@@ -145,6 +145,21 @@
               "sector": {
                 "theme": "증권",
                 "sector": "금융"
+              }
+            },
+            {
+              "ticker": "005490",
+              "name": "POSCO홀딩스",
+              "close": 478000,
+              "change": -6.64,
+              "amount": 497310486750.0,
+              "amount_str": "4973억",
+              "market": "KOSPI",
+              "theme_name": "2차전지",
+              "sector_name": "2차전지/배터리",
+              "sector": {
+                "theme": "2차전지",
+                "sector": "2차전지/배터리"
               }
             },
             {
@@ -251,21 +266,6 @@
                 "theme": "2차전지(생산)",
                 "sector": "2차전지/배터리"
               }
-            },
-            {
-              "ticker": "267260",
-              "name": "HD현대일렉트릭",
-              "close": 1307000,
-              "change": -4.04,
-              "amount": 215274421500.0,
-              "amount_str": "2152억",
-              "market": "KOSPI",
-              "theme_name": "전력설비",
-              "sector_name": "에너지/친환경",
-              "sector": {
-                "theme": "전력설비",
-                "sector": "에너지/친환경"
-              }
             }
           ]
         }
@@ -363,111 +363,6 @@
               "sector": {
                 "theme": "자동차부품",
                 "sector": "전기차/미래차"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "sector": "에너지/친환경",
-      "total_amount": 2095456424440.0,
-      "total_str": "2.1조",
-      "themes": [
-        {
-          "theme": "핵융합에너지",
-          "total_amount": 646675678150.0,
-          "total_str": "6466억",
-          "count": 1,
-          "champion": {
-            "ticker": "034020",
-            "name": "두산에너빌리티",
-            "close": 125300,
-            "change": -2.11,
-            "amount": 646675678150.0,
-            "amount_str": "6466억",
-            "market": "KOSPI",
-            "theme_name": "핵융합에너지",
-            "sector_name": "에너지/친환경",
-            "sector": {
-              "theme": "핵융합에너지",
-              "sector": "에너지/친환경"
-            }
-          },
-          "stocks": []
-        },
-        {
-          "theme": "LNG(액화천연가스)",
-          "total_amount": 613506061750.0,
-          "total_str": "6135억",
-          "count": 2,
-          "champion": {
-            "ticker": "005490",
-            "name": "POSCO홀딩스",
-            "close": 478000,
-            "change": -6.64,
-            "amount": 497310486750.0,
-            "amount_str": "4973억",
-            "market": "KOSPI",
-            "theme_name": "LNG(액화천연가스)",
-            "sector_name": "에너지/친환경",
-            "sector": {
-              "theme": "LNG(액화천연가스)",
-              "sector": "에너지/친환경"
-            }
-          },
-          "stocks": [
-            {
-              "ticker": "034730",
-              "name": "SK",
-              "close": 542000,
-              "change": -5.08,
-              "amount": 116195575000.0,
-              "amount_str": "1161억",
-              "market": "KOSPI",
-              "theme_name": "LNG(액화천연가스)",
-              "sector_name": "에너지/친환경",
-              "sector": {
-                "theme": "LNG(액화천연가스)",
-                "sector": "에너지/친환경"
-              }
-            }
-          ]
-        },
-        {
-          "theme": "전선",
-          "total_amount": 369873475540.0,
-          "total_str": "3698억",
-          "count": 2,
-          "champion": {
-            "ticker": "000500",
-            "name": "가온전선",
-            "close": 532000,
-            "change": 11.53,
-            "amount": 194079995000.0,
-            "amount_str": "1940억",
-            "market": "KOSDAQ",
-            "theme_name": "전선",
-            "sector_name": "에너지/친환경",
-            "sector": {
-              "theme": "전선",
-              "sector": "에너지/친환경"
-            }
-          },
-          "stocks": [
-            {
-              "ticker": "024840",
-              "name": "KBI메탈",
-              "close": 9370,
-              "change": -6.11,
-              "amount": 175793480540.0,
-              "amount_str": "1757억",
-              "market": "KOSDAQ",
-              "theme_name": "전선",
-              "sector_name": "에너지/친환경",
-              "sector": {
-                "theme": "전선",
-                "sector": "에너지/친환경"
               }
             }
           ]
@@ -602,6 +497,102 @@
       ]
     },
     {
+      "sector": "에너지/친환경",
+      "total_amount": 1598145937690.0,
+      "total_str": "1.6조",
+      "themes": [
+        {
+          "theme": "핵융합에너지",
+          "total_amount": 646675678150.0,
+          "total_str": "6466억",
+          "count": 1,
+          "champion": {
+            "ticker": "034020",
+            "name": "두산에너빌리티",
+            "close": 125300,
+            "change": -2.11,
+            "amount": 646675678150.0,
+            "amount_str": "6466억",
+            "market": "KOSPI",
+            "theme_name": "핵융합에너지",
+            "sector_name": "에너지/친환경",
+            "sector": {
+              "theme": "핵융합에너지",
+              "sector": "에너지/친환경"
+            }
+          },
+          "stocks": []
+        },
+        {
+          "theme": "전선",
+          "total_amount": 369873475540.0,
+          "total_str": "3698억",
+          "count": 2,
+          "champion": {
+            "ticker": "000500",
+            "name": "가온전선",
+            "close": 532000,
+            "change": 11.53,
+            "amount": 194079995000.0,
+            "amount_str": "1940억",
+            "market": "KOSDAQ",
+            "theme_name": "전선",
+            "sector_name": "에너지/친환경",
+            "sector": {
+              "theme": "전선",
+              "sector": "에너지/친환경"
+            }
+          },
+          "stocks": [
+            {
+              "ticker": "024840",
+              "name": "KBI메탈",
+              "close": 9370,
+              "change": -6.11,
+              "amount": 175793480540.0,
+              "amount_str": "1757억",
+              "market": "KOSDAQ",
+              "theme_name": "전선",
+              "sector_name": "에너지/친환경",
+              "sector": {
+                "theme": "전선",
+                "sector": "에너지/친환경"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sector": "2차전지/배터리",
+      "total_amount": 1367366253750.0,
+      "total_str": "1.4조",
+      "themes": [
+        {
+          "theme": "2차전지(전고체)",
+          "total_amount": 653932211500.0,
+          "total_str": "6539억",
+          "count": 1,
+          "champion": {
+            "ticker": "006400",
+            "name": "삼성SDI",
+            "close": 627000,
+            "change": -8.33,
+            "amount": 653932211500.0,
+            "amount_str": "6539억",
+            "market": "KOSPI",
+            "theme_name": "2차전지(전고체)",
+            "sector_name": "2차전지/배터리",
+            "sector": {
+              "theme": "2차전지(전고체)",
+              "sector": "2차전지/배터리"
+            }
+          },
+          "stocks": []
+        }
+      ]
+    },
+    {
       "sector": "조선/해운",
       "total_amount": 916031776650.0,
       "total_str": "9160억",
@@ -658,35 +649,6 @@
               }
             }
           ]
-        }
-      ]
-    },
-    {
-      "sector": "2차전지/배터리",
-      "total_amount": 870055767000.0,
-      "total_str": "8700억",
-      "themes": [
-        {
-          "theme": "2차전지(전고체)",
-          "total_amount": 653932211500.0,
-          "total_str": "6539억",
-          "count": 1,
-          "champion": {
-            "ticker": "006400",
-            "name": "삼성SDI",
-            "close": 627000,
-            "change": -8.33,
-            "amount": 653932211500.0,
-            "amount_str": "6539억",
-            "market": "KOSPI",
-            "theme_name": "2차전지(전고체)",
-            "sector_name": "2차전지/배터리",
-            "sector": {
-              "theme": "2차전지(전고체)",
-              "sector": "2차전지/배터리"
-            }
-          },
-          "stocks": []
         }
       ]
     },
@@ -767,7 +729,7 @@
     }
   ],
   "date": "2026년 05월 12일",
-  "generated_at": "14:58 (업데이트)",
+  "generated_at": "15:03 (업데이트)",
   "top60": [
     {
       "ticker": "000660",
@@ -957,11 +919,11 @@
       "amount": 497310486750.0,
       "amount_str": "4973억",
       "market": "KOSPI",
-      "theme_name": "LNG(액화천연가스)",
-      "sector_name": "에너지/친환경",
+      "theme_name": "2차전지",
+      "sector_name": "2차전지/배터리",
       "sector": {
-        "theme": "LNG(액화천연가스)",
-        "sector": "에너지/친환경"
+        "theme": "2차전지",
+        "sector": "2차전지/배터리"
       }
     },
     {
