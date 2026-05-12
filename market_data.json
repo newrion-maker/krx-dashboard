@@ -2,24 +2,24 @@
   "summary": {
     "total_amount": 37036014543819.0,
     "total_str": "37.0조",
-    "theme_amount": 33952544687909.0,
-    "theme_str": "34.0조",
-    "theme_ratio": 91.7,
-    "sector_count": 9,
-    "theme_count": 13,
+    "theme_amount": 33697346158161.0,
+    "theme_str": "33.7조",
+    "theme_ratio": 91.0,
+    "sector_count": 8,
+    "theme_count": 12,
     "top60_count": 60
   },
   "sectors": [
     {
-      "sector": "AI/로봇",
-      "total_amount": 12526090866248.0,
-      "total_str": "12.5조",
+      "sector": "반도체",
+      "total_amount": 21582465547795.0,
+      "total_str": "21.6조",
       "themes": [
         {
-          "theme": "온디바이스 AI",
-          "total_amount": 12270892336500.0,
-          "total_str": "12.3조",
-          "count": 1,
+          "theme": "시스템반도체",
+          "total_amount": 13030267506550.0,
+          "total_str": "13.0조",
+          "count": 3,
           "champion": {
             "ticker": "000660",
             "name": "SK하이닉스",
@@ -28,22 +28,46 @@
             "amount": 12270892336500.0,
             "amount_str": "12.3조",
             "market": "KOSPI",
-            "theme_name": "온디바이스 AI",
-            "sector_name": "AI/로봇",
+            "theme_name": "시스템반도체",
+            "sector_name": "반도체",
             "sector": {
-              "theme": "온디바이스 AI",
-              "sector": "AI/로봇"
+              "theme": "시스템반도체",
+              "sector": "반도체"
             }
           },
-          "stocks": []
-        }
-      ]
-    },
-    {
-      "sector": "반도체",
-      "total_amount": 9311573211295.0,
-      "total_str": "9.3조",
-      "themes": [
+          "stocks": [
+            {
+              "ticker": "042700",
+              "name": "한미반도체",
+              "close": 383500,
+              "change": -4.12,
+              "amount": 701666561750.0,
+              "amount_str": "7016억",
+              "market": "KOSPI",
+              "theme_name": "시스템반도체",
+              "sector_name": "반도체",
+              "sector": {
+                "theme": "시스템반도체",
+                "sector": "반도체"
+              }
+            },
+            {
+              "ticker": "131970",
+              "name": "두산테스나",
+              "close": 143800,
+              "change": -8.17,
+              "amount": 57708608300.0,
+              "amount_str": "577억",
+              "market": "KOSDAQ",
+              "theme_name": "시스템반도체",
+              "sector_name": "반도체",
+              "sector": {
+                "theme": "시스템반도체",
+                "sector": "반도체"
+              }
+            }
+          ]
+        },
         {
           "theme": "IT 대표주",
           "total_amount": 8081823152750.0,
@@ -65,44 +89,6 @@
             }
           },
           "stocks": []
-        },
-        {
-          "theme": "시스템반도체",
-          "total_amount": 759375170050.0,
-          "total_str": "7593억",
-          "count": 2,
-          "champion": {
-            "ticker": "042700",
-            "name": "한미반도체",
-            "close": 383500,
-            "change": -4.12,
-            "amount": 701666561750.0,
-            "amount_str": "7016억",
-            "market": "KOSPI",
-            "theme_name": "시스템반도체",
-            "sector_name": "반도체",
-            "sector": {
-              "theme": "시스템반도체",
-              "sector": "반도체"
-            }
-          },
-          "stocks": [
-            {
-              "ticker": "131970",
-              "name": "두산테스나",
-              "close": 143800,
-              "change": -8.17,
-              "amount": 57708608300.0,
-              "amount_str": "577억",
-              "market": "KOSDAQ",
-              "theme_name": "시스템반도체",
-              "sector_name": "반도체",
-              "sector": {
-                "theme": "시스템반도체",
-                "sector": "반도체"
-              }
-            }
-          ]
         }
       ]
     },
@@ -729,7 +715,7 @@
     }
   ],
   "date": "2026년 05월 12일",
-  "generated_at": "15:03 (업데이트)",
+  "generated_at": "15:08 (업데이트)",
   "top60": [
     {
       "ticker": "000660",
@@ -739,11 +725,11 @@
       "amount": 12270892336500.0,
       "amount_str": "12.3조",
       "market": "KOSPI",
-      "theme_name": "온디바이스 AI",
-      "sector_name": "AI/로봇",
+      "theme_name": "시스템반도체",
+      "sector_name": "반도체",
       "sector": {
-        "theme": "온디바이스 AI",
-        "sector": "AI/로봇"
+        "theme": "시스템반도체",
+        "sector": "반도체"
       }
     },
     {
