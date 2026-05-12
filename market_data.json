@@ -2,10 +2,10 @@
   "summary": {
     "total_amount": 37036014543819.0,
     "total_str": "37.0조",
-    "theme_amount": 33736421132409.0,
-    "theme_str": "33.7조",
-    "theme_ratio": 91.1,
-    "sector_count": 8,
+    "theme_amount": 33952544687909.0,
+    "theme_str": "34.0조",
+    "theme_ratio": 91.7,
+    "sector_count": 9,
     "theme_count": 14,
     "top60_count": 60
   },
@@ -370,57 +370,6 @@
       ]
     },
     {
-      "sector": "디스플레이/IT부품",
-      "total_amount": 2339567686150.0,
-      "total_str": "2.3조",
-      "themes": [
-        {
-          "theme": "무선충전기술",
-          "total_amount": 1591267422500.0,
-          "total_str": "1.6조",
-          "count": 1,
-          "champion": {
-            "ticker": "009150",
-            "name": "삼성전기",
-            "close": 945000,
-            "change": 5.0,
-            "amount": 1591267422500.0,
-            "amount_str": "1.6조",
-            "market": "KOSPI",
-            "theme_name": "무선충전기술",
-            "sector_name": "디스플레이/IT부품",
-            "sector": {
-              "theme": "무선충전기술",
-              "sector": "디스플레이/IT부품"
-            }
-          },
-          "stocks": []
-        },
-        {
-          "theme": "아이폰",
-          "total_amount": 653932211500.0,
-          "total_str": "6539억",
-          "count": 1,
-          "champion": {
-            "ticker": "006400",
-            "name": "삼성SDI",
-            "close": 627000,
-            "change": -8.33,
-            "amount": 653932211500.0,
-            "amount_str": "6539억",
-            "market": "KOSPI",
-            "theme_name": "아이폰",
-            "sector_name": "디스플레이/IT부품",
-            "sector": {
-              "theme": "아이폰",
-              "sector": "디스플레이/IT부품"
-            }
-          },
-          "stocks": []
-        }
-      ]
-    },
-    {
       "sector": "에너지/친환경",
       "total_amount": 2095456424440.0,
       "total_str": "2.1조",
@@ -624,6 +573,35 @@
       ]
     },
     {
+      "sector": "디스플레이/IT부품",
+      "total_amount": 1685635474650.0,
+      "total_str": "1.7조",
+      "themes": [
+        {
+          "theme": "무선충전기술",
+          "total_amount": 1591267422500.0,
+          "total_str": "1.6조",
+          "count": 1,
+          "champion": {
+            "ticker": "009150",
+            "name": "삼성전기",
+            "close": 945000,
+            "change": 5.0,
+            "amount": 1591267422500.0,
+            "amount_str": "1.6조",
+            "market": "KOSPI",
+            "theme_name": "무선충전기술",
+            "sector_name": "디스플레이/IT부품",
+            "sector": {
+              "theme": "무선충전기술",
+              "sector": "디스플레이/IT부품"
+            }
+          },
+          "stocks": []
+        }
+      ]
+    },
+    {
       "sector": "조선/해운",
       "total_amount": 916031776650.0,
       "total_str": "9160억",
@@ -680,6 +658,35 @@
               }
             }
           ]
+        }
+      ]
+    },
+    {
+      "sector": "2차전지/배터리",
+      "total_amount": 870055767000.0,
+      "total_str": "8700억",
+      "themes": [
+        {
+          "theme": "2차전지(전고체)",
+          "total_amount": 653932211500.0,
+          "total_str": "6539억",
+          "count": 1,
+          "champion": {
+            "ticker": "006400",
+            "name": "삼성SDI",
+            "close": 627000,
+            "change": -8.33,
+            "amount": 653932211500.0,
+            "amount_str": "6539억",
+            "market": "KOSPI",
+            "theme_name": "2차전지(전고체)",
+            "sector_name": "2차전지/배터리",
+            "sector": {
+              "theme": "2차전지(전고체)",
+              "sector": "2차전지/배터리"
+            }
+          },
+          "stocks": []
         }
       ]
     },
@@ -760,7 +767,7 @@
     }
   ],
   "date": "2026년 05월 12일",
-  "generated_at": "14:48 (업데이트)",
+  "generated_at": "14:58 (업데이트)",
   "top60": [
     {
       "ticker": "000660",
@@ -875,11 +882,11 @@
       "amount": 653932211500.0,
       "amount_str": "6539억",
       "market": "KOSPI",
-      "theme_name": "아이폰",
-      "sector_name": "디스플레이/IT부품",
+      "theme_name": "2차전지(전고체)",
+      "sector_name": "2차전지/배터리",
       "sector": {
-        "theme": "아이폰",
-        "sector": "디스플레이/IT부품"
+        "theme": "2차전지(전고체)",
+        "sector": "2차전지/배터리"
       }
     },
     {
