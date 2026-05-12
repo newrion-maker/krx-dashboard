@@ -2,11 +2,11 @@
   "summary": {
     "total_amount": 37036014543819.0,
     "total_str": "37.0조",
-    "theme_amount": 31853303558292.0,
-    "theme_str": "31.9조",
-    "theme_ratio": 86.0,
-    "sector_count": 12,
-    "theme_count": 12,
+    "theme_amount": 32501533854792.0,
+    "theme_str": "32.5조",
+    "theme_ratio": 87.8,
+    "sector_count": 13,
+    "theme_count": 13,
     "top60_count": 60
   },
   "sectors": [
@@ -87,14 +87,14 @@
     },
     {
       "sector": "기타/미분류",
-      "total_amount": 5182710985527.0,
-      "total_str": "5.2조",
+      "total_amount": 4534480689027.0,
+      "total_str": "4.5조",
       "themes": [
         {
           "theme": "미분류 종목",
-          "total_amount": 5182710985527.0,
-          "total_str": "5.2조",
-          "count": 32,
+          "total_amount": 4534480689027.0,
+          "total_str": "4.5조",
+          "count": 30,
           "champion": {
             "ticker": "005935",
             "name": "삼성전자우",
@@ -124,21 +124,6 @@
               "sector": {
                 "theme": "증권",
                 "sector": "증권"
-              }
-            },
-            {
-              "ticker": "010120",
-              "name": "LS ELECTRIC",
-              "close": 287500,
-              "change": -5.43,
-              "amount": 432955875000.0,
-              "amount_str": "4329억",
-              "market": "KOSPI",
-              "theme_name": "초전도체",
-              "sector_name": "초전도체",
-              "sector": {
-                "theme": "초전도체",
-                "sector": "초전도체"
               }
             },
             {
@@ -217,21 +202,6 @@
               }
             },
             {
-              "ticker": "267260",
-              "name": "HD현대일렉트릭",
-              "close": 1307000,
-              "change": -4.04,
-              "amount": 215274421500.0,
-              "amount_str": "2152억",
-              "market": "KOSPI",
-              "theme_name": "전력설비",
-              "sector_name": "전력설비",
-              "sector": {
-                "theme": "전력설비",
-                "sector": "전력설비"
-              }
-            },
-            {
               "ticker": "012450",
               "name": "한화에어로스페이스",
               "close": 1290000,
@@ -244,6 +214,36 @@
               "sector": {
                 "theme": "UAM(도심항공모빌리티)",
                 "sector": "UAM(도심항공모빌리티)"
+              }
+            },
+            {
+              "ticker": "035420",
+              "name": "NAVER",
+              "close": 204250,
+              "change": -3.43,
+              "amount": 149037915000.0,
+              "amount_str": "1490억",
+              "market": "KOSPI",
+              "theme_name": "인터넷 대표주",
+              "sector_name": "인터넷 대표주",
+              "sector": {
+                "theme": "인터넷 대표주",
+                "sector": "인터넷 대표주"
+              }
+            },
+            {
+              "ticker": "034730",
+              "name": "SK",
+              "close": 542000,
+              "change": -5.08,
+              "amount": 116195575000.0,
+              "amount_str": "1161억",
+              "market": "KOSPI",
+              "theme_name": "LNG(액화천연가스)",
+              "sector_name": "LNG(액화천연가스)",
+              "sector": {
+                "theme": "LNG(액화천연가스)",
+                "sector": "LNG(액화천연가스)"
               }
             }
           ]
@@ -519,6 +519,51 @@
       ]
     },
     {
+      "sector": "전력설비",
+      "total_amount": 648230296500.0,
+      "total_str": "6482억",
+      "themes": [
+        {
+          "theme": "전력설비",
+          "total_amount": 648230296500.0,
+          "total_str": "6482억",
+          "count": 2,
+          "champion": {
+            "ticker": "010120",
+            "name": "LS ELECTRIC",
+            "close": 287500,
+            "change": -5.43,
+            "amount": 432955875000.0,
+            "amount_str": "4329억",
+            "market": "KOSPI",
+            "theme_name": "전력설비",
+            "sector_name": "전력설비",
+            "sector": {
+              "theme": "전력설비",
+              "sector": "전력설비"
+            }
+          },
+          "stocks": [
+            {
+              "ticker": "267260",
+              "name": "HD현대일렉트릭",
+              "close": 1307000,
+              "change": -4.04,
+              "amount": 215274421500.0,
+              "amount_str": "2152억",
+              "market": "KOSPI",
+              "theme_name": "전력설비",
+              "sector_name": "전력설비",
+              "sector": {
+                "theme": "전력설비",
+                "sector": "전력설비"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
       "sector": "핵융합에너지",
       "total_amount": 646675678150.0,
       "total_str": "6466억",
@@ -774,7 +819,7 @@
     }
   ],
   "date": "2026년 05월 12일",
-  "generated_at": "15:24 (업데이트)",
+  "generated_at": "15:26 (업데이트)",
   "top60": [
     {
       "ticker": "000660",
@@ -979,11 +1024,11 @@
       "amount": 432955875000.0,
       "amount_str": "4329억",
       "market": "KOSPI",
-      "theme_name": "초전도체",
-      "sector_name": "초전도체",
+      "theme_name": "전력설비",
+      "sector_name": "전력설비",
       "sector": {
-        "theme": "초전도체",
-        "sector": "초전도체"
+        "theme": "전력설비",
+        "sector": "전력설비"
       }
     },
     {
