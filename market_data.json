@@ -1,32 +1,32 @@
 {
   "summary": {
-    "total_amount": 15474363160466.0,
-    "total_str": "15.5조",
-    "theme_amount": 12955530923848.0,
-    "theme_str": "13.0조",
-    "theme_ratio": 83.7,
-    "sector_count": 14,
-    "theme_count": 14,
+    "total_amount": 9585970809115.0,
+    "total_str": "9.6조",
+    "theme_amount": 7989298302036.0,
+    "theme_str": "8.0조",
+    "theme_ratio": 83.3,
+    "sector_count": 12,
+    "theme_count": 12,
     "top60_count": 60
   },
   "sectors": [
     {
       "sector": "시스템반도체",
-      "total_amount": 9612276532750.0,
-      "total_str": "9.6조",
+      "total_amount": 5527385600250.0,
+      "total_str": "5.5조",
       "themes": [
         {
           "theme": "시스템반도체",
-          "total_amount": 9612276532750.0,
-          "total_str": "9.6조",
+          "total_amount": 5527385600250.0,
+          "total_str": "5.5조",
           "count": 2,
           "champion": {
             "ticker": "000660",
             "name": "SK하이닉스",
-            "close": 1269000,
-            "change": 0.55,
-            "amount": 5719038186000.0,
-            "amount_str": "5.7조",
+            "close": 1262000,
+            "change": -0.79,
+            "amount": 3126664640500.0,
+            "amount_str": "3.1조",
             "market": "KOSPI",
             "theme_name": "시스템반도체",
             "sector_name": "시스템반도체",
@@ -39,10 +39,10 @@
             {
               "ticker": "005930",
               "name": "삼성전자",
-              "close": 216000,
-              "change": 2.86,
-              "amount": 3893238346750.0,
-              "amount_str": "3.9조",
+              "close": 216500,
+              "change": 0.46,
+              "amount": 2400720959750.0,
+              "amount_str": "2.4조",
               "market": "KOSPI",
               "theme_name": "시스템반도체",
               "sector_name": "시스템반도체",
@@ -57,21 +57,21 @@
     },
     {
       "sector": "기타/미분류",
-      "total_amount": 2518832236618.0,
-      "total_str": "2.5조",
+      "total_amount": 1596672507079.0,
+      "total_str": "1.6조",
       "themes": [
         {
           "theme": "미분류 종목",
-          "total_amount": 2518832236618.0,
-          "total_str": "2.5조",
-          "count": 31,
+          "total_amount": 1596672507079.0,
+          "total_str": "1.6조",
+          "count": 35,
           "champion": {
             "ticker": "005935",
             "name": "삼성전자우",
-            "close": 168300,
-            "change": 5.78,
-            "amount": 717319437150.0,
-            "amount_str": "7173억",
+            "close": 170500,
+            "change": 1.97,
+            "amount": 515728717550.0,
+            "amount_str": "5157억",
             "market": "KOSPI",
             "theme_name": "기타",
             "sector_name": "기타",
@@ -82,87 +82,42 @@
           },
           "stocks": [
             {
-              "ticker": "012450",
-              "name": "한화에어로스페이스",
-              "close": 897000,
-              "change": 8.86,
-              "amount": 197585551500.0,
-              "amount_str": "1975억",
-              "market": "KOSPI",
-              "theme_name": "방위산업/전쟁 및 테러",
-              "sector_name": "방위산업/전쟁 및 테러",
+              "ticker": "462330",
+              "name": "KODEX 2차전지산업레버리지",
+              "close": 1153,
+              "change": 14.05,
+              "amount": 155453144238.0,
+              "amount_str": "1554억",
+              "market": "KOSDAQ",
+              "theme_name": "기타",
+              "sector_name": "기타",
               "sector": {
-                "theme": "방위산업/전쟁 및 테러",
-                "sector": "방위산업/전쟁 및 테러"
+                "theme": "기타",
+                "sector": "기타"
               }
             },
             {
-              "ticker": "034020",
-              "name": "두산에너빌리티",
-              "close": 64400,
-              "change": 1.74,
-              "amount": 146559860150.0,
-              "amount_str": "1465억",
-              "market": "KOSPI",
-              "theme_name": "원자력발전소 해체",
-              "sector_name": "원자력발전소 해체",
+              "ticker": "010580",
+              "name": "에스엠벡셀",
+              "close": 4040,
+              "change": 29.9,
+              "amount": 99444012487.0,
+              "amount_str": "994억",
+              "market": "KOSDAQ",
+              "theme_name": "자동차부품",
+              "sector_name": "자동차부품",
               "sector": {
-                "theme": "원자력발전소 해체",
-                "sector": "원자력발전소 해체"
-              }
-            },
-            {
-              "ticker": "105560",
-              "name": "KB금융",
-              "close": 160400,
-              "change": 2.36,
-              "amount": 142162241200.0,
-              "amount_str": "1421억",
-              "market": "KOSPI",
-              "theme_name": "인터넷은행",
-              "sector_name": "인터넷은행",
-              "sector": {
-                "theme": "인터넷은행",
-                "sector": "인터넷은행"
-              }
-            },
-            {
-              "ticker": "028260",
-              "name": "삼성물산",
-              "close": 284000,
-              "change": 6.17,
-              "amount": 137782997750.0,
-              "amount_str": "1377억",
-              "market": "KOSPI",
-              "theme_name": "원전",
-              "sector_name": "원전",
-              "sector": {
-                "theme": "원전",
-                "sector": "원전"
-              }
-            },
-            {
-              "ticker": "035420",
-              "name": "NAVER",
-              "close": 180000,
-              "change": 3.69,
-              "amount": 120154865400.0,
-              "amount_str": "1201억",
-              "market": "KOSPI",
-              "theme_name": "AI 챗봇(챗GPT 등)",
-              "sector_name": "AI 챗봇(챗GPT 등)",
-              "sector": {
-                "theme": "AI 챗봇(챗GPT 등)",
-                "sector": "AI 챗봇(챗GPT 등)"
+                "theme": "자동차부품",
+                "sector": "자동차부품"
               }
             },
             {
               "ticker": "066570",
               "name": "LG전자",
-              "close": 170200,
-              "change": 0.95,
-              "amount": 114955045200.0,
-              "amount_str": "1149억",
+              "close": 169700,
+              "change": 0.0,
+              "amount": 88203752300.0,
+              "amount_str": "882억",
               "market": "KOSPI",
               "theme_name": "지능형로봇/인공지능(AI)",
               "sector_name": "지능형로봇/인공지능(AI)",
@@ -172,12 +127,57 @@
               }
             },
             {
+              "ticker": "034020",
+              "name": "두산에너빌리티",
+              "close": 65800,
+              "change": 1.86,
+              "amount": 80469610650.0,
+              "amount_str": "804억",
+              "market": "KOSPI",
+              "theme_name": "원자력발전소 해체",
+              "sector_name": "원자력발전소 해체",
+              "sector": {
+                "theme": "원자력발전소 해체",
+                "sector": "원자력발전소 해체"
+              }
+            },
+            {
+              "ticker": "329180",
+              "name": "HD현대중공업",
+              "close": 338000,
+              "change": -3.84,
+              "amount": 74363711000.0,
+              "amount_str": "743억",
+              "market": "KOSPI",
+              "theme_name": "2021 하반기 신규상장",
+              "sector_name": "2021 하반기 신규상장",
+              "sector": {
+                "theme": "2021 하반기 신규상장",
+                "sector": "2021 하반기 신규상장"
+              }
+            },
+            {
+              "ticker": "105560",
+              "name": "KB금융",
+              "close": 162500,
+              "change": 1.56,
+              "amount": 61105651050.0,
+              "amount_str": "611억",
+              "market": "KOSPI",
+              "theme_name": "인터넷은행",
+              "sector_name": "인터넷은행",
+              "sector": {
+                "theme": "인터넷은행",
+                "sector": "인터넷은행"
+              }
+            },
+            {
               "ticker": "010120",
               "name": "LS ELECTRIC",
-              "close": 158400,
-              "change": 1.73,
-              "amount": 107811385650.0,
-              "amount_str": "1078억",
+              "close": 162500,
+              "change": 2.46,
+              "amount": 57645033600.0,
+              "amount_str": "576억",
               "market": "KOSPI",
               "theme_name": "전력설비",
               "sector_name": "전력설비",
@@ -187,33 +187,33 @@
               }
             },
             {
-              "ticker": "086790",
-              "name": "하나금융지주",
-              "close": 122700,
-              "change": 0.25,
-              "amount": 106718818450.0,
-              "amount_str": "1067억",
-              "market": "KOSPI",
-              "theme_name": "토스(toss)",
-              "sector_name": "토스(toss)",
-              "sector": {
-                "theme": "토스(toss)",
-                "sector": "토스(toss)"
-              }
-            },
-            {
               "ticker": "012330",
               "name": "현대모비스",
-              "close": 353000,
-              "change": 4.59,
-              "amount": 105433539000.0,
-              "amount_str": "1054억",
+              "close": 367000,
+              "change": 4.11,
+              "amount": 55969494000.0,
+              "amount_str": "559억",
               "market": "KOSPI",
               "theme_name": "음성인식",
               "sector_name": "음성인식",
               "sector": {
                 "theme": "음성인식",
                 "sector": "음성인식"
+              }
+            },
+            {
+              "ticker": "028260",
+              "name": "삼성물산",
+              "close": 281500,
+              "change": -1.75,
+              "amount": 54307485250.0,
+              "amount_str": "543억",
+              "market": "KOSPI",
+              "theme_name": "원전",
+              "sector_name": "원전",
+              "sector": {
+                "theme": "원전",
+                "sector": "원전"
               }
             }
           ]
@@ -222,21 +222,21 @@
     },
     {
       "sector": "MLCC(적층세라믹콘덴서)",
-      "total_amount": 836046187000.0,
-      "total_str": "8360억",
+      "total_amount": 694079729000.0,
+      "total_str": "6940억",
       "themes": [
         {
           "theme": "MLCC(적층세라믹콘덴서)",
-          "total_amount": 836046187000.0,
-          "total_str": "8360억",
+          "total_amount": 694079729000.0,
+          "total_str": "6940억",
           "count": 1,
           "champion": {
             "ticker": "009150",
             "name": "삼성전기",
-            "close": 1184000,
-            "change": 1.81,
-            "amount": 836046187000.0,
-            "amount_str": "8360억",
+            "close": 1160000,
+            "change": -2.36,
+            "amount": 694079729000.0,
+            "amount_str": "6940억",
             "market": "KOSPI",
             "theme_name": "MLCC(적층세라믹콘덴서)",
             "sector_name": "MLCC(적층세라믹콘덴서)",
@@ -250,112 +250,22 @@
       ]
     },
     {
-      "sector": "모바일콘텐츠(스마트폰/태블릿PC)",
-      "total_amount": 418316321422.0,
-      "total_str": "4183억",
-      "themes": [
-        {
-          "theme": "모바일콘텐츠(스마트폰/태블릿PC)",
-          "total_amount": 418316321422.0,
-          "total_str": "4183억",
-          "count": 2,
-          "champion": {
-            "ticker": "402340",
-            "name": "SK스퀘어",
-            "close": 779000,
-            "change": 1.83,
-            "amount": 417868868500.0,
-            "amount_str": "4178억",
-            "market": "KOSPI",
-            "theme_name": "모바일콘텐츠(스마트폰/태블릿PC)",
-            "sector_name": "모바일콘텐츠(스마트폰/태블릿PC)",
-            "sector": {
-              "theme": "모바일콘텐츠(스마트폰/태블릿PC)",
-              "sector": "모바일콘텐츠(스마트폰/태블릿PC)"
-            }
-          },
-          "stocks": [
-            {
-              "ticker": "289220",
-              "name": "자이언트스텝",
-              "close": 1021,
-              "change": 29.9,
-              "amount": 447452922.0,
-              "amount_str": "4억",
-              "market": "KOSDAQ",
-              "theme_name": "모바일콘텐츠(스마트폰/태블릿PC)",
-              "sector_name": "모바일콘텐츠(스마트폰/태블릿PC)",
-              "sector": {
-                "theme": "모바일콘텐츠(스마트폰/태블릿PC)",
-                "sector": "모바일콘텐츠(스마트폰/태블릿PC)"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "sector": "K-뉴딜지수",
-      "total_amount": 418314274450.0,
-      "total_str": "4183억",
-      "themes": [
-        {
-          "theme": "K-뉴딜지수",
-          "total_amount": 418314274450.0,
-          "total_str": "4183억",
-          "count": 2,
-          "champion": {
-            "ticker": "068270",
-            "name": "셀트리온",
-            "close": 194100,
-            "change": 6.59,
-            "amount": 213535715950.0,
-            "amount_str": "2135억",
-            "market": "KOSPI",
-            "theme_name": "K-뉴딜지수",
-            "sector_name": "K-뉴딜지수",
-            "sector": {
-              "theme": "K-뉴딜지수",
-              "sector": "K-뉴딜지수"
-            }
-          },
-          "stocks": [
-            {
-              "ticker": "207940",
-              "name": "삼성바이오로직스",
-              "close": 1290000,
-              "change": 3.45,
-              "amount": 204778558500.0,
-              "amount_str": "2047억",
-              "market": "KOSPI",
-              "theme_name": "K-뉴딜지수",
-              "sector_name": "K-뉴딜지수",
-              "sector": {
-                "theme": "K-뉴딜지수",
-                "sector": "K-뉴딜지수"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
       "sector": "2차전지(전고체)",
-      "total_amount": 386097748900.0,
-      "total_str": "3860억",
+      "total_amount": 547760549050.0,
+      "total_str": "5477억",
       "themes": [
         {
           "theme": "2차전지(전고체)",
-          "total_amount": 386097748900.0,
-          "total_str": "3860억",
-          "count": 2,
+          "total_amount": 547760549050.0,
+          "total_str": "5477억",
+          "count": 3,
           "champion": {
             "ticker": "006400",
             "name": "삼성SDI",
-            "close": 530000,
-            "change": -1.85,
-            "amount": 280637718500.0,
-            "amount_str": "2806억",
+            "close": 588000,
+            "change": 10.94,
+            "amount": 427889481500.0,
+            "amount_str": "4278억",
             "market": "KOSPI",
             "theme_name": "2차전지(전고체)",
             "sector_name": "2차전지(전고체)",
@@ -368,11 +278,26 @@
             {
               "ticker": "096770",
               "name": "SK이노베이션",
-              "close": 151500,
-              "change": -2.26,
-              "amount": 105460030400.0,
-              "amount_str": "1054억",
+              "close": 161000,
+              "change": 5.92,
+              "amount": 83996005850.0,
+              "amount_str": "839억",
               "market": "KOSPI",
+              "theme_name": "2차전지(전고체)",
+              "sector_name": "2차전지(전고체)",
+              "sector": {
+                "theme": "2차전지(전고체)",
+                "sector": "2차전지(전고체)"
+              }
+            },
+            {
+              "ticker": "020150",
+              "name": "롯데에너지머티리얼즈",
+              "close": 57300,
+              "change": 15.99,
+              "amount": 35875061700.0,
+              "amount_str": "358억",
+              "market": "KOSDAQ",
               "theme_name": "2차전지(전고체)",
               "sector_name": "2차전지(전고체)",
               "sector": {
@@ -385,140 +310,22 @@
       ]
     },
     {
-      "sector": "2022 상반기 신규상장",
-      "total_amount": 269330105170.0,
-      "total_str": "2693억",
-      "themes": [
-        {
-          "theme": "2022 상반기 신규상장",
-          "total_amount": 269330105170.0,
-          "total_str": "2693억",
-          "count": 1,
-          "champion": {
-            "ticker": "396300",
-            "name": "HT로보틱스",
-            "close": 8850,
-            "change": 23.78,
-            "amount": 269330105170.0,
-            "amount_str": "2693억",
-            "market": "KOSDAQ",
-            "theme_name": "2022 상반기 신규상장",
-            "sector_name": "2022 상반기 신규상장",
-            "sector": {
-              "theme": "2022 상반기 신규상장",
-              "sector": "2022 상반기 신규상장"
-            }
-          },
-          "stocks": []
-        }
-      ]
-    },
-    {
-      "sector": "메타버스(Metaverse)",
-      "total_amount": 252602268000.0,
-      "total_str": "2526억",
-      "themes": [
-        {
-          "theme": "메타버스(Metaverse)",
-          "total_amount": 252602268000.0,
-          "total_str": "2526억",
-          "count": 1,
-          "champion": {
-            "ticker": "005380",
-            "name": "현대차",
-            "close": 313000,
-            "change": 5.92,
-            "amount": 252602268000.0,
-            "amount_str": "2526억",
-            "market": "KOSPI",
-            "theme_name": "메타버스(Metaverse)",
-            "sector_name": "메타버스(Metaverse)",
-            "sector": {
-              "theme": "메타버스(Metaverse)",
-              "sector": "메타버스(Metaverse)"
-            }
-          },
-          "stocks": []
-        }
-      ]
-    },
-    {
-      "sector": "지주사",
-      "total_amount": 235398329725.0,
-      "total_str": "2353억",
-      "themes": [
-        {
-          "theme": "지주사",
-          "total_amount": 235398329725.0,
-          "total_str": "2353억",
-          "count": 3,
-          "champion": {
-            "ticker": "055550",
-            "name": "신한지주",
-            "close": 93600,
-            "change": -0.64,
-            "amount": 124293000050.0,
-            "amount_str": "1242억",
-            "market": "KOSPI",
-            "theme_name": "지주사",
-            "sector_name": "지주사",
-            "sector": {
-              "theme": "지주사",
-              "sector": "지주사"
-            }
-          },
-          "stocks": [
-            {
-              "ticker": "316140",
-              "name": "우리금융지주",
-              "close": 31450,
-              "change": 0.96,
-              "amount": 67732084925.0,
-              "amount_str": "677억",
-              "market": "KOSPI",
-              "theme_name": "지주사",
-              "sector_name": "지주사",
-              "sector": {
-                "theme": "지주사",
-                "sector": "지주사"
-              }
-            },
-            {
-              "ticker": "138040",
-              "name": "메리츠금융지주",
-              "close": 129900,
-              "change": -0.61,
-              "amount": 43373244750.0,
-              "amount_str": "433억",
-              "market": "KOSPI",
-              "theme_name": "지주사",
-              "sector_name": "지주사",
-              "sector": {
-                "theme": "지주사",
-                "sector": "지주사"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
       "sector": "2차전지",
-      "total_amount": 224167451500.0,
-      "total_str": "2241억",
+      "total_amount": 252515737750.0,
+      "total_str": "2525억",
       "themes": [
         {
           "theme": "2차전지",
-          "total_amount": 224167451500.0,
-          "total_str": "2241억",
+          "total_amount": 252515737750.0,
+          "total_str": "2525억",
           "count": 2,
           "champion": {
             "ticker": "373220",
             "name": "LG에너지솔루션",
-            "close": 402500,
-            "change": 0.0,
-            "amount": 148392083000.0,
-            "amount_str": "1483억",
+            "close": 428000,
+            "change": 6.2,
+            "amount": 201791758000.0,
+            "amount_str": "2017억",
             "market": "KOSPI",
             "theme_name": "2차전지",
             "sector_name": "2차전지",
@@ -531,10 +338,10 @@
             {
               "ticker": "005490",
               "name": "POSCO홀딩스",
-              "close": 296000,
-              "change": 1.37,
-              "amount": 75775368500.0,
-              "amount_str": "757억",
+              "close": 312000,
+              "change": 5.23,
+              "amount": 50723979750.0,
+              "amount_str": "507억",
               "market": "KOSPI",
               "theme_name": "2차전지",
               "sector_name": "2차전지",
@@ -548,22 +355,305 @@
       ]
     },
     {
+      "sector": "모바일콘텐츠(스마트폰/태블릿PC)",
+      "total_amount": 232728026500.0,
+      "total_str": "2327억",
+      "themes": [
+        {
+          "theme": "모바일콘텐츠(스마트폰/태블릿PC)",
+          "total_amount": 232728026500.0,
+          "total_str": "2327억",
+          "count": 1,
+          "champion": {
+            "ticker": "402340",
+            "name": "SK스퀘어",
+            "close": 759000,
+            "change": -3.19,
+            "amount": 232728026500.0,
+            "amount_str": "2327억",
+            "market": "KOSPI",
+            "theme_name": "모바일콘텐츠(스마트폰/태블릿PC)",
+            "sector_name": "모바일콘텐츠(스마트폰/태블릿PC)",
+            "sector": {
+              "theme": "모바일콘텐츠(스마트폰/태블릿PC)",
+              "sector": "모바일콘텐츠(스마트폰/태블릿PC)"
+            }
+          },
+          "stocks": []
+        }
+      ]
+    },
+    {
+      "sector": "K-뉴딜지수",
+      "total_amount": 202088498300.0,
+      "total_str": "2020억",
+      "themes": [
+        {
+          "theme": "K-뉴딜지수",
+          "total_amount": 202088498300.0,
+          "total_str": "2020억",
+          "count": 2,
+          "champion": {
+            "ticker": "207940",
+            "name": "삼성바이오로직스",
+            "close": 1407000,
+            "change": 8.4,
+            "amount": 129117635500.0,
+            "amount_str": "1291억",
+            "market": "KOSPI",
+            "theme_name": "K-뉴딜지수",
+            "sector_name": "K-뉴딜지수",
+            "sector": {
+              "theme": "K-뉴딜지수",
+              "sector": "K-뉴딜지수"
+            }
+          },
+          "stocks": [
+            {
+              "ticker": "068270",
+              "name": "셀트리온",
+              "close": 195200,
+              "change": 0.62,
+              "amount": 72970862800.0,
+              "amount_str": "729억",
+              "market": "KOSPI",
+              "theme_name": "K-뉴딜지수",
+              "sector_name": "K-뉴딜지수",
+              "sector": {
+                "theme": "K-뉴딜지수",
+                "sector": "K-뉴딜지수"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sector": "2차전지(소재/부품)",
+      "total_amount": 136157856288.0,
+      "total_str": "1361억",
+      "themes": [
+        {
+          "theme": "2차전지(소재/부품)",
+          "total_amount": 136157856288.0,
+          "total_str": "1361억",
+          "count": 4,
+          "champion": {
+            "ticker": "419050",
+            "name": "삼기에너지솔루션즈",
+            "close": 2560,
+            "change": 19.35,
+            "amount": 97034194098.0,
+            "amount_str": "970억",
+            "market": "KOSDAQ",
+            "theme_name": "2차전지(소재/부품)",
+            "sector_name": "2차전지(소재/부품)",
+            "sector": {
+              "theme": "2차전지(소재/부품)",
+              "sector": "2차전지(소재/부품)"
+            }
+          },
+          "stocks": [
+            {
+              "ticker": "354320",
+              "name": "알멕",
+              "close": 62200,
+              "change": 20.08,
+              "amount": 22789078200.0,
+              "amount_str": "227억",
+              "market": "KOSDAQ",
+              "theme_name": "2차전지(소재/부품)",
+              "sector_name": "2차전지(소재/부품)",
+              "sector": {
+                "theme": "2차전지(소재/부품)",
+                "sector": "2차전지(소재/부품)"
+              }
+            },
+            {
+              "ticker": "091580",
+              "name": "상신이디피",
+              "close": 26200,
+              "change": 11.97,
+              "amount": 11999607425.0,
+              "amount_str": "119억",
+              "market": "KOSDAQ",
+              "theme_name": "2차전지(소재/부품)",
+              "sector_name": "2차전지(소재/부품)",
+              "sector": {
+                "theme": "2차전지(소재/부품)",
+                "sector": "2차전지(소재/부품)"
+              }
+            },
+            {
+              "ticker": "393890",
+              "name": "더블유씨피",
+              "close": 10890,
+              "change": 15.73,
+              "amount": 4334976565.0,
+              "amount_str": "43억",
+              "market": "KOSDAQ",
+              "theme_name": "2차전지(소재/부품)",
+              "sector_name": "2차전지(소재/부품)",
+              "sector": {
+                "theme": "2차전지(소재/부품)",
+                "sector": "2차전지(소재/부품)"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sector": "메타버스(Metaverse)",
+      "total_amount": 128378071750.0,
+      "total_str": "1283억",
+      "themes": [
+        {
+          "theme": "메타버스(Metaverse)",
+          "total_amount": 128378071750.0,
+          "total_str": "1283억",
+          "count": 1,
+          "champion": {
+            "ticker": "005380",
+            "name": "현대차",
+            "close": 326000,
+            "change": 4.49,
+            "amount": 128378071750.0,
+            "amount_str": "1283억",
+            "market": "KOSPI",
+            "theme_name": "메타버스(Metaverse)",
+            "sector_name": "메타버스(Metaverse)",
+            "sector": {
+              "theme": "메타버스(Metaverse)",
+              "sector": "메타버스(Metaverse)"
+            }
+          },
+          "stocks": []
+        }
+      ]
+    },
+    {
+      "sector": "방위산업/전쟁 및 테러",
+      "total_amount": 105037669288.0,
+      "total_str": "1050억",
+      "themes": [
+        {
+          "theme": "방위산업/전쟁 및 테러",
+          "total_amount": 105037669288.0,
+          "total_str": "1050억",
+          "count": 2,
+          "champion": {
+            "ticker": "012450",
+            "name": "한화에어로스페이스",
+            "close": 891000,
+            "change": 0.34,
+            "amount": 92539751500.0,
+            "amount_str": "925억",
+            "market": "KOSPI",
+            "theme_name": "방위산업/전쟁 및 테러",
+            "sector_name": "방위산업/전쟁 및 테러",
+            "sector": {
+              "theme": "방위산업/전쟁 및 테러",
+              "sector": "방위산업/전쟁 및 테러"
+            }
+          },
+          "stocks": [
+            {
+              "ticker": "005870",
+              "name": "휴니드",
+              "close": 4875,
+              "change": 18.04,
+              "amount": 12497917788.0,
+              "amount_str": "124억",
+              "market": "KOSDAQ",
+              "theme_name": "방위산업/전쟁 및 테러",
+              "sector_name": "방위산업/전쟁 및 테러",
+              "sector": {
+                "theme": "방위산업/전쟁 및 테러",
+                "sector": "방위산업/전쟁 및 테러"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sector": "지주사",
+      "total_amount": 91491935350.0,
+      "total_str": "914억",
+      "themes": [
+        {
+          "theme": "지주사",
+          "total_amount": 91491935350.0,
+          "total_str": "914억",
+          "count": 3,
+          "champion": {
+            "ticker": "055550",
+            "name": "신한지주",
+            "close": 93300,
+            "change": -0.11,
+            "amount": 46444319000.0,
+            "amount_str": "464억",
+            "market": "KOSPI",
+            "theme_name": "지주사",
+            "sector_name": "지주사",
+            "sector": {
+              "theme": "지주사",
+              "sector": "지주사"
+            }
+          },
+          "stocks": [
+            {
+              "ticker": "316140",
+              "name": "우리금융지주",
+              "close": 31675,
+              "change": 1.04,
+              "amount": 34185266250.0,
+              "amount_str": "341억",
+              "market": "KOSPI",
+              "theme_name": "지주사",
+              "sector_name": "지주사",
+              "sector": {
+                "theme": "지주사",
+                "sector": "지주사"
+              }
+            },
+            {
+              "ticker": "138040",
+              "name": "메리츠금융지주",
+              "close": 129700,
+              "change": -0.08,
+              "amount": 10862350100.0,
+              "amount_str": "108억",
+              "market": "KOSPI",
+              "theme_name": "지주사",
+              "sector_name": "지주사",
+              "sector": {
+                "theme": "지주사",
+                "sector": "지주사"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
       "sector": "전기차",
-      "total_amount": 99426148840.0,
-      "total_str": "994억",
+      "total_amount": 61024521597.0,
+      "total_str": "610억",
       "themes": [
         {
           "theme": "전기차",
-          "total_amount": 99426148840.0,
-          "total_str": "994억",
+          "total_amount": 61024521597.0,
+          "total_str": "610억",
           "count": 2,
           "champion": {
             "ticker": "000270",
             "name": "기아",
-            "close": 110600,
-            "change": 4.44,
-            "amount": 89498161550.0,
-            "amount_str": "894억",
+            "close": 115900,
+            "change": 5.17,
+            "amount": 54069489100.0,
+            "amount_str": "540억",
             "market": "KOSPI",
             "theme_name": "전기차",
             "sector_name": "전기차",
@@ -574,12 +664,12 @@
           },
           "stocks": [
             {
-              "ticker": "085910",
-              "name": "네오티스",
-              "close": 21000,
-              "change": 16.99,
-              "amount": 9927987290.0,
-              "amount_str": "99억",
+              "ticker": "012340",
+              "name": "뉴인텍",
+              "close": 878,
+              "change": 29.88,
+              "amount": 6955032497.0,
+              "amount_str": "69억",
               "market": "KOSDAQ",
               "theme_name": "전기차",
               "sector_name": "전기차",
@@ -593,224 +683,44 @@
       ]
     },
     {
-      "sector": "2021 하반기 신규상장",
-      "total_amount": 82601620638.0,
-      "total_str": "826억",
+      "sector": "2023 상반기 신규상장",
+      "total_amount": 10650106913.0,
+      "total_str": "106억",
       "themes": [
         {
-          "theme": "2021 하반기 신규상장",
-          "total_amount": 82601620638.0,
-          "total_str": "826억",
+          "theme": "2023 상반기 신규상장",
+          "total_amount": 10650106913.0,
+          "total_str": "106억",
           "count": 2,
           "champion": {
-            "ticker": "329180",
-            "name": "HD현대중공업",
-            "close": 351000,
-            "change": -0.43,
-            "amount": 79027423250.0,
-            "amount_str": "790억",
-            "market": "KOSPI",
-            "theme_name": "2021 하반기 신규상장",
-            "sector_name": "2021 하반기 신규상장",
-            "sector": {
-              "theme": "2021 하반기 신규상장",
-              "sector": "2021 하반기 신규상장"
-            }
-          },
-          "stocks": [
-            {
-              "ticker": "377220",
-              "name": "프롬바이오",
-              "close": 2840,
-              "change": 29.98,
-              "amount": 3574197388.0,
-              "amount_str": "35억",
-              "market": "KOSDAQ",
-              "theme_name": "2021 하반기 신규상장",
-              "sector_name": "2021 하반기 신규상장",
-              "sector": {
-                "theme": "2021 하반기 신규상장",
-                "sector": "2021 하반기 신규상장"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "sector": "의료기기",
-      "total_amount": 64073598225.0,
-      "total_str": "640억",
-      "themes": [
-        {
-          "theme": "의료기기",
-          "total_amount": 64073598225.0,
-          "total_str": "640억",
-          "count": 2,
-          "champion": {
-            "ticker": "290650",
-            "name": "엘앤씨바이오",
-            "close": 69100,
-            "change": 21.87,
-            "amount": 57248953050.0,
-            "amount_str": "572억",
+            "ticker": "199730",
+            "name": "바이오인프라",
+            "close": 3045,
+            "change": 18.25,
+            "amount": 10613301865.0,
+            "amount_str": "106억",
             "market": "KOSDAQ",
-            "theme_name": "의료기기",
-            "sector_name": "의료기기",
+            "theme_name": "2023 상반기 신규상장",
+            "sector_name": "2023 상반기 신규상장",
             "sector": {
-              "theme": "의료기기",
-              "sector": "의료기기"
+              "theme": "2023 상반기 신규상장",
+              "sector": "2023 상반기 신규상장"
             }
           },
           "stocks": [
             {
-              "ticker": "042520",
-              "name": "한스바이오메드",
-              "close": 21550,
-              "change": 23.92,
-              "amount": 6824645175.0,
-              "amount_str": "68억",
+              "ticker": "408900",
+              "name": "스튜디오미르",
+              "close": 950,
+              "change": 6.74,
+              "amount": 36805048.0,
+              "amount_str": "0억",
               "market": "KOSDAQ",
-              "theme_name": "의료기기",
-              "sector_name": "의료기기",
+              "theme_name": "2023 상반기 신규상장",
+              "sector_name": "2023 상반기 신규상장",
               "sector": {
-                "theme": "의료기기",
-                "sector": "의료기기"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "sector": "2023 하반기 신규상장",
-      "total_amount": 29099448784.0,
-      "total_str": "290억",
-      "themes": [
-        {
-          "theme": "2023 하반기 신규상장",
-          "total_amount": 29099448784.0,
-          "total_str": "290억",
-          "count": 5,
-          "champion": {
-            "ticker": "445680",
-            "name": "큐리옥스바이오시스템즈",
-            "close": 67900,
-            "change": 18.09,
-            "amount": 16152696000.0,
-            "amount_str": "161억",
-            "market": "KOSDAQ",
-            "theme_name": "2023 하반기 신규상장",
-            "sector_name": "2023 하반기 신규상장",
-            "sector": {
-              "theme": "2023 하반기 신규상장",
-              "sector": "2023 하반기 신규상장"
-            }
-          },
-          "stocks": [
-            {
-              "ticker": "109670",
-              "name": "씨싸이트",
-              "close": 13390,
-              "change": 18.81,
-              "amount": 5429815770.0,
-              "amount_str": "54억",
-              "market": "KOSDAQ",
-              "theme_name": "2023 하반기 신규상장",
-              "sector_name": "2023 하반기 신규상장",
-              "sector": {
-                "theme": "2023 하반기 신규상장",
-                "sector": "2023 하반기 신규상장"
-              }
-            },
-            {
-              "ticker": "355690",
-              "name": "에이텀",
-              "close": 8000,
-              "change": 18.17,
-              "amount": 4280414570.0,
-              "amount_str": "42억",
-              "market": "KOSDAQ",
-              "theme_name": "2023 하반기 신규상장",
-              "sector_name": "2023 하반기 신규상장",
-              "sector": {
-                "theme": "2023 하반기 신규상장",
-                "sector": "2023 하반기 신규상장"
-              }
-            },
-            {
-              "ticker": "088280",
-              "name": "쏘닉스",
-              "close": 3770,
-              "change": 27.58,
-              "amount": 2299528930.0,
-              "amount_str": "22억",
-              "market": "KOSDAQ",
-              "theme_name": "2023 하반기 신규상장",
-              "sector_name": "2023 하반기 신규상장",
-              "sector": {
-                "theme": "2023 하반기 신규상장",
-                "sector": "2023 하반기 신규상장"
-              }
-            },
-            {
-              "ticker": "429270",
-              "name": "시지트로닉스",
-              "close": 2995,
-              "change": 15.64,
-              "amount": 936993514.0,
-              "amount_str": "9억",
-              "market": "KOSDAQ",
-              "theme_name": "2023 하반기 신규상장",
-              "sector_name": "2023 하반기 신규상장",
-              "sector": {
-                "theme": "2023 하반기 신규상장",
-                "sector": "2023 하반기 신규상장"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "sector": "비철금속",
-      "total_amount": 27780888444.0,
-      "total_str": "277억",
-      "themes": [
-        {
-          "theme": "비철금속",
-          "total_amount": 27780888444.0,
-          "total_str": "277억",
-          "count": 2,
-          "champion": {
-            "ticker": "009190",
-            "name": "대양금속",
-            "close": 1049,
-            "change": 29.99,
-            "amount": 27660820061.0,
-            "amount_str": "276억",
-            "market": "KOSDAQ",
-            "theme_name": "비철금속",
-            "sector_name": "비철금속",
-            "sector": {
-              "theme": "비철금속",
-              "sector": "비철금속"
-            }
-          },
-          "stocks": [
-            {
-              "ticker": "060480",
-              "name": "국일신동",
-              "close": 1090,
-              "change": 17.08,
-              "amount": 120068383.0,
-              "amount_str": "1억",
-              "market": "KOSDAQ",
-              "theme_name": "비철금속",
-              "sector_name": "비철금속",
-              "sector": {
-                "theme": "비철금속",
-                "sector": "비철금속"
+                "theme": "2023 상반기 신규상장",
+                "sector": "2023 상반기 신규상장"
               }
             }
           ]
@@ -818,16 +728,16 @@
       ]
     }
   ],
-  "date": "2026년 10월 16일",
-  "generated_at": "18:58",
+  "date": "2026년 10월 19일",
+  "generated_at": "13:57",
   "top60": [
     {
       "ticker": "000660",
       "name": "SK하이닉스",
-      "close": 1269000,
-      "change": 0.55,
-      "amount": 5719038186000.0,
-      "amount_str": "5.7조",
+      "close": 1262000,
+      "change": -0.79,
+      "amount": 3126664640500.0,
+      "amount_str": "3.1조",
       "market": "KOSPI",
       "theme_name": "시스템반도체",
       "sector_name": "시스템반도체",
@@ -839,10 +749,10 @@
     {
       "ticker": "005930",
       "name": "삼성전자",
-      "close": 216000,
-      "change": 2.86,
-      "amount": 3893238346750.0,
-      "amount_str": "3.9조",
+      "close": 216500,
+      "change": 0.46,
+      "amount": 2400720959750.0,
+      "amount_str": "2.4조",
       "market": "KOSPI",
       "theme_name": "시스템반도체",
       "sector_name": "시스템반도체",
@@ -854,10 +764,10 @@
     {
       "ticker": "009150",
       "name": "삼성전기",
-      "close": 1184000,
-      "change": 1.81,
-      "amount": 836046187000.0,
-      "amount_str": "8360억",
+      "close": 1160000,
+      "change": -2.36,
+      "amount": 694079729000.0,
+      "amount_str": "6940억",
       "market": "KOSPI",
       "theme_name": "MLCC(적층세라믹콘덴서)",
       "sector_name": "MLCC(적층세라믹콘덴서)",
@@ -869,10 +779,10 @@
     {
       "ticker": "005935",
       "name": "삼성전자우",
-      "close": 168300,
-      "change": 5.78,
-      "amount": 717319437150.0,
-      "amount_str": "7173억",
+      "close": 170500,
+      "change": 1.97,
+      "amount": 515728717550.0,
+      "amount_str": "5157억",
       "market": "KOSPI",
       "theme_name": "기타",
       "sector_name": "기타",
@@ -882,27 +792,12 @@
       }
     },
     {
-      "ticker": "402340",
-      "name": "SK스퀘어",
-      "close": 779000,
-      "change": 1.83,
-      "amount": 417868868500.0,
-      "amount_str": "4178억",
-      "market": "KOSPI",
-      "theme_name": "모바일콘텐츠(스마트폰/태블릿PC)",
-      "sector_name": "모바일콘텐츠(스마트폰/태블릿PC)",
-      "sector": {
-        "theme": "모바일콘텐츠(스마트폰/태블릿PC)",
-        "sector": "모바일콘텐츠(스마트폰/태블릿PC)"
-      }
-    },
-    {
       "ticker": "006400",
       "name": "삼성SDI",
-      "close": 530000,
-      "change": -1.85,
-      "amount": 280637718500.0,
-      "amount_str": "2806억",
+      "close": 588000,
+      "change": 10.94,
+      "amount": 427889481500.0,
+      "amount_str": "4278억",
       "market": "KOSPI",
       "theme_name": "2차전지(전고체)",
       "sector_name": "2차전지(전고체)",
@@ -912,27 +807,72 @@
       }
     },
     {
-      "ticker": "396300",
-      "name": "HT로보틱스",
-      "close": 8850,
-      "change": 23.78,
-      "amount": 269330105170.0,
-      "amount_str": "2693억",
-      "market": "KOSDAQ",
-      "theme_name": "2022 상반기 신규상장",
-      "sector_name": "2022 상반기 신규상장",
+      "ticker": "402340",
+      "name": "SK스퀘어",
+      "close": 759000,
+      "change": -3.19,
+      "amount": 232728026500.0,
+      "amount_str": "2327억",
+      "market": "KOSPI",
+      "theme_name": "모바일콘텐츠(스마트폰/태블릿PC)",
+      "sector_name": "모바일콘텐츠(스마트폰/태블릿PC)",
       "sector": {
-        "theme": "2022 상반기 신규상장",
-        "sector": "2022 상반기 신규상장"
+        "theme": "모바일콘텐츠(스마트폰/태블릿PC)",
+        "sector": "모바일콘텐츠(스마트폰/태블릿PC)"
+      }
+    },
+    {
+      "ticker": "373220",
+      "name": "LG에너지솔루션",
+      "close": 428000,
+      "change": 6.2,
+      "amount": 201791758000.0,
+      "amount_str": "2017억",
+      "market": "KOSPI",
+      "theme_name": "2차전지",
+      "sector_name": "2차전지",
+      "sector": {
+        "theme": "2차전지",
+        "sector": "2차전지"
+      }
+    },
+    {
+      "ticker": "462330",
+      "name": "KODEX 2차전지산업레버리지",
+      "close": 1153,
+      "change": 14.05,
+      "amount": 155453144238.0,
+      "amount_str": "1554억",
+      "market": "KOSDAQ",
+      "theme_name": "기타",
+      "sector_name": "기타",
+      "sector": {
+        "theme": "기타",
+        "sector": "기타"
+      }
+    },
+    {
+      "ticker": "207940",
+      "name": "삼성바이오로직스",
+      "close": 1407000,
+      "change": 8.4,
+      "amount": 129117635500.0,
+      "amount_str": "1291억",
+      "market": "KOSPI",
+      "theme_name": "K-뉴딜지수",
+      "sector_name": "K-뉴딜지수",
+      "sector": {
+        "theme": "K-뉴딜지수",
+        "sector": "K-뉴딜지수"
       }
     },
     {
       "ticker": "005380",
       "name": "현대차",
-      "close": 313000,
-      "change": 5.92,
-      "amount": 252602268000.0,
-      "amount_str": "2526억",
+      "close": 326000,
+      "change": 4.49,
+      "amount": 128378071750.0,
+      "amount_str": "1283억",
       "market": "KOSPI",
       "theme_name": "메타버스(Metaverse)",
       "sector_name": "메타버스(Metaverse)",
@@ -942,42 +882,42 @@
       }
     },
     {
-      "ticker": "068270",
-      "name": "셀트리온",
-      "close": 194100,
-      "change": 6.59,
-      "amount": 213535715950.0,
-      "amount_str": "2135억",
-      "market": "KOSPI",
-      "theme_name": "K-뉴딜지수",
-      "sector_name": "K-뉴딜지수",
+      "ticker": "010580",
+      "name": "에스엠벡셀",
+      "close": 4040,
+      "change": 29.9,
+      "amount": 99444012487.0,
+      "amount_str": "994억",
+      "market": "KOSDAQ",
+      "theme_name": "자동차부품",
+      "sector_name": "자동차부품",
       "sector": {
-        "theme": "K-뉴딜지수",
-        "sector": "K-뉴딜지수"
+        "theme": "자동차부품",
+        "sector": "자동차부품"
       }
     },
     {
-      "ticker": "207940",
-      "name": "삼성바이오로직스",
-      "close": 1290000,
-      "change": 3.45,
-      "amount": 204778558500.0,
-      "amount_str": "2047억",
-      "market": "KOSPI",
-      "theme_name": "K-뉴딜지수",
-      "sector_name": "K-뉴딜지수",
+      "ticker": "419050",
+      "name": "삼기에너지솔루션즈",
+      "close": 2560,
+      "change": 19.35,
+      "amount": 97034194098.0,
+      "amount_str": "970억",
+      "market": "KOSDAQ",
+      "theme_name": "2차전지(소재/부품)",
+      "sector_name": "2차전지(소재/부품)",
       "sector": {
-        "theme": "K-뉴딜지수",
-        "sector": "K-뉴딜지수"
+        "theme": "2차전지(소재/부품)",
+        "sector": "2차전지(소재/부품)"
       }
     },
     {
       "ticker": "012450",
       "name": "한화에어로스페이스",
-      "close": 897000,
-      "change": 8.86,
-      "amount": 197585551500.0,
-      "amount_str": "1975억",
+      "close": 891000,
+      "change": 0.34,
+      "amount": 92539751500.0,
+      "amount_str": "925억",
       "market": "KOSPI",
       "theme_name": "방위산업/전쟁 및 테러",
       "sector_name": "방위산업/전쟁 및 테러",
@@ -987,102 +927,12 @@
       }
     },
     {
-      "ticker": "373220",
-      "name": "LG에너지솔루션",
-      "close": 402500,
-      "change": 0.0,
-      "amount": 148392083000.0,
-      "amount_str": "1483억",
-      "market": "KOSPI",
-      "theme_name": "2차전지",
-      "sector_name": "2차전지",
-      "sector": {
-        "theme": "2차전지",
-        "sector": "2차전지"
-      }
-    },
-    {
-      "ticker": "034020",
-      "name": "두산에너빌리티",
-      "close": 64400,
-      "change": 1.74,
-      "amount": 146559860150.0,
-      "amount_str": "1465억",
-      "market": "KOSPI",
-      "theme_name": "원자력발전소 해체",
-      "sector_name": "원자력발전소 해체",
-      "sector": {
-        "theme": "원자력발전소 해체",
-        "sector": "원자력발전소 해체"
-      }
-    },
-    {
-      "ticker": "105560",
-      "name": "KB금융",
-      "close": 160400,
-      "change": 2.36,
-      "amount": 142162241200.0,
-      "amount_str": "1421억",
-      "market": "KOSPI",
-      "theme_name": "인터넷은행",
-      "sector_name": "인터넷은행",
-      "sector": {
-        "theme": "인터넷은행",
-        "sector": "인터넷은행"
-      }
-    },
-    {
-      "ticker": "028260",
-      "name": "삼성물산",
-      "close": 284000,
-      "change": 6.17,
-      "amount": 137782997750.0,
-      "amount_str": "1377억",
-      "market": "KOSPI",
-      "theme_name": "원전",
-      "sector_name": "원전",
-      "sector": {
-        "theme": "원전",
-        "sector": "원전"
-      }
-    },
-    {
-      "ticker": "055550",
-      "name": "신한지주",
-      "close": 93600,
-      "change": -0.64,
-      "amount": 124293000050.0,
-      "amount_str": "1242억",
-      "market": "KOSPI",
-      "theme_name": "지주사",
-      "sector_name": "지주사",
-      "sector": {
-        "theme": "지주사",
-        "sector": "지주사"
-      }
-    },
-    {
-      "ticker": "035420",
-      "name": "NAVER",
-      "close": 180000,
-      "change": 3.69,
-      "amount": 120154865400.0,
-      "amount_str": "1201억",
-      "market": "KOSPI",
-      "theme_name": "AI 챗봇(챗GPT 등)",
-      "sector_name": "AI 챗봇(챗GPT 등)",
-      "sector": {
-        "theme": "AI 챗봇(챗GPT 등)",
-        "sector": "AI 챗봇(챗GPT 등)"
-      }
-    },
-    {
       "ticker": "066570",
       "name": "LG전자",
-      "close": 170200,
-      "change": 0.95,
-      "amount": 114955045200.0,
-      "amount_str": "1149억",
+      "close": 169700,
+      "change": 0.0,
+      "amount": 88203752300.0,
+      "amount_str": "882억",
       "market": "KOSPI",
       "theme_name": "지능형로봇/인공지능(AI)",
       "sector_name": "지능형로봇/인공지능(AI)",
@@ -1092,42 +942,12 @@
       }
     },
     {
-      "ticker": "010120",
-      "name": "LS ELECTRIC",
-      "close": 158400,
-      "change": 1.73,
-      "amount": 107811385650.0,
-      "amount_str": "1078억",
-      "market": "KOSPI",
-      "theme_name": "전력설비",
-      "sector_name": "전력설비",
-      "sector": {
-        "theme": "전력설비",
-        "sector": "전력설비"
-      }
-    },
-    {
-      "ticker": "086790",
-      "name": "하나금융지주",
-      "close": 122700,
-      "change": 0.25,
-      "amount": 106718818450.0,
-      "amount_str": "1067억",
-      "market": "KOSPI",
-      "theme_name": "토스(toss)",
-      "sector_name": "토스(toss)",
-      "sector": {
-        "theme": "토스(toss)",
-        "sector": "토스(toss)"
-      }
-    },
-    {
       "ticker": "096770",
       "name": "SK이노베이션",
-      "close": 151500,
-      "change": -2.26,
-      "amount": 105460030400.0,
-      "amount_str": "1054억",
+      "close": 161000,
+      "change": 5.92,
+      "amount": 83996005850.0,
+      "amount_str": "839억",
       "market": "KOSPI",
       "theme_name": "2차전지(전고체)",
       "sector_name": "2차전지(전고체)",
@@ -1137,12 +957,87 @@
       }
     },
     {
+      "ticker": "034020",
+      "name": "두산에너빌리티",
+      "close": 65800,
+      "change": 1.86,
+      "amount": 80469610650.0,
+      "amount_str": "804억",
+      "market": "KOSPI",
+      "theme_name": "원자력발전소 해체",
+      "sector_name": "원자력발전소 해체",
+      "sector": {
+        "theme": "원자력발전소 해체",
+        "sector": "원자력발전소 해체"
+      }
+    },
+    {
+      "ticker": "329180",
+      "name": "HD현대중공업",
+      "close": 338000,
+      "change": -3.84,
+      "amount": 74363711000.0,
+      "amount_str": "743억",
+      "market": "KOSPI",
+      "theme_name": "2021 하반기 신규상장",
+      "sector_name": "2021 하반기 신규상장",
+      "sector": {
+        "theme": "2021 하반기 신규상장",
+        "sector": "2021 하반기 신규상장"
+      }
+    },
+    {
+      "ticker": "068270",
+      "name": "셀트리온",
+      "close": 195200,
+      "change": 0.62,
+      "amount": 72970862800.0,
+      "amount_str": "729억",
+      "market": "KOSPI",
+      "theme_name": "K-뉴딜지수",
+      "sector_name": "K-뉴딜지수",
+      "sector": {
+        "theme": "K-뉴딜지수",
+        "sector": "K-뉴딜지수"
+      }
+    },
+    {
+      "ticker": "105560",
+      "name": "KB금융",
+      "close": 162500,
+      "change": 1.56,
+      "amount": 61105651050.0,
+      "amount_str": "611억",
+      "market": "KOSPI",
+      "theme_name": "인터넷은행",
+      "sector_name": "인터넷은행",
+      "sector": {
+        "theme": "인터넷은행",
+        "sector": "인터넷은행"
+      }
+    },
+    {
+      "ticker": "010120",
+      "name": "LS ELECTRIC",
+      "close": 162500,
+      "change": 2.46,
+      "amount": 57645033600.0,
+      "amount_str": "576억",
+      "market": "KOSPI",
+      "theme_name": "전력설비",
+      "sector_name": "전력설비",
+      "sector": {
+        "theme": "전력설비",
+        "sector": "전력설비"
+      }
+    },
+    {
       "ticker": "012330",
       "name": "현대모비스",
-      "close": 353000,
-      "change": 4.59,
-      "amount": 105433539000.0,
-      "amount_str": "1054억",
+      "close": 367000,
+      "change": 4.11,
+      "amount": 55969494000.0,
+      "amount_str": "559억",
       "market": "KOSPI",
       "theme_name": "음성인식",
       "sector_name": "음성인식",
@@ -1152,12 +1047,27 @@
       }
     },
     {
+      "ticker": "028260",
+      "name": "삼성물산",
+      "close": 281500,
+      "change": -1.75,
+      "amount": 54307485250.0,
+      "amount_str": "543억",
+      "market": "KOSPI",
+      "theme_name": "원전",
+      "sector_name": "원전",
+      "sector": {
+        "theme": "원전",
+        "sector": "원전"
+      }
+    },
+    {
       "ticker": "000270",
       "name": "기아",
-      "close": 110600,
-      "change": 4.44,
-      "amount": 89498161550.0,
-      "amount_str": "894억",
+      "close": 115900,
+      "change": 5.17,
+      "amount": 54069489100.0,
+      "amount_str": "540억",
       "market": "KOSPI",
       "theme_name": "전기차",
       "sector_name": "전기차",
@@ -1167,57 +1077,27 @@
       }
     },
     {
-      "ticker": "032830",
-      "name": "삼성생명",
-      "close": 237000,
-      "change": 3.95,
-      "amount": 87545274000.0,
-      "amount_str": "875억",
+      "ticker": "035420",
+      "name": "NAVER",
+      "close": 181800,
+      "change": 1.0,
+      "amount": 53216491000.0,
+      "amount_str": "532억",
       "market": "KOSPI",
-      "theme_name": "생명보험",
-      "sector_name": "생명보험",
+      "theme_name": "AI 챗봇(챗GPT 등)",
+      "sector_name": "AI 챗봇(챗GPT 등)",
       "sector": {
-        "theme": "생명보험",
-        "sector": "생명보험"
-      }
-    },
-    {
-      "ticker": "079650",
-      "name": "서산",
-      "close": 8030,
-      "change": 22.22,
-      "amount": 85817857415.0,
-      "amount_str": "858억",
-      "market": "KOSDAQ",
-      "theme_name": "시멘트/레미콘",
-      "sector_name": "시멘트/레미콘",
-      "sector": {
-        "theme": "시멘트/레미콘",
-        "sector": "시멘트/레미콘"
-      }
-    },
-    {
-      "ticker": "329180",
-      "name": "HD현대중공업",
-      "close": 351000,
-      "change": -0.43,
-      "amount": 79027423250.0,
-      "amount_str": "790억",
-      "market": "KOSPI",
-      "theme_name": "2021 하반기 신규상장",
-      "sector_name": "2021 하반기 신규상장",
-      "sector": {
-        "theme": "2021 하반기 신규상장",
-        "sector": "2021 하반기 신규상장"
+        "theme": "AI 챗봇(챗GPT 등)",
+        "sector": "AI 챗봇(챗GPT 등)"
       }
     },
     {
       "ticker": "005490",
       "name": "POSCO홀딩스",
-      "close": 296000,
-      "change": 1.37,
-      "amount": 75775368500.0,
-      "amount_str": "757억",
+      "close": 312000,
+      "change": 5.23,
+      "amount": 50723979750.0,
+      "amount_str": "507억",
       "market": "KOSPI",
       "theme_name": "2차전지",
       "sector_name": "2차전지",
@@ -1227,27 +1107,27 @@
       }
     },
     {
-      "ticker": "034730",
-      "name": "SK",
-      "close": 450500,
-      "change": 3.09,
-      "amount": 71029646500.0,
-      "amount_str": "710억",
+      "ticker": "032830",
+      "name": "삼성생명",
+      "close": 244500,
+      "change": 2.52,
+      "amount": 47439670500.0,
+      "amount_str": "474억",
       "market": "KOSPI",
-      "theme_name": "클라우드 컴퓨팅",
-      "sector_name": "클라우드 컴퓨팅",
+      "theme_name": "생명보험",
+      "sector_name": "생명보험",
       "sector": {
-        "theme": "클라우드 컴퓨팅",
-        "sector": "클라우드 컴퓨팅"
+        "theme": "생명보험",
+        "sector": "생명보험"
       }
     },
     {
-      "ticker": "316140",
-      "name": "우리금융지주",
-      "close": 31450,
-      "change": 0.96,
-      "amount": 67732084925.0,
-      "amount_str": "677억",
+      "ticker": "055550",
+      "name": "신한지주",
+      "close": 93300,
+      "change": -0.11,
+      "amount": 46444319000.0,
+      "amount_str": "464억",
       "market": "KOSPI",
       "theme_name": "지주사",
       "sector_name": "지주사",
@@ -1257,42 +1137,57 @@
       }
     },
     {
-      "ticker": "178320",
-      "name": "서진시스템",
-      "close": 39450,
-      "change": 12.07,
-      "amount": 60154713075.0,
-      "amount_str": "601억",
-      "market": "KOSDAQ",
-      "theme_name": "스마트폰",
-      "sector_name": "스마트폰",
+      "ticker": "086790",
+      "name": "하나금융지주",
+      "close": 123300,
+      "change": 0.65,
+      "amount": 46413112300.0,
+      "amount_str": "464억",
+      "market": "KOSPI",
+      "theme_name": "토스(toss)",
+      "sector_name": "토스(toss)",
       "sector": {
-        "theme": "스마트폰",
-        "sector": "스마트폰"
+        "theme": "토스(toss)",
+        "sector": "토스(toss)"
       }
     },
     {
-      "ticker": "290650",
-      "name": "엘앤씨바이오",
-      "close": 69100,
-      "change": 21.87,
-      "amount": 57248953050.0,
-      "amount_str": "572억",
+      "ticker": "020150",
+      "name": "롯데에너지머티리얼즈",
+      "close": 57300,
+      "change": 15.99,
+      "amount": 35875061700.0,
+      "amount_str": "358억",
       "market": "KOSDAQ",
-      "theme_name": "의료기기",
-      "sector_name": "의료기기",
+      "theme_name": "2차전지(전고체)",
+      "sector_name": "2차전지(전고체)",
       "sector": {
-        "theme": "의료기기",
-        "sector": "의료기기"
+        "theme": "2차전지(전고체)",
+        "sector": "2차전지(전고체)"
+      }
+    },
+    {
+      "ticker": "316140",
+      "name": "우리금융지주",
+      "close": 31675,
+      "change": 1.04,
+      "amount": 34185266250.0,
+      "amount_str": "341억",
+      "market": "KOSPI",
+      "theme_name": "지주사",
+      "sector_name": "지주사",
+      "sector": {
+        "theme": "지주사",
+        "sector": "지주사"
       }
     },
     {
       "ticker": "011200",
       "name": "HMM",
-      "close": 23600,
-      "change": 1.72,
-      "amount": 54919187450.0,
-      "amount_str": "549억",
+      "close": 23950,
+      "change": 1.91,
+      "amount": 31063926200.0,
+      "amount_str": "310억",
       "market": "KOSPI",
       "theme_name": "해운",
       "sector_name": "해운",
@@ -1302,12 +1197,27 @@
       }
     },
     {
+      "ticker": "034730",
+      "name": "SK",
+      "close": 447500,
+      "change": -1.97,
+      "amount": 27880527500.0,
+      "amount_str": "278억",
+      "market": "KOSPI",
+      "theme_name": "클라우드 컴퓨팅",
+      "sector_name": "클라우드 컴퓨팅",
+      "sector": {
+        "theme": "클라우드 컴퓨팅",
+        "sector": "클라우드 컴퓨팅"
+      }
+    },
+    {
       "ticker": "000810",
       "name": "삼성화재",
-      "close": 585000,
-      "change": 0.86,
-      "amount": 51148050500.0,
-      "amount_str": "511억",
+      "close": 606000,
+      "change": 3.41,
+      "amount": 24078573500.0,
+      "amount_str": "240억",
       "market": "KOSPI",
       "theme_name": "손해보험",
       "sector_name": "손해보험",
@@ -1317,12 +1227,42 @@
       }
     },
     {
-      "ticker": "457550",
-      "name": "우진엔텍",
-      "close": 11590,
-      "change": -17.98,
-      "amount": 48685242750.0,
-      "amount_str": "486억",
+      "ticker": "354320",
+      "name": "알멕",
+      "close": 62200,
+      "change": 20.08,
+      "amount": 22789078200.0,
+      "amount_str": "227억",
+      "market": "KOSDAQ",
+      "theme_name": "2차전지(소재/부품)",
+      "sector_name": "2차전지(소재/부품)",
+      "sector": {
+        "theme": "2차전지(소재/부품)",
+        "sector": "2차전지(소재/부품)"
+      }
+    },
+    {
+      "ticker": "008970",
+      "name": "KBI동양철관",
+      "close": 1748,
+      "change": 29.96,
+      "amount": 20585933532.0,
+      "amount_str": "205억",
+      "market": "KOSDAQ",
+      "theme_name": "남-북-러 가스관사업",
+      "sector_name": "남-북-러 가스관사업",
+      "sector": {
+        "theme": "남-북-러 가스관사업",
+        "sector": "남-북-러 가스관사업"
+      }
+    },
+    {
+      "ticker": "412570",
+      "name": "TIGER 2차전지TOP10레버리지",
+      "close": 1354,
+      "change": 14.26,
+      "amount": 19869480066.0,
+      "amount_str": "198억",
       "market": "KOSDAQ",
       "theme_name": "기타",
       "sector_name": "기타",
@@ -1332,27 +1272,57 @@
       }
     },
     {
-      "ticker": "491000",
-      "name": "리브스메드",
-      "close": 44150,
-      "change": 29.85,
-      "amount": 46590811900.0,
-      "amount_str": "465억",
+      "ticker": "005870",
+      "name": "휴니드",
+      "close": 4875,
+      "change": 18.04,
+      "amount": 12497917788.0,
+      "amount_str": "124억",
+      "market": "KOSDAQ",
+      "theme_name": "방위산업/전쟁 및 테러",
+      "sector_name": "방위산업/전쟁 및 테러",
+      "sector": {
+        "theme": "방위산업/전쟁 및 테러",
+        "sector": "방위산업/전쟁 및 테러"
+      }
+    },
+    {
+      "ticker": "107640",
+      "name": "한중엔시에스",
+      "close": 48600,
+      "change": 15.99,
+      "amount": 12428788625.0,
+      "amount_str": "124억",
       "market": "KOSDAQ",
       "theme_name": "기타",
       "sector_name": "기타",
       "sector": {
         "theme": "기타",
         "sector": "기타"
+      }
+    },
+    {
+      "ticker": "091580",
+      "name": "상신이디피",
+      "close": 26200,
+      "change": 11.97,
+      "amount": 11999607425.0,
+      "amount_str": "119억",
+      "market": "KOSDAQ",
+      "theme_name": "2차전지(소재/부품)",
+      "sector_name": "2차전지(소재/부품)",
+      "sector": {
+        "theme": "2차전지(소재/부품)",
+        "sector": "2차전지(소재/부품)"
       }
     },
     {
       "ticker": "138040",
       "name": "메리츠금융지주",
-      "close": 129900,
-      "change": -0.61,
-      "amount": 43373244750.0,
-      "amount_str": "433억",
+      "close": 129700,
+      "change": -0.08,
+      "amount": 10862350100.0,
+      "amount_str": "108억",
       "market": "KOSPI",
       "theme_name": "지주사",
       "sector_name": "지주사",
@@ -1362,27 +1332,72 @@
       }
     },
     {
-      "ticker": "092870",
-      "name": "엑시콘",
-      "close": 54100,
-      "change": 22.4,
-      "amount": 40096259250.0,
-      "amount_str": "400억",
+      "ticker": "199730",
+      "name": "바이오인프라",
+      "close": 3045,
+      "change": 18.25,
+      "amount": 10613301865.0,
+      "amount_str": "106억",
       "market": "KOSDAQ",
-      "theme_name": "CXL(컴퓨트익스프레스링크)",
-      "sector_name": "CXL(컴퓨트익스프레스링크)",
+      "theme_name": "2023 상반기 신규상장",
+      "sector_name": "2023 상반기 신규상장",
       "sector": {
-        "theme": "CXL(컴퓨트익스프레스링크)",
-        "sector": "CXL(컴퓨트익스프레스링크)"
+        "theme": "2023 상반기 신규상장",
+        "sector": "2023 상반기 신규상장"
       }
     },
     {
-      "ticker": "014950",
-      "name": "삼익제약",
-      "close": 7980,
-      "change": 18.57,
-      "amount": 38855877710.0,
-      "amount_str": "388억",
+      "ticker": "088280",
+      "name": "쏘닉스",
+      "close": 4820,
+      "change": 25.52,
+      "amount": 9541710295.0,
+      "amount_str": "95억",
+      "market": "KOSDAQ",
+      "theme_name": "2023 하반기 신규상장",
+      "sector_name": "2023 하반기 신규상장",
+      "sector": {
+        "theme": "2023 하반기 신규상장",
+        "sector": "2023 하반기 신규상장"
+      }
+    },
+    {
+      "ticker": "023790",
+      "name": "동일스틸럭스",
+      "close": 1672,
+      "change": 17.42,
+      "amount": 9409404719.0,
+      "amount_str": "94억",
+      "market": "KOSDAQ",
+      "theme_name": "철강 중소형",
+      "sector_name": "철강 중소형",
+      "sector": {
+        "theme": "철강 중소형",
+        "sector": "철강 중소형"
+      }
+    },
+    {
+      "ticker": "278650",
+      "name": "HLB바이오스텝",
+      "close": 5920,
+      "change": 11.91,
+      "amount": 7785118265.0,
+      "amount_str": "77억",
+      "market": "KOSDAQ",
+      "theme_name": "마리화나(대마)",
+      "sector_name": "마리화나(대마)",
+      "sector": {
+        "theme": "마리화나(대마)",
+        "sector": "마리화나(대마)"
+      }
+    },
+    {
+      "ticker": "0082N0",
+      "name": "카나프테라퓨틱스",
+      "close": 11720,
+      "change": 13.13,
+      "amount": 7629583925.0,
+      "amount_str": "76억",
       "market": "KOSDAQ",
       "theme_name": "기타",
       "sector_name": "기타",
@@ -1392,192 +1407,12 @@
       }
     },
     {
-      "ticker": "009190",
-      "name": "대양금속",
-      "close": 1049,
-      "change": 29.99,
-      "amount": 27660820061.0,
-      "amount_str": "276억",
-      "market": "KOSDAQ",
-      "theme_name": "비철금속",
-      "sector_name": "비철금속",
-      "sector": {
-        "theme": "비철금속",
-        "sector": "비철금속"
-      }
-    },
-    {
-      "ticker": "039440",
-      "name": "에스티아이",
-      "close": 30400,
-      "change": 13.01,
-      "amount": 17648388825.0,
-      "amount_str": "176억",
-      "market": "KOSDAQ",
-      "theme_name": "LCD장비",
-      "sector_name": "LCD장비",
-      "sector": {
-        "theme": "LCD장비",
-        "sector": "LCD장비"
-      }
-    },
-    {
-      "ticker": "445680",
-      "name": "큐리옥스바이오시스템즈",
-      "close": 67900,
-      "change": 18.09,
-      "amount": 16152696000.0,
-      "amount_str": "161억",
-      "market": "KOSDAQ",
-      "theme_name": "2023 하반기 신규상장",
-      "sector_name": "2023 하반기 신규상장",
-      "sector": {
-        "theme": "2023 하반기 신규상장",
-        "sector": "2023 하반기 신규상장"
-      }
-    },
-    {
-      "ticker": "085910",
-      "name": "네오티스",
-      "close": 21000,
-      "change": 16.99,
-      "amount": 9927987290.0,
-      "amount_str": "99억",
-      "market": "KOSDAQ",
-      "theme_name": "전기차",
-      "sector_name": "전기차",
-      "sector": {
-        "theme": "전기차",
-        "sector": "전기차"
-      }
-    },
-    {
-      "ticker": "009900",
-      "name": "명신산업",
-      "close": 9310,
-      "change": 16.23,
-      "amount": 8989362765.0,
-      "amount_str": "89억",
-      "market": "KOSDAQ",
-      "theme_name": "2020 하반기 신규상장",
-      "sector_name": "2020 하반기 신규상장",
-      "sector": {
-        "theme": "2020 하반기 신규상장",
-        "sector": "2020 하반기 신규상장"
-      }
-    },
-    {
-      "ticker": "042520",
-      "name": "한스바이오메드",
-      "close": 21550,
-      "change": 23.92,
-      "amount": 6824645175.0,
-      "amount_str": "68억",
-      "market": "KOSDAQ",
-      "theme_name": "의료기기",
-      "sector_name": "의료기기",
-      "sector": {
-        "theme": "의료기기",
-        "sector": "의료기기"
-      }
-    },
-    {
-      "ticker": "109670",
-      "name": "씨싸이트",
-      "close": 13390,
-      "change": 18.81,
-      "amount": 5429815770.0,
-      "amount_str": "54억",
-      "market": "KOSDAQ",
-      "theme_name": "2023 하반기 신규상장",
-      "sector_name": "2023 하반기 신규상장",
-      "sector": {
-        "theme": "2023 하반기 신규상장",
-        "sector": "2023 하반기 신규상장"
-      }
-    },
-    {
-      "ticker": "187420",
-      "name": "HLB제넥스",
-      "close": 2485,
-      "change": 16.67,
-      "amount": 5028679799.0,
-      "amount_str": "50억",
-      "market": "KOSDAQ",
-      "theme_name": "마이크로바이옴",
-      "sector_name": "마이크로바이옴",
-      "sector": {
-        "theme": "마이크로바이옴",
-        "sector": "마이크로바이옴"
-      }
-    },
-    {
-      "ticker": "355690",
-      "name": "에이텀",
-      "close": 8000,
-      "change": 18.17,
-      "amount": 4280414570.0,
-      "amount_str": "42억",
-      "market": "KOSDAQ",
-      "theme_name": "2023 하반기 신규상장",
-      "sector_name": "2023 하반기 신규상장",
-      "sector": {
-        "theme": "2023 하반기 신규상장",
-        "sector": "2023 하반기 신규상장"
-      }
-    },
-    {
-      "ticker": "377220",
-      "name": "프롬바이오",
-      "close": 2840,
-      "change": 29.98,
-      "amount": 3574197388.0,
-      "amount_str": "35억",
-      "market": "KOSDAQ",
-      "theme_name": "2021 하반기 신규상장",
-      "sector_name": "2021 하반기 신규상장",
-      "sector": {
-        "theme": "2021 하반기 신규상장",
-        "sector": "2021 하반기 신규상장"
-      }
-    },
-    {
-      "ticker": "317240",
-      "name": "TS트릴리온",
-      "close": 1261,
-      "change": 30.0,
-      "amount": 2422096955.0,
-      "amount_str": "24억",
-      "market": "KOSDAQ",
-      "theme_name": "2019 상반기 신규상장",
-      "sector_name": "2019 상반기 신규상장",
-      "sector": {
-        "theme": "2019 상반기 신규상장",
-        "sector": "2019 상반기 신규상장"
-      }
-    },
-    {
-      "ticker": "088280",
-      "name": "쏘닉스",
-      "close": 3770,
-      "change": 27.58,
-      "amount": 2299528930.0,
-      "amount_str": "22억",
-      "market": "KOSDAQ",
-      "theme_name": "2023 하반기 신규상장",
-      "sector_name": "2023 하반기 신규상장",
-      "sector": {
-        "theme": "2023 하반기 신규상장",
-        "sector": "2023 하반기 신규상장"
-      }
-    },
-    {
       "ticker": "250930",
       "name": "예선테크",
-      "close": 1615,
-      "change": 29.93,
-      "amount": 1006265160.0,
-      "amount_str": "10억",
+      "close": 1674,
+      "change": 3.65,
+      "amount": 7113407875.0,
+      "amount_str": "71억",
       "market": "KOSDAQ",
       "theme_name": "OLED(유기 발광 다이오드)",
       "sector_name": "OLED(유기 발광 다이오드)",
@@ -1587,27 +1422,27 @@
       }
     },
     {
-      "ticker": "429270",
-      "name": "시지트로닉스",
-      "close": 2995,
-      "change": 15.64,
-      "amount": 936993514.0,
-      "amount_str": "9억",
+      "ticker": "012340",
+      "name": "뉴인텍",
+      "close": 878,
+      "change": 29.88,
+      "amount": 6955032497.0,
+      "amount_str": "69억",
       "market": "KOSDAQ",
-      "theme_name": "2023 하반기 신규상장",
-      "sector_name": "2023 하반기 신규상장",
+      "theme_name": "전기차",
+      "sector_name": "전기차",
       "sector": {
-        "theme": "2023 하반기 신규상장",
-        "sector": "2023 하반기 신규상장"
+        "theme": "전기차",
+        "sector": "전기차"
       }
     },
     {
       "ticker": "45226K",
       "name": "한화갤러리아우",
-      "close": 5200,
-      "change": 30.0,
-      "amount": 729784240.0,
-      "amount_str": "7억",
+      "close": 6070,
+      "change": 16.73,
+      "amount": 6702465632.0,
+      "amount_str": "67억",
       "market": "KOSDAQ",
       "theme_name": "기타",
       "sector_name": "기타",
@@ -1617,12 +1452,87 @@
       }
     },
     {
-      "ticker": "060260",
-      "name": "뉴보텍",
-      "close": 1001,
-      "change": 19.02,
-      "amount": 695371084.0,
-      "amount_str": "6억",
+      "ticker": "117670",
+      "name": "알파칩스",
+      "close": 16440,
+      "change": 22.69,
+      "amount": 6420761045.0,
+      "amount_str": "64억",
+      "market": "KOSDAQ",
+      "theme_name": "기타",
+      "sector_name": "기타",
+      "sector": {
+        "theme": "기타",
+        "sector": "기타"
+      }
+    },
+    {
+      "ticker": "225190",
+      "name": "LK삼양",
+      "close": 4300,
+      "change": 13.16,
+      "amount": 6286351422.0,
+      "amount_str": "62억",
+      "market": "KOSDAQ",
+      "theme_name": "카메라모듈/부품",
+      "sector_name": "카메라모듈/부품",
+      "sector": {
+        "theme": "카메라모듈/부품",
+        "sector": "카메라모듈/부품"
+      }
+    },
+    {
+      "ticker": "015260",
+      "name": "에이엔피",
+      "close": 445,
+      "change": 3.97,
+      "amount": 4438602008.0,
+      "amount_str": "44억",
+      "market": "KOSDAQ",
+      "theme_name": "PCB(FPCB 등)",
+      "sector_name": "PCB(FPCB 등)",
+      "sector": {
+        "theme": "PCB(FPCB 등)",
+        "sector": "PCB(FPCB 등)"
+      }
+    },
+    {
+      "ticker": "393890",
+      "name": "더블유씨피",
+      "close": 10890,
+      "change": 15.73,
+      "amount": 4334976565.0,
+      "amount_str": "43억",
+      "market": "KOSDAQ",
+      "theme_name": "2차전지(소재/부품)",
+      "sector_name": "2차전지(소재/부품)",
+      "sector": {
+        "theme": "2차전지(소재/부품)",
+        "sector": "2차전지(소재/부품)"
+      }
+    },
+    {
+      "ticker": "336370",
+      "name": "솔루스첨단소재",
+      "close": 9250,
+      "change": 15.34,
+      "amount": 3594710820.0,
+      "amount_str": "35억",
+      "market": "KOSDAQ",
+      "theme_name": "K-뉴딜지수(2차전지)",
+      "sector_name": "K-뉴딜지수(2차전지)",
+      "sector": {
+        "theme": "K-뉴딜지수(2차전지)",
+        "sector": "K-뉴딜지수(2차전지)"
+      }
+    },
+    {
+      "ticker": "083660",
+      "name": "CSA 코스믹",
+      "close": 1531,
+      "change": 29.97,
+      "amount": 1034236212.0,
+      "amount_str": "10억",
       "market": "KOSDAQ",
       "theme_name": "수자원(양적/질적 개선)",
       "sector_name": "수자원(양적/질적 개선)",
@@ -1632,41 +1542,11 @@
       }
     },
     {
-      "ticker": "026910",
-      "name": "광진실업",
-      "close": 2555,
-      "change": 16.93,
-      "amount": 579694090.0,
-      "amount_str": "5억",
-      "market": "KOSDAQ",
-      "theme_name": "기타",
-      "sector_name": "기타",
-      "sector": {
-        "theme": "기타",
-        "sector": "기타"
-      }
-    },
-    {
-      "ticker": "289220",
-      "name": "자이언트스텝",
-      "close": 1021,
-      "change": 29.9,
-      "amount": 447452922.0,
-      "amount_str": "4억",
-      "market": "KOSDAQ",
-      "theme_name": "모바일콘텐츠(스마트폰/태블릿PC)",
-      "sector_name": "모바일콘텐츠(스마트폰/태블릿PC)",
-      "sector": {
-        "theme": "모바일콘텐츠(스마트폰/태블릿PC)",
-        "sector": "모바일콘텐츠(스마트폰/태블릿PC)"
-      }
-    },
-    {
-      "ticker": "219750",
-      "name": "한국비티비",
-      "close": 2930,
-      "change": 29.93,
-      "amount": 347113480.0,
+      "ticker": "Q530138",
+      "name": "삼성 KRX 레버리지 2차전지 TOP10 TR ETN",
+      "close": 25385,
+      "change": 13.33,
+      "amount": 383454320.0,
       "amount_str": "3억",
       "market": "KOSDAQ",
       "theme_name": "기타",
@@ -1677,27 +1557,12 @@
       }
     },
     {
-      "ticker": "060480",
-      "name": "국일신동",
-      "close": 1090,
-      "change": 17.08,
-      "amount": 120068383.0,
-      "amount_str": "1억",
-      "market": "KOSDAQ",
-      "theme_name": "비철금속",
-      "sector_name": "비철금속",
-      "sector": {
-        "theme": "비철금속",
-        "sector": "비철금속"
-      }
-    },
-    {
-      "ticker": "33626K",
-      "name": "두산퓨얼셀1우",
-      "close": 6060,
-      "change": 15.87,
-      "amount": 41145350.0,
-      "amount_str": "0억",
+      "ticker": "Q580070",
+      "name": "KB 레버리지 2차전지 TOP 10 TR ETN",
+      "close": 25710,
+      "change": 13.79,
+      "amount": 281356100.0,
+      "amount_str": "2억",
       "market": "KOSDAQ",
       "theme_name": "기타",
       "sector_name": "기타",
@@ -1707,18 +1572,63 @@
       }
     },
     {
-      "ticker": "275630",
-      "name": "에스에스알",
-      "close": 3610,
-      "change": 8.9,
-      "amount": 17672870.0,
+      "ticker": "032685",
+      "name": "소프트센우",
+      "close": 7300,
+      "change": 6.57,
+      "amount": 242501150.0,
+      "amount_str": "2억",
+      "market": "KOSDAQ",
+      "theme_name": "기타",
+      "sector_name": "기타",
+      "sector": {
+        "theme": "기타",
+        "sector": "기타"
+      }
+    },
+    {
+      "ticker": "276730",
+      "name": "한울앤제주",
+      "close": 920,
+      "change": 11.79,
+      "amount": 106089728.0,
+      "amount_str": "1억",
+      "market": "KOSDAQ",
+      "theme_name": "2021 상반기 신규상장",
+      "sector_name": "2021 상반기 신규상장",
+      "sector": {
+        "theme": "2021 상반기 신규상장",
+        "sector": "2021 상반기 신규상장"
+      }
+    },
+    {
+      "ticker": "408900",
+      "name": "스튜디오미르",
+      "close": 950,
+      "change": 6.74,
+      "amount": 36805048.0,
       "amount_str": "0억",
       "market": "KOSDAQ",
-      "theme_name": "보안주(정보)",
-      "sector_name": "보안주(정보)",
+      "theme_name": "2023 상반기 신규상장",
+      "sector_name": "2023 상반기 신규상장",
       "sector": {
-        "theme": "보안주(정보)",
-        "sector": "보안주(정보)"
+        "theme": "2023 상반기 신규상장",
+        "sector": "2023 상반기 신규상장"
+      }
+    },
+    {
+      "ticker": "Q760011",
+      "name": "키움 레버리지 2차전지산업 ETN",
+      "close": 9365,
+      "change": 13.52,
+      "amount": 35638215.0,
+      "amount_str": "0억",
+      "market": "KOSDAQ",
+      "theme_name": "기타",
+      "sector_name": "기타",
+      "sector": {
+        "theme": "기타",
+        "sector": "기타"
       }
     }
   ]
